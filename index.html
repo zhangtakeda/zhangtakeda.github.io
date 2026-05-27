@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人学术简历</title>
+  <style>
+    :root {
+      --text: #1f2933;
+      --muted: #5f6c7b;
+      --line: #d9e2ec;
+      --accent: #1f4e79;
+      --bg: #ffffff;
+      --section-bg: #f7f9fb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #eef2f6;
+      color: var(--text);
+      font-family: "Noto Serif SC", "Songti SC", "SimSun", "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 36px auto;
+      padding: 48px 56px;
+      background: var(--bg);
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+    }
+
+    header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 18px;
+      margin-bottom: 28px;
+    }
+
+    .name {
+      margin: 0 0 8px;
+      font-size: 34px;
+      line-height: 1.2;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+
+    .title {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .contact span::before {
+      content: "• ";
+      color: var(--accent);
+    }
+
+    .contact span:first-child::before {
+      content: "";
+    }
+
+    section {
+      margin: 26px 0;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      padding: 7px 12px;
+      background: var(--section-bg);
+      border-left: 5px solid var(--accent);
+      font-size: 19px;
+      line-height: 1.35;
+      color: var(--accent);
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .item {
+      margin: 14px 0 16px;
+    }
+
+    .item-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .time {
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .meta {
+      margin: 2px 0 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    ul {
+      margin: 6px 0 0 20px;
+      padding: 0;
+    }
+
+    li {
+      margin: 3px 0;
+    }
+
+    .summary {
+      padding: 12px 14px;
+      background: #fbfcfe;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--text);
+    }
+
+    .paper-list {
+      counter-reset: paper;
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .paper-list li {
+      counter-increment: paper;
+      position: relative;
+      padding-left: 38px;
+      margin: 10px 0;
+    }
+
+    .paper-list li::before {
+      content: "[" counter(paper) "]";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 1px 7px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 12px;
+      line-height: 1.6;
+      vertical-align: 1px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 28px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        margin: 0;
+        padding: 28px 22px;
+        box-shadow: none;
+      }
+
+      .item-head {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .time {
+        white-space: normal;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .page {
+        margin: 0;
+        padding: 22mm 20mm;
+        max-width: none;
+        box-shadow: none;
+      }
+
+      a {
+        color: var(--text);
+      }
+
+      section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1 class="name">张若涵</h1>
+      <p class="title">博士研究生 / 研究方向: 托卡马克等离子体的快速高保真集成建模</p>
+      <div class="contact">
+        <span>邮箱: <a href="mailto:zhangtakeda@gmail.com">zhangtakeda@gmail.com</a></span> 
+        <span>主页: <a href="https://orcid.org/0009-0008-8686-1122">ORCID</a> / <a href="https://zhangtakeda.github.io/">GitHub</a></span>
+        <span>单位: 大连理工大学物理学院</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>个人简介</h2>
+      <div class="summary">
+        请在此用 3–5 句话概括博士期间的研究积累。例如: 本人主要从事 XXX、XXX 与 XXX 方向研究，围绕 XXX 问题开展理论建模、数值模拟与实验/算法验证。博士期间发表/投稿学术论文若干篇，参与国内外学术会议，并获得多项学术荣誉。
+      </div>
+    </section>
+
+    <section>
+      <h2>教育经历</h2>
+      <div class="item">
+        <div class="item-head">
+          <h3>XX大学，XX学院，博士研究生</h3>
+          <span class="time">20XX.09 – 至今</span>
+        </div>
+        <p class="meta">专业: XXX｜导师: XXX 教授｜研究方向: XXX</p>
+        <ul>
+          <li>博士课题: 请填写博士论文题目或拟定题目。</li>
+          <li>博士期间重点成果: 请概括论文、项目、会议报告、软件/数据集/专利等。</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <h3>XX大学，XX学院，硕士 / 本科</h3>
+          <span class="time">20XX.09 – 20XX.06</span>
+        </div>
+        <p class="meta">专业: XXX｜学位: XXX</p>
+        <ul>
+          <li>毕业论文: 请填写论文题目。</li>
+          <li>相关经历: 科研训练、课程成绩、竞赛或奖学金等。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>科研论文</h2>
+      <ol class="paper-list">
+        <li>
+          <strong>作者姓名</strong>, 合作者姓名. 论文题目. <em>期刊名称</em>, 年份, 卷(期): 页码. <span class="tag">SCI / EI / CSSCI</span>
+        </li>
+        <li>
+          <strong>作者姓名</strong>, 合作者姓名. 论文题目. <em>会议/期刊名称</em>, 年份. <span class="tag">已接收</span>
+        </li>
+        <li>
+          <strong>作者姓名</strong>, 合作者姓名. 论文题目. <em>目标期刊</em>. <span class="tag">在投 / 修改中</span>
+        </li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>学术会议</h2>
+      <div class="item">
+        <div class="item-head">
+          <h3>会议名称</h3>
+          <span class="time">20XX.XX</span>
+        </div>
+        <p class="meta">地点: 城市，国家/地区｜报告形式: 口头报告 / 墙报展示</p>
+        <ul>
+          <li>报告题目: 请填写会议报告题目。</li>
+          <li>交流内容: 请简要说明展示的研究成果、获得的反馈或合作交流。</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <h3>会议名称</h3>
+          <span class="time">20XX.XX</span>
+        </div>
+        <p class="meta">地点: 城市，国家/地区｜角色: 参会代表 / 分会场报告人 / 志愿者</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>获得荣誉</h2>
+      <div class="two-col">
+        <div class="item">
+          <div class="item-head">
+            <h3>国家奖学金 / 学业奖学金</h3>
+            <span class="time">20XX</span>
+          </div>
+          <p class="meta">授予单位: XX大学 / 教育部 / 学院</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>优秀研究生 / 优秀学生干部</h3>
+            <span class="time">20XX</span>
+          </div>
+          <p class="meta">授予单位: XX大学 / XX学院</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>优秀论文 / 最佳报告奖</h3>
+            <span class="time">20XX</span>
+          </div>
+          <p class="meta">授予单位: 会议名称 / 学术组织</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>优秀论文 / 最佳报告奖</h3>
+            <span class="time">20XX</span>
+          </div>
+          <p class="meta">授予单位: 会议名称 / 学术组织</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <h3>其他荣誉</h3>
+            <span class="time">20XX</span>
+          </div>
+          <p class="meta">请填写奖项级别、排名或获奖比例。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>科研技能与学术服务</h2>
+      <div class="item">
+        <p><strong>科研技能: </strong>请填写理论分析、数值模拟、实验平台、编程语言、数据处理、论文写作等技能。</p>
+        <p><strong>学术服务: </strong>请填写审稿经历、会议志愿者、课题组管理、课程助教等经历。</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
