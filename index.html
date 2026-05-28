@@ -4,18 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Academic CV</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+        options: {
+          skipHtmlTags: [
+            "script",
+            "noscript",
+            "style",
+            "textarea",
+            "pre",
+            "code",
+          ],
+        },
+      };
+    </script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+    ></script>
     <style>
       :root {
-        --text: #20242a;
-        --muted: #667085;
-        --light: #8a94a6;
-        --line: #d9dee7;
-        --line-soft: #edf0f5;
-        --accent: #173b62;
-        --accent-soft: #eef3f8;
-        --accent-hairline: #9fb4c8;
-        --paper: #fffdf8;
-        --bg: #f4f1ea;
+        --text: #26231f;
+        --muted: #6f675c;
+        --light: #9b907f;
+        --line: #ddd3c2;
+        --line-soft: #eee6d8;
+        --accent: #314f3a;
+        --accent-soft: #f4f1e8;
+        --accent-hairline: #b89a5e;
+        --paper: #fffaf1;
+        --bg: #eee7da;
       }
 
       * {
@@ -77,7 +101,7 @@
         display: grid;
         gap: 8px;
         padding: 15px 16px;
-        background: #ffffff;
+        background: #fffdf8;
         border: 1px solid var(--line);
         font-size: 14px;
         color: var(--muted);
@@ -257,7 +281,7 @@
 
       .summary {
         padding: 17px 18px;
-        background: #ffffff;
+        background: #fffdf8;
         border: 1px solid var(--line);
         color: var(--text);
       }
@@ -267,9 +291,9 @@
       .conference-card,
       .award-card {
         position: relative;
-        background: #ffffff;
+        background: #fffdf8;
         border: 1px solid var(--line-soft);
-        box-shadow: 0 1px 0 rgba(23, 59, 98, 0.03);
+        box-shadow: 0 1px 0 rgba(49, 79, 58, 0.04);
       }
 
       .item::before,
@@ -400,7 +424,7 @@
       }
 
       .link-list a:hover {
-        background: #e2ebf4;
+        background: #ebe5d6;
         text-decoration: none;
       }
 
@@ -408,14 +432,24 @@
         display: grid;
         gap: 14px;
         margin-top: 14px;
+        padding: 12px;
+        border: 1px solid var(--line-soft);
+        background: #ffffff;
       }
 
       .media-row {
         display: flex;
         align-items: stretch;
         gap: 0;
-        width: min(100%, calc(var(--media-row-width, 7500) / 7500 * 100%));
+        width: min(
+          100%,
+          calc(
+            var(--media-row-width, 1) /
+              var(--media-scale-width, var(--media-row-width, 1)) * 100%
+          )
+        );
         margin-inline: auto;
+        background: #ffffff;
         overflow-x: auto;
       }
 
@@ -427,7 +461,7 @@
         min-width: 0;
         margin: 0;
         padding: 0 12px;
-        background: transparent;
+        background: #ffffff;
       }
 
       .media-row figure:first-child,
@@ -452,7 +486,83 @@
         width: 100%;
         max-width: 100%;
         height: auto;
+        border: 1px solid #ffffff;
+        border-radius: 3px;
         background: #ffffff;
+        cursor: zoom-in;
+        transition:
+          border-color 0.18s ease,
+          box-shadow 0.18s ease,
+          transform 0.18s ease;
+      }
+
+      .media-grid img:hover,
+      .media-grid img:focus-visible {
+        border-color: var(--accent-hairline);
+        box-shadow: 0 14px 34px rgba(48, 42, 32, 0.22);
+        outline: none;
+        transform: translateY(-1px);
+      }
+
+      body.is-lightbox-open {
+        overflow: hidden;
+      }
+
+      .image-lightbox[hidden] {
+        display: none;
+      }
+
+      .image-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto;
+        align-items: center;
+        justify-items: center;
+        padding: 34px 26px 26px;
+        background: rgba(30, 27, 22, 0.86);
+        backdrop-filter: blur(2px);
+      }
+
+      .image-lightbox-img {
+        display: block;
+        max-width: min(96vw, 1480px);
+        max-height: 84vh;
+        object-fit: contain;
+        background: #ffffff;
+        box-shadow: 0 20px 70px rgba(0, 0, 0, 0.34);
+      }
+
+      .image-lightbox-caption {
+        max-width: min(96vw, 980px);
+        margin: 12px 0 0;
+        color: #f6efe2;
+        font-size: 14px;
+        line-height: 1.55;
+        text-align: center;
+      }
+
+      .image-lightbox-close {
+        position: fixed;
+        top: 16px;
+        right: 18px;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(246, 239, 226, 0.55);
+        border-radius: 999px;
+        background: rgba(255, 250, 241, 0.12);
+        color: #fffaf1;
+        cursor: pointer;
+        font:
+          26px/1 "Times New Roman",
+          serif;
+      }
+
+      .image-lightbox-close:hover,
+      .image-lightbox-close:focus-visible {
+        background: rgba(255, 250, 241, 0.22);
+        outline: none;
       }
 
       .media-grid figcaption {
@@ -509,7 +619,7 @@
         font-size: 12px;
         line-height: 1.6;
         vertical-align: 1px;
-        background: #ffffff;
+        background: #fffdf8;
       }
 
       .two-col {
@@ -579,6 +689,20 @@
 
         .media-grid img {
           height: auto;
+        }
+
+        .image-lightbox {
+          padding: 54px 14px 18px;
+        }
+
+        .image-lightbox-img {
+          max-width: 96vw;
+          max-height: 78vh;
+        }
+
+        .image-lightbox-close {
+          top: 10px;
+          right: 12px;
         }
 
         .section-head {
@@ -687,9 +811,13 @@
           <h2>个人简介</h2>
         </div>
         <div class="summary">
-          请在此用 3–5 句话概括博士期间的研究积累。例如: 本人主要从事 XXX、XXX
-          与 XXX 方向研究，围绕 XXX
-          问题开展理论建模、数值模拟与实验/算法验证。博士期间发表/投稿学术论文若干篇，参与国内外学术会议，并获得多项学术荣誉。
+          本人主要从事托卡马克等离子体的快速高保真集成建模,
+          围绕聚变等离子体平衡和输运过程,
+          以及耦合集成建模开展数值模拟与算法研究. 对于 Python 和 C++
+          等编程语言的科研项目开发具有一定的经验,
+          熟悉常用的数值算法和科学计算库.
+          指导教师为大连理工大学的王正汹和王丰二位教授,
+          同时与谢华生博士交流并在其指导下进行开发工作.
         </div>
       </section>
 
@@ -699,55 +827,129 @@
         </div>
         <div class="item">
           <div class="item-head">
-            <h3>XX大学，XX学院，博士研究生</h3>
-            <span class="time">20XX.09 – 至今</span>
+            <h3>博士研究生: 大连理工大学, 物理学院</h3>
+            <span class="time">2023.09 -- 至今</span>
           </div>
-          <p class="meta">专业: XXX｜导师: XXX 教授｜研究方向: XXX</p>
-          <ul>
-            <li>博士课题: 请填写博士论文题目或拟定题目。</li>
-            <li>
-              博士期间重点成果: 请概括论文、项目、会议报告、软件/数据集/专利等。
-            </li>
-          </ul>
+          <p class="meta">
+            <strong>专业</strong>: 等离子体物理 | <strong>导师</strong>:
+            王正汹教授, 王丰教授
+          </p>
         </div>
 
         <div class="item">
           <div class="item-head">
-            <h3>XX大学，XX学院，硕士 / 本科</h3>
-            <span class="time">20XX.09 – 20XX.06</span>
+            <h3>本科: 大连理工大学, 物理学院</h3>
+            <span class="time">2019.09 -- 2023.06</span>
           </div>
-          <p class="meta">专业: XXX｜学位: XXX</p>
-          <ul>
-            <li>毕业论文: 请填写论文题目。</li>
-            <li>相关经历: 科研训练、课程成绩、竞赛或奖学金等。</li>
-          </ul>
+          <p class="meta"><strong>专业</strong>: 应用物理学</p>
         </div>
       </section>
 
       <section id="publications">
         <div class="section-head">
           <h2>科研论文</h2>
-          <ol class="heading-index" aria-label="科研论文索引">
-            <li><a href="#paper-2024-cpp">2024-CPP</a></li>
-            <li><a href="#paper-2026-veq">2026-VEQ</a></li>
-          </ol>
+          <ol
+            class="heading-index"
+            data-card-selector=".paper-card"
+            aria-label="科研论文索引"
+          ></ol>
         </div>
         <div class="paper-grid">
-          <article class="paper-card" id="paper-2024-cpp">
+          <article
+            class="paper-card"
+            id="paper-2026-veq"
+            data-index-label="2026-VEQ"
+          >
+            <div class="paper-label">Manuscript</div>
+            <h3 class="paper-title">
+              VEQ: a fast weak-form solver for fixed-boundary tokamak equilibria
+              with flexible source inputs
+            </h3>
+            <p class="authors">
+              <strong>R. Zhang</strong>, H. Xie*, Y. Li, W. Meng, F. Wang, Z.
+              Wang*, to be submitted to
+              <em>Journal of Computational Physics</em>.
+            </p>
+            <div class="tag-list" aria-label="Paper tags">
+              <span class="tag">To Be Submitted</span>
+            </div>
+            <p class="venue summary-text">
+              Veloce and Variational EQuilibrium (VEQ) is a compact weak-form
+              equilibrium framework for repeated tokamak-modeling calls
+              requiring continuous equilibrium geometry at low latency. The
+              present \(\texttt{veqpy}\) implementation realizes this framework
+              as a fixed-boundary, axisymmetric Grad--Shafranov solver. It
+              targets integrated-modeling regimes in which analytic closures are
+              too restrictive and full equilibrium or reconstruction pipelines
+              are too costly for every scan point, preprocessing step or control
+              step. In this realization, instead of nodal values of a grid-based
+              flux map, the active unknowns are radial profiles of MXH-type
+              flux-surface harmonics and Chebyshev profile/source coefficients.
+              Six source-specification routes admit pressure-gradient,
+              toroidal-field, flux-gradient, current and safety-factor
+              information through different closures, all reduced to a common
+              packed residual system. Controlled benchmarks show route
+              consistency for smooth mutually consistent inputs generated from
+              one reference equilibrium. For the Pareto-selected reduced
+              configurations, the D-shape, H-mode and smoothed X-point target
+              use 6, 66 and 95 active parameters, respectively, and give
+              normalized direct target-shape errors of $1.59\times 10^{-3}$,
+              $1.28\times 10^{-3}$ and $1.79\times 10^{-3}$, with solve-only
+              medians of 1.10, 15.72 and 15.46 ms. Sampled local strong-form
+              diagnostics show that increasing the active representation mainly
+              reduces the interior transformed Grad--Shafranov residual, whereas
+              all-sample and maximum statistics in the H-mode and X-point cases
+              can remain near-boundary dominated. Together with the packed
+              projected residual, these maps distinguish geometry-dominated
+              cases from boundary-limited ones. A scope-controlled
+              one-dimensional transport-coupling test shows sub-percent to
+              percent-level changes in a common flux-surface-averaged transport
+              operator. These results support the present \(\texttt{veqpy}\)
+              implementation as a repeated-call geometry provider with local
+              diagnostics for cases requiring boundary treatment,
+              post-processing or higher-fidelity solves.
+            </p>
+            <!-- <div class="link-list" aria-label="论文链接">
+              <a href="https://arxiv.org/abs/2301.00000">arXiv</a>
+            </div> -->
+            <div class="media-grid">
+              <figure>
+                <img
+                  src="/2026-VEQ/1.png"
+                  alt="求解时间、参数规模与重构误差对比"
+                />
+                <figcaption>求解效率、参数规模与重构误差对比.</figcaption>
+              </figure>
+              <figure>
+                <img src="/2026-VEQ/2.png" alt="残差分布和剖面误差结果" />
+                <figcaption>残差分布与剖面误差示例.</figcaption>
+              </figure>
+              <figure>
+                <img src="/2026-VEQ/3.png" alt="残差分布和剖面误差结果" />
+                <figcaption>残差分布与剖面误差示例.</figcaption>
+              </figure>
+            </div>
+          </article>
+
+          <article
+            class="paper-card"
+            id="paper-2024-cpp"
+            data-index-label="2024-CPP"
+          >
             <div class="paper-label">Journal Article</div>
             <h3 class="paper-title">
               Structure-preserving algorithms for guiding center dynamics based
               on the slow manifold of classical Pauli particle
             </h3>
             <p class="authors">
-              <strong>R. Zhang</strong>, Z. Wang, J. Xiao, F. Wang,
+              <strong>R. Zhang</strong>, Z. Wang, J. Xiao, F. Wang*,
               <em>Plasma Sci. Technol.</em> <strong>26</strong> (2024) 065101.
             </p>
             <div class="tag-list" aria-label="Paper tags">
               <span class="tag">SCIE</span>
               <span class="tag">JCR Q3</span>
             </div>
-            <p class="venue">
+            <p class="venue summary-text">
               Classical Pauli particle (CPP) serves as a slow manifold,
               substituting the conventional guiding center dynamics. Based on
               the CPP, we utilize averaged vector field (AVF) method in the
@@ -779,97 +981,174 @@
               <a href="https://doi.org/10.1088/2058-6272/ad225b">DOI</a>
             </div>
           </article>
-
-          <article class="paper-card" id="paper-2026-veq">
-            <div class="paper-label">Manuscript</div>
-            <h3 class="paper-title">
-              VEQ: a fast weak-form solver for fixed-boundary tokamak equilibria
-              with flexible source inputs
-            </h3>
-            <p class="authors">
-              <strong>R. Zhang</strong>, H. Xie, Y. Li, W. Meng, F. Wang, Z.
-              Wang, submitted to <em>Journal of Computational Physics</em>.
-            </p>
-            <div class="tag-list" aria-label="Paper tags">
-              <span class="tag">Submitted</span>
-            </div>
-            <p class="venue">
-              Classical Pauli particle (CPP) serves as a slow manifold,
-              substituting the conventional guiding center dynamics. Based on
-              the CPP, we utilize averaged vector field (AVF) method in the
-              computations of drift orbits. Demonstrating significantly higher
-              efficiency, this advanced method is capable of accomplishing the
-              simulation in less than one-third time of directly computing the
-              guiding center motion. In contrast to the CPP-based Boris
-              algorithm, this approach inherits the advantages of the AVF
-              method, yielding stable trajectories even achieved with a tenfold
-              time step and reducing energy error with two orders of magnitude.
-              By comparing these two CPP algorithms with the traditional RK4
-              method, numerical results indicate the remarkable performance in
-              terms of both computational efficiency and error elimination.
-              Moreover, we verify the properties of slow manifold integrators
-              and successfully observe the bounce on both sides of the limiting
-              slow manifold with deliberately chosen perturbed initial
-              conditions. To evaluate the practical value of the methods, we
-              conduct simulations in non-axisymmetric perturbation magnetic
-              fields as part of the experiments, demonstrating that our
-              CPP-based AVF method can handle simulations under complex magnetic
-              field configurations with high accuracy, which the CPP-based Boris
-              algorithm lacks. Through numerical experiments, we demonstrate
-              that CPP can replace guiding center dynamics in using
-              energy-preserving algorithms for computations, providing a new,
-              efficient, as well as stable approach for applying
-              structure-preserving algorithms in plasma simulations.
-            </p>
-            <div class="link-list" aria-label="论文链接">
-              <a href="https://arxiv.org/abs/2301.00000">arXiv</a>
-            </div>
-            <div class="media-grid">
-              <figure>
-                <img src="07.png" alt="求解时间、参数规模与重构误差对比" />
-                <figcaption>
-                  图 1: 求解效率、参数规模与重构误差对比。
-                </figcaption>
-              </figure>
-              <figure>
-                <img src="08.png" alt="残差分布和剖面误差结果" />
-                <figcaption>图 2: 残差分布与剖面误差示例。</figcaption>
-              </figure>
-            </div>
-          </article>
         </div>
       </section>
 
       <section id="conferences">
         <div class="section-head">
           <h2>学术会议</h2>
-          <ol class="heading-index" aria-label="学术会议索引">
-            <li><a href="#conference-presentation">Presentation</a></li>
-          </ol>
+          <ol
+            class="heading-index"
+            data-card-selector=".conference-card"
+            aria-label="学术会议索引"
+          ></ol>
         </div>
         <div class="conference-grid">
-          <article class="conference-card" id="conference-presentation">
-            <div class="conference-label">Oral / Poster Presentation</div>
-            <h3 class="conference-title">会议名称</h3>
+          <article
+            class="conference-card"
+            id="conference-2026-dalian-veq"
+            data-index-label="2026.04"
+          >
+            <div class="conference-label">Oral Presentation</div>
+            <h3 class="conference-title">
+              基于变分矩方法的高保真快速平衡求解器
+            </h3>
+            <p class="authors">
+              <strong>张若涵</strong>, 李跃岩, 谢华生*, 王丰, 王正汹*
+            </p>
             <p class="conference-meta">
-              20XX.XX｜城市，国家/地区｜报告形式: 口头报告 / 墙报展示
+              第十四届全国磁约束聚变理论与模拟会议 | 2026.04 | 辽宁大连, 中国 |
+              口头报告
             </p>
-            <p class="venue">
-              报告题目:
-              请填写会议报告题目。可简要说明展示的研究成果、获得的反馈或合作交流。
+            <p class="venue summary-text">
+              在托卡马克集成模拟及等离子体实时控制中,
+              快速且高精度的Grad-Shafranov方程求解是不可或缺的基础环节. 然而,
+              面对多约束输入、反复迭代与参数扫描等场景, 传统的三矩平衡程序
+              (如METIS和ASTRA)
+              在计算速度、收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性.
+              为此, 本文开发了基于变分矩方法的高效平衡求解器veqpy, 并作为VEQ
+              (Veloce/Variational EQuilibrium) 项目的固定边界求解组件,
+              可实现系统程序 (system code) 级别的快速求解.
+              该程序参考MXH-Cheb[1]参数化方法,
+              采用Chebyshev和Fourier多项式对磁面几何进行参数化展开,
+              能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上,
+              veqpy提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略,
+              以“数据-算子-求解器”为抽象架构实现了多种算子,
+              支持包括环向电流密度、平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入,
+              实现了对多种物理约束 (等离子体总电流、环向比压) 的稳健收敛. 此外,
+              模块内置的冷/热启动基准算例涵盖整个算子族,
+              为代码的回归测试与在物理上的一致性验证提供了完整支撑.
+              基准测试表明, 与高保真平衡程序相比,
+              veqpy计算的磁面几何参数与物理场量计算误差可被严格控制在1 mm以内 ,
+              同时能够在CPU上于1~100 ms量级实现单线程平衡求解.
+              本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效、可靠替代方案.
             </p>
-            <div class="link-list" aria-label="会议链接">
-              <a href="#">会议主页</a>
-              <a href="#">摘要</a>
-              <a href="#">报告材料</a>
+            <div class="link-list" aria-label="论文链接">
+              <a href="/oral/2026.04.pdf">Oral</a>
             </div>
-            <div class="media-grid">
-              <figure>
-                <img src="09.png" alt="会议报告中展示的温度和几何量误差分析" />
-                <figcaption>
-                  可替换为会议现场、海报或报告中的代表性图片。
-                </figcaption>
-              </figure>
+          </article>
+
+          <article
+            class="conference-card"
+            id="conference-2025-shenzhen-otc-heq"
+            data-index-label="2025.11"
+          >
+            <div class="conference-label">Poster Presentation</div>
+            <h3 class="conference-title">
+              面向集成模拟的输运-平衡耦合框架开发
+            </h3>
+            <p class="authors">
+              <strong>张若涵</strong>, 徐亚楠, 王丰, 王正汹*
+            </p>
+            <p class="conference-meta">
+              第二届“磁约束等离子体运行模式和集成模拟”研讨会 | 2025.11 |
+              广东深圳, 中国 | 墙报展示
+            </p>
+            <p class="venue summary-text">
+              集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具,
+              绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流.
+              国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱,
+              严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python
+              环境的集成模拟平台, 已经实现基础的输运和平衡模块,
+              并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC
+              可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核,
+              能在毫秒量级内高效求解非线性对流-扩散方程组,
+              同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了
+              Green 函数生成机制来提升计算效率, 避免了可能的奇异值问题,
+              并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S
+              方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合,
+              支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务.
+              未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.
+            </p>
+            <div class="link-list" aria-label="论文链接">
+              <a href="/poster/2025.11.pdf">Poster</a>
+            </div>
+          </article>
+
+          <article
+            class="conference-card"
+            id="conference-2025-hangzhou-otc-heq"
+            data-index-label="2025.05"
+          >
+            <div class="conference-label">Poster Presentation</div>
+            <h3 class="conference-title">
+              面向集成模拟的输运-平衡耦合框架开发
+            </h3>
+            <p class="authors">
+              <strong>张若涵</strong>, 徐亚楠, 王丰, 王正汹*
+            </p>
+            <p class="conference-meta">
+              第十三届全国磁约束聚变理论与模拟会议 | 2025.05 | 浙江杭州, 中国 |
+              墙报展示
+            </p>
+            <p class="venue summary-text">
+              集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具,
+              绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流.
+              国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱,
+              严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python
+              环境的集成模拟平台, 已经实现基础的输运和平衡模块,
+              并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC
+              可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核,
+              能在毫秒量级内高效求解非线性对流-扩散方程组,
+              同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了
+              Green 函数生成机制来提升计算效率, 避免了可能的奇异值数值问题,
+              并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S
+              方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合,
+              支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务.
+              未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.
+            </p>
+            <div class="link-list" aria-label="论文链接">
+              <a href="/poster/2025.05.pdf">Poster</a>
+            </div>
+          </article>
+
+          <article
+            class="conference-card"
+            id="conference-2024-otc"
+            data-index-label="2024.08"
+          >
+            <div class="conference-label">Poster Presentation</div>
+            <h3 class="conference-title">
+              面向托卡马克集成模拟的一维输运计算模块开发
+            </h3>
+            <p class="authors">
+              <strong>张若涵</strong>, 李纯东, 王丰, 王正汹*
+            </p>
+            <p class="conference-meta">
+              第一届“磁约束等离子体运行模式和集成模拟”研讨会 | 2024.08 |
+              四川成都, 中国 | 墙报展示
+            </p>
+            <p class="venue summary-text">
+              输运模块是托卡马克集成模拟计算中最基本的部分之一,
+              对国内目前开展的集成模拟平台的建设工作至关重要. 最近,
+              我们团队开发了面向托卡马克集成模拟的一维输运计算模块 OTC
+              (One-dimensional Transport Computing module for integrated tokamak
+              modeling), 并完成了基本的验证工作. OTC 目前能够同时计算新经典输运
+              (neoclassical transport) 中多个剖面的演化,
+              包括各种主要离子和杂质离子的密度、电子和离子的温度以及电流密度.
+              OTC 基于 C++ 编写以实现高效率计算,
+              并使用了适合求解任意多个变量的对流-扩散方程组的通用求解器,
+              因此可以无限制地添加各种离子和杂质,
+              设计上也可以进行其他输运模型的计算. 该模块内置了用户自定义的权重,
+              可以通过接口在程序外部进行控制, 便于对输运系数或物理过程进行修正.
+              未来, 我们计划将其打包并在 Python 环境中实现调用,
+              从而与集成模拟平台上的加热与电流驱动模块、平衡模块等模块进行工作流整合,
+              最后发展为完整的软件. 同时纳入更多物理过程, 并利用 ONETWO
+              等常用输运模块对 OTC 进行验证, 最终可能还会集成其他湍流输运模型
+              (如 TGLF), 以扩展其功能和应用范围.
+            </p>
+            <div class="link-list" aria-label="论文链接">
+              <a href="/poster/2024.08.pdf">Poster</a>
             </div>
           </article>
         </div>
@@ -886,7 +1165,7 @@
               <span class="award-years">20XX、20XX</span>
             </div>
             <p class="award-meta">
-              授予单位: XX大学 / 教育部 / 学院。可填写奖项级别、排名或获奖比例。
+              授予单位: XX大学 / 教育部 / 学院. 可填写奖项级别、排名或获奖比例.
             </p>
           </article>
 
@@ -895,7 +1174,7 @@
               <h3>优秀研究生 / 优秀学生干部</h3>
               <span class="award-years">20XX</span>
             </div>
-            <p class="award-meta">授予单位: XX大学 / XX学院。</p>
+            <p class="award-meta">授予单位: XX大学 / XX学院.</p>
           </article>
 
           <article class="award-card">
@@ -904,7 +1183,7 @@
               <span class="award-years">20XX</span>
             </div>
             <p class="award-meta">
-              授予单位: 会议名称 / 学术组织。可填写获奖论文或报告题目。
+              授予单位: 会议名称 / 学术组织. 可填写获奖论文或报告题目.
             </p>
           </article>
 
@@ -913,7 +1192,7 @@
               <h3>其他荣誉</h3>
               <span class="award-years">20XX–20XX</span>
             </div>
-            <p class="award-meta">请填写奖项名称、授予单位、等级或说明。</p>
+            <p class="award-meta">请填写奖项名称、授予单位、等级或说明.</p>
           </article>
         </div>
       </section>
@@ -943,16 +1222,13 @@
         });
 
         grid.replaceChildren();
+        const rows = [];
         let row = document.createElement("div");
         row.className = "media-row";
         let rowWidth = 0;
 
         const appendRow = () => {
-          row.style.setProperty(
-            "--media-row-width",
-            String(Math.min(rowWidth, MAX_MEDIA_ROW_WIDTH)),
-          );
-          grid.appendChild(row);
+          rows.push({ element: row, width: rowWidth });
         };
 
         figures.forEach((figure) => {
@@ -968,15 +1244,157 @@
         });
 
         if (row.children.length) appendRow();
+
+        const widestRowWidth = Math.max(...rows.map(({ width }) => width), 1);
+
+        rows.forEach(({ element, width }) => {
+          element.style.setProperty("--media-row-width", String(width));
+          element.style.setProperty(
+            "--media-scale-width",
+            String(widestRowWidth),
+          );
+          grid.appendChild(element);
+        });
       };
 
       document.querySelectorAll(".media-grid").forEach(layoutMediaGrid);
 
-      const SUMMARY_PREVIEW_CHARS = 250;
+      const setupImageLightbox = () => {
+        const lightbox = document.createElement("div");
+        const image = document.createElement("img");
+        const caption = document.createElement("p");
+        const closeButton = document.createElement("button");
 
-      const collapseVenue = (venue) => {
-        const original = venue.textContent.trim().replace(/\s+/g, " ");
-        if (original.length <= SUMMARY_PREVIEW_CHARS) return;
+        lightbox.id = "image-lightbox";
+        lightbox.className = "image-lightbox";
+        lightbox.hidden = true;
+        lightbox.setAttribute("role", "dialog");
+        lightbox.setAttribute("aria-modal", "true");
+        lightbox.setAttribute("aria-label", "原图预览");
+
+        image.className = "image-lightbox-img";
+        caption.className = "image-lightbox-caption";
+        closeButton.type = "button";
+        closeButton.className = "image-lightbox-close";
+        closeButton.setAttribute("aria-label", "关闭原图预览");
+        closeButton.textContent = "×";
+
+        lightbox.append(image, caption, closeButton);
+        document.body.appendChild(lightbox);
+
+        const closeLightbox = () => {
+          lightbox.hidden = true;
+          document.body.classList.remove("is-lightbox-open");
+          image.removeAttribute("src");
+          image.removeAttribute("alt");
+          caption.textContent = "";
+        };
+
+        const openLightbox = (thumbnail) => {
+          const figureCaption = thumbnail
+            .closest("figure")
+            ?.querySelector("figcaption")
+            ?.textContent.trim();
+
+          image.src = thumbnail.currentSrc || thumbnail.src;
+          image.alt = thumbnail.alt || figureCaption || "原图预览";
+          caption.textContent = figureCaption || thumbnail.alt || "";
+          lightbox.hidden = false;
+          document.body.classList.add("is-lightbox-open");
+          closeButton.focus();
+        };
+
+        closeButton.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", (event) => {
+          if (event.target === lightbox) closeLightbox();
+        });
+        document.addEventListener("keydown", (event) => {
+          if (!lightbox.hidden && event.key === "Escape") closeLightbox();
+        });
+
+        document.querySelectorAll(".media-grid img").forEach((thumbnail) => {
+          if (!thumbnail.hasAttribute("tabindex")) thumbnail.tabIndex = 0;
+          thumbnail.setAttribute("role", "button");
+          thumbnail.setAttribute(
+            "aria-label",
+            `${thumbnail.alt || "图片"}, 点击查看原图`,
+          );
+          thumbnail.addEventListener("click", () => openLightbox(thumbnail));
+          thumbnail.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openLightbox(thumbnail);
+            }
+          });
+        });
+      };
+
+      setupImageLightbox();
+
+      const slugify = (text) =>
+        text
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+
+      const indexLabelFromCard = (card) => {
+        if (card.dataset.indexLabel) return card.dataset.indexLabel;
+        const explicitTitle = card.querySelector(
+          ".paper-title, .conference-title",
+        )?.textContent;
+        if (explicitTitle) return explicitTitle.trim();
+        return card.id || "Untitled";
+      };
+
+      const buildHeadingIndex = (index) => {
+        const section = index.closest("section");
+        if (!section) return;
+
+        const selector = index.dataset.cardSelector;
+        const cards = selector
+          ? Array.from(section.querySelectorAll(selector))
+          : [];
+        index.replaceChildren();
+
+        cards.forEach((card, position) => {
+          const label = indexLabelFromCard(card);
+          if (!card.id) {
+            const sectionPrefix = section.id ? `${section.id}-` : "item-";
+            card.id = `${sectionPrefix}${slugify(label) || position + 1}`;
+          }
+
+          const item = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = `#${card.id}`;
+          link.textContent = label;
+          item.appendChild(link);
+          index.appendChild(item);
+        });
+
+        index.hidden = cards.length === 0;
+      };
+
+      document
+        .querySelectorAll(".heading-index[data-card-selector]")
+        .forEach(buildHeadingIndex);
+
+      const SUMMARY_PREVIEW_CHARS = 200;
+
+      const typesetMath = (element) => {
+        if (window.MathJax?.typesetPromise) {
+          window.MathJax.typesetPromise([element]).catch((error) => {
+            console.warn("MathJax typesetting failed:", error);
+          });
+        }
+      };
+
+      const collapseSummary = (summary) => {
+        const original = summary.textContent.trim().replace(/\s+/g, " ");
+        if (original.length <= SUMMARY_PREVIEW_CHARS) {
+          typesetMath(summary);
+          return;
+        }
 
         const textSpan = document.createElement("span");
         const toggle = document.createElement("button");
@@ -988,26 +1406,28 @@
         toggle.className = "venue-toggle";
         toggle.setAttribute("aria-expanded", "false");
 
-        venue.textContent = "";
-        venue.append(textSpan, " ", toggle);
+        summary.textContent = "";
+        summary.append(textSpan, " ", toggle);
 
         const renderCollapsed = () => {
-          venue.classList.add("is-collapsed", "is-collapsible");
+          summary.classList.add("is-collapsed", "is-collapsible");
           textSpan.textContent = collapsedText;
           toggle.textContent = "... Show more";
           toggle.setAttribute("aria-expanded", "false");
+          typesetMath(summary);
         };
 
         const renderExpanded = () => {
-          venue.classList.remove("is-collapsed");
+          summary.classList.remove("is-collapsed");
           textSpan.textContent = original;
           toggle.textContent = "Show less";
           toggle.setAttribute("aria-expanded", "true");
+          typesetMath(summary);
         };
 
         renderCollapsed();
         toggle.addEventListener("click", () => {
-          if (venue.classList.contains("is-collapsed")) {
+          if (summary.classList.contains("is-collapsed")) {
             renderExpanded();
           } else {
             renderCollapsed();
@@ -1016,8 +1436,10 @@
       };
 
       document
-        .querySelectorAll(".paper-card .venue, .conference-card .venue")
-        .forEach(collapseVenue);
+        .querySelectorAll(
+          ".paper-card .summary-text, .conference-card .summary-text",
+        )
+        .forEach(collapseSummary);
     </script>
   </body>
 </html>
