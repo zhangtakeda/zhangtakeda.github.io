@@ -137,7 +137,6 @@
       }
 
       header {
-        position: relative;
         display: grid;
         grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1fr);
         gap: 34px;
@@ -145,16 +144,6 @@
         padding-bottom: 26px;
         margin-bottom: 34px;
         border-bottom: 2px solid var(--accent);
-      }
-
-      header::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        bottom: -2px;
-        width: min(30%, 180px);
-        height: 2px;
-        background: var(--accent-hairline);
       }
 
       header > * {
@@ -205,25 +194,25 @@
 
       .contact {
         display: grid;
-        gap: 0;
-        padding: 0;
-        background: var(--paper);
-        border: 1px solid var(--line-soft);
-        border-left: 2px solid var(--accent-hairline);
+        gap: 7px;
+        justify-self: end;
+        width: min(100%, 430px);
+        padding: 4px 0 0 22px;
+        background: transparent;
+        border: 0;
+        border-left: 1px solid var(--line);
         font-size: 14px;
         color: var(--muted);
         font-style: normal;
         transition:
           border-color 0.24s ease,
-          box-shadow 0.24s ease,
           transform 0.24s var(--ease-out);
       }
 
       .contact:hover,
       .contact:focus-within {
-        border-color: rgba(180, 154, 102, 0.82);
-        box-shadow: 0 14px 30px rgba(41, 35, 24, 0.1);
-        transform: translateY(-2px);
+        border-color: var(--accent-hairline);
+        transform: translateX(2px);
       }
 
       .contact-row {
@@ -231,11 +220,7 @@
         grid-template-columns: 4.8em minmax(0, 1fr);
         gap: 9px;
         align-items: baseline;
-        padding: 11px 14px;
-      }
-
-      .contact-row + .contact-row {
-        border-top: 1px solid var(--line-soft);
+        padding: 0;
       }
 
       .contact-label {
@@ -834,6 +819,17 @@
         border-top: 1px solid var(--line-soft);
       }
 
+      .summary-text {
+        max-width: 72ch;
+        color: #5f584f;
+        line-height: 1.78;
+      }
+
+      .paper-card .summary-text,
+      .conference-card .summary-text {
+        font-size: 13.5px;
+      }
+
       .venue.is-collapsible {
         transition:
           color 0.2s ease,
@@ -868,6 +864,7 @@
         font-size: 13px;
         font-weight: 600;
         white-space: nowrap;
+        text-underline-offset: 3px;
         transition:
           color 0.18s ease,
           transform 0.18s var(--ease-out);
