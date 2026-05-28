@@ -771,20 +771,13 @@
         </div>
         <address class="contact" aria-label="联系方式">
           <div class="contact-row">
-            <span class="contact-label">邮箱</span>
-            <span class="contact-value"
-              ><a href="mailto:zhangtakeda@gmail.com"
-                >zhangtakeda@gmail.com</a
-              ></span
-            >
-          </div>
-          <div class="contact-row">
             <span class="contact-label">主页</span>
             <span class="contact-value"
               ><a href="https://orcid.org/0009-0008-8686-1122">ORCID</a> /
               <a href="https://zhangtakeda.github.io/">GitHub</a></span
             >
           </div>
+
           <div class="contact-row">
             <span class="contact-label">单位</span>
             <span class="contact-value">
@@ -792,6 +785,16 @@
                 >大连理工大学物理学院</a
               ></span
             >
+          </div>
+
+          <div class="contact-row">
+            <span class="contact-label">邮箱</span>
+            <span class="contact-value"
+              ><a href="mailto:zhangtakeda@gmail.com">zhangtakeda@gmail.com</a>
+              <a href="mailto:rhzhang@mail.dlut.edu.cn"
+                >rhzhang@mail.dlut.edu.cn</a
+              >
+            </span>
           </div>
         </address>
       </header>
@@ -814,8 +817,7 @@
           本人主要从事托卡马克等离子体的快速高保真集成建模,
           围绕聚变等离子体平衡和输运过程,
           以及耦合集成建模开展数值模拟与算法研究. 对于 Python 和 C++
-          等编程语言的科研项目开发具有一定的经验,
-          熟悉常用的数值算法和科学计算库.
+          的高性能计算项目开发具有一定的经验, 熟悉常用的数值算法和科学计算库.
           指导教师为大连理工大学的王正汹和王丰二位教授,
           同时与谢华生博士交流并在其指导下进行开发工作.
         </div>
@@ -827,8 +829,8 @@
         </div>
         <div class="item">
           <div class="item-head">
-            <h3>博士研究生: 大连理工大学, 物理学院</h3>
-            <span class="time">2023.09 -- 至今</span>
+            <h3>博士研究生</h3>
+            <span class="time">大连理工大学 | 2023.09 -- 现在</span>
           </div>
           <p class="meta">
             <strong>专业</strong>: 等离子体物理 | <strong>导师</strong>:
@@ -838,8 +840,8 @@
 
         <div class="item">
           <div class="item-head">
-            <h3>本科: 大连理工大学, 物理学院</h3>
-            <span class="time">2019.09 -- 2023.06</span>
+            <h3>本科</h3>
+            <span class="time">大连理工大学 | 2019.09 -- 2023.06</span>
           </div>
           <p class="meta"><strong>专业</strong>: 应用物理学</p>
         </div>
@@ -909,24 +911,25 @@
               diagnostics for cases requiring boundary treatment,
               post-processing or higher-fidelity solves.
             </p>
-            <!-- <div class="link-list" aria-label="论文链接">
+            <div class="link-list" aria-label="论文链接">
               <a href="https://arxiv.org/abs/2301.00000">arXiv</a>
-            </div> -->
+            </div>
             <div class="media-grid">
               <figure>
                 <img
                   src="/2026-VEQ/1.png"
                   alt="求解时间、参数规模与重构误差对比"
                 />
-                <figcaption>求解效率、参数规模与重构误差对比.</figcaption>
+                <figcaption>
+                  Internal consistency across input routes derived from the same
+                  controlled reference equilibrium.
+                </figcaption>
               </figure>
               <figure>
                 <img src="/2026-VEQ/2.png" alt="残差分布和剖面误差结果" />
-                <figcaption>残差分布与剖面误差示例.</figcaption>
-              </figure>
-              <figure>
-                <img src="/2026-VEQ/3.png" alt="残差分布和剖面误差结果" />
-                <figcaption>残差分布与剖面误差示例.</figcaption>
+                <figcaption>
+                  Accuracy--cost Pareto analysis for reduced VEQ configurations.
+                </figcaption>
               </figure>
             </div>
           </article>
@@ -1016,20 +1019,20 @@
               面对多约束输入、反复迭代与参数扫描等场景, 传统的三矩平衡程序
               (如METIS和ASTRA)
               在计算速度、收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性.
-              为此, 本文开发了基于变分矩方法的高效平衡求解器veqpy, 并作为VEQ
+              为此, 本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为VEQ
               (Veloce/Variational EQuilibrium) 项目的固定边界求解组件,
               可实现系统程序 (system code) 级别的快速求解.
               该程序参考MXH-Cheb[1]参数化方法,
               采用Chebyshev和Fourier多项式对磁面几何进行参数化展开,
-              能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上,
-              veqpy提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略,
+              能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上, veqpy
+              提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略,
               以“数据-算子-求解器”为抽象架构实现了多种算子,
               支持包括环向电流密度、平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入,
               实现了对多种物理约束 (等离子体总电流、环向比压) 的稳健收敛. 此外,
               模块内置的冷/热启动基准算例涵盖整个算子族,
               为代码的回归测试与在物理上的一致性验证提供了完整支撑.
-              基准测试表明, 与高保真平衡程序相比,
-              veqpy计算的磁面几何参数与物理场量计算误差可被严格控制在1 mm以内 ,
+              基准测试表明, 与高保真平衡程序相比, veqpy
+              计算的磁面几何参数与物理场量计算误差可被严格控制在1 mm以内 ,
               同时能够在CPU上于1~100 ms量级实现单线程平衡求解.
               本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效、可靠替代方案.
             </p>
@@ -1192,7 +1195,9 @@
               <h3>其他荣誉</h3>
               <span class="award-years">20XX–20XX</span>
             </div>
-            <p class="award-meta">请填写奖项名称、授予单位、等级或说明.</p>
+            <p class="award-meta">
+              新奥奖学金, 菲沃泰奖学金, 优秀研究生, 华为杯, 挑战杯
+            </p>
           </article>
         </div>
       </section>
