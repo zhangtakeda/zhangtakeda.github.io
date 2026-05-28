@@ -30,16 +30,16 @@
     ></script>
     <style>
       :root {
-        --text: #26231f;
-        --muted: #6f675c;
-        --light: #9b907f;
-        --line: #ddd3c2;
-        --line-soft: #eee6d8;
-        --accent: #314f3a;
-        --accent-soft: #f4f1e8;
-        --accent-hairline: #b89a5e;
+        --text: #24211d;
+        --muted: #6f685d;
+        --light: #9a9183;
+        --line: #ddd2bf;
+        --line-soft: #eee5d6;
+        --accent: #2f4a37;
+        --accent-soft: #f3efe5;
+        --accent-hairline: #b49a66;
         --paper: #fffaf1;
-        --bg: #eee7da;
+        --bg: #eee6d8;
       }
 
       * {
@@ -70,12 +70,19 @@
         box-shadow: 0 18px 54px rgba(41, 35, 24, 0.11);
       }
 
+      .top-controls {
+        display: grid;
+        justify-items: end;
+        gap: 8px;
+        margin: -30px 0 24px;
+      }
+
       .language-switch {
         display: flex;
+        flex-wrap: wrap;
         justify-content: flex-end;
         align-items: center;
         gap: 7px;
-        margin: -30px 0 24px;
         color: var(--light);
         font-size: 13px;
         font-weight: 600;
@@ -233,6 +240,67 @@
       .toc-list a:hover {
         color: var(--accent);
         text-decoration: underline;
+      }
+
+      .toc-item.has-subindex {
+        position: relative;
+      }
+
+      .toc-subindex {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: var(--toc-subindex-left, 50%);
+        z-index: 20;
+        display: grid;
+        width: max-content;
+        min-width: max(112px, var(--toc-trigger-width, 0px));
+        max-width: min(360px, calc(100vw - 32px));
+        gap: 3px;
+        margin: 0;
+        padding: 8px 10px;
+        list-style: none;
+        background: #fffdf8;
+        border: 1px solid var(--line);
+        box-shadow: 0 10px 26px rgba(48, 42, 32, 0.13);
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, -4px);
+        transition:
+          opacity 0.16s ease,
+          transform 0.16s ease;
+      }
+
+      .toc-subindex::before {
+        content: "";
+        position: absolute;
+        top: -9px;
+        left: 0;
+        right: 0;
+        height: 9px;
+      }
+
+      .toc-item.has-subindex:hover .toc-subindex,
+      .toc-item.has-subindex:focus-within .toc-subindex {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate(-50%, 0);
+      }
+
+      .toc-subindex li {
+        display: block;
+        margin: 0;
+      }
+
+      .toc-subindex li + li::before {
+        display: none;
+      }
+
+      .toc-subindex a {
+        display: block;
+        overflow: hidden;
+        padding: 2px 4px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .heading-index {
@@ -708,8 +776,13 @@
           box-shadow: none;
         }
 
-        .language-switch {
+        .top-controls {
+          justify-items: start;
           margin: 0 0 18px;
+        }
+
+        .language-switch {
+          justify-content: flex-start;
         }
 
         header {
@@ -838,14 +911,16 @@
 
   <body>
     <main class="page">
-      <div class="language-switch" aria-label="Language switch">
-        <button type="button" data-language-button="zh" aria-pressed="true">
-          中文
-        </button>
-        <span aria-hidden="true">|</span>
-        <button type="button" data-language-button="en" aria-pressed="false">
-          English
-        </button>
+      <div class="top-controls">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-language-button="zh" aria-pressed="true">
+            中文
+          </button>
+          <span aria-hidden="true">|</span>
+          <button type="button" data-language-button="en" aria-pressed="false">
+            English
+          </button>
+        </div>
       </div>
       <header>
         <div>
@@ -890,11 +965,23 @@
         <ol class="toc-list">
           <li><a href="#profile" data-i18n="navProfile">个人简介</a></li>
           <li><a href="#education" data-i18n="navEducation">教育经历</a></li>
-          <li>
+          <li class="toc-item has-subindex">
             <a href="#publications" data-i18n="navPublications">论文发表</a>
+            <ol
+              class="toc-subindex"
+              data-card-selector="#publications .paper-card"
+              aria-label="论文发表子索引"
+              data-i18n-aria-label="pubSubindexAria"
+            ></ol>
           </li>
-          <li>
+          <li class="toc-item has-subindex">
             <a href="#conferences" data-i18n="navConferences">会议报告</a>
+            <ol
+              class="toc-subindex"
+              data-card-selector="#conferences .conference-card"
+              aria-label="会议报告子索引"
+              data-i18n-aria-label="confSubindexAria"
+            ></ol>
           </li>
           <li><a href="#honors" data-i18n="navHonors">获得荣誉</a></li>
         </ol>
@@ -917,7 +1004,7 @@
             <ul class="research-list">
               <li>托卡马克等离子体的快速高保真集成建模</li>
               <li>聚变等离子体平衡与输运耦合建模</li>
-              <li>计算物理学和数值算法</li>
+              <li>计算物理和数值算法</li>
             </ul>
           </div>
         </div>
@@ -1328,8 +1415,10 @@
           sectionHonors: "获得荣誉",
           pubIndexAria: "论文发表索引",
           confIndexAria: "会议报告索引",
+          pubSubindexAria: "论文发表子索引",
+          confSubindexAria: "会议报告子索引",
           profileSummary:
-            '<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡、输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p><div><strong>研究方向</strong>:<ul class="research-list"><li>托卡马克等离子体的快速高保真集成建模</li><li>聚变等离子体的平衡与输运</li><li>计算物理学和数值算法</li></ul></div>',
+            '<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡、输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p><div><strong>研究方向</strong>:<ul class="research-list"><li>托卡马克等离子体的快速高保真集成建模</li><li>聚变等离子体的平衡与输运</li><li>计算物理和数值算法</li></ul></div>',
           phdTitle: "博士研究生",
           phdTime: "大连理工大学 | 2023.09 &ndash; 至今",
           phdMeta:
@@ -1380,6 +1469,8 @@
           sectionHonors: "Honors",
           pubIndexAria: "Publication index",
           confIndexAria: "Conference presentation index",
+          pubSubindexAria: "Publication subindex",
+          confSubindexAria: "Conference presentation subindex",
           profileSummary:
             '<p>I am a Ph.D. student in plasma physics at Dalian University of Technology. My work focuses on numerical algorithms and scientific-computing methods for fusion-plasma equilibrium, transport, and coupled modeling. I have experience developing scientific-computing codes in Python and C++, and I am familiar with numerical optimization and high-performance-computing implementations. I am advised by Prof. Zhengxiong Wang and Prof. Feng Wang, and collaborate with Dr. Huasheng Xie on related algorithm and code development.</p><div><strong>Research Focus</strong>:<ul class="research-list"><li>Fast, high-fidelity integrated modeling for tokamak plasmas</li><li>Coupled modeling of fusion-plasma equilibrium and transport</li><li>Computational physics and numerical algorithms</li></ul></div>',
           phdTitle: "Ph.D. Student",
@@ -1408,6 +1499,27 @@
 
       const textFor = (key) =>
         TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS.zh[key] ?? key;
+
+      const alignTocSubindexes = () => {
+        document.querySelectorAll(".toc-item.has-subindex").forEach((item) => {
+          const trigger = Array.from(item.children).find(
+            (child) => child.tagName === "A",
+          );
+          const subindex = Array.from(item.children).find((child) =>
+            child.classList.contains("toc-subindex"),
+          );
+          if (!trigger || !subindex) return;
+
+          subindex.style.setProperty(
+            "--toc-subindex-left",
+            `${trigger.offsetLeft + trigger.offsetWidth / 2}px`,
+          );
+          subindex.style.setProperty(
+            "--toc-trigger-width",
+            `${trigger.offsetWidth}px`,
+          );
+        });
+      };
 
       const updateSummaryToggleLabels = () => {
         document.querySelectorAll(".venue-toggle").forEach((toggle) => {
@@ -1472,6 +1584,7 @@
 
         updateSummaryToggleLabels();
         updateImageButtonLabels();
+        requestAnimationFrame(alignTocSubindexes);
       };
 
       const setupLanguageSwitch = () => {
@@ -1635,18 +1748,19 @@
 
       const buildHeadingIndex = (index) => {
         const section = index.closest("section");
-        if (!section) return;
-
         const selector = index.dataset.cardSelector;
+        const scope = section || document;
         const cards = selector
-          ? Array.from(section.querySelectorAll(selector))
+          ? Array.from(scope.querySelectorAll(selector))
           : [];
         index.replaceChildren();
 
         cards.forEach((card, position) => {
           const label = indexLabelFromCard(card);
           if (!card.id) {
-            const sectionPrefix = section.id ? `${section.id}-` : "item-";
+            const sectionPrefix = section?.id
+              ? `${section.id}-`
+              : `${index.dataset.indexPrefix || "item"}-`;
             card.id = `${sectionPrefix}${slugify(label) || position + 1}`;
           }
 
@@ -1662,8 +1776,12 @@
       };
 
       document
-        .querySelectorAll(".heading-index[data-card-selector]")
+        .querySelectorAll(
+          ".heading-index[data-card-selector], .toc-subindex[data-card-selector]",
+        )
         .forEach(buildHeadingIndex);
+      window.addEventListener("resize", alignTocSubindexes);
+      alignTocSubindexes();
 
       const SUMMARY_PREVIEW_CHARS = 200;
 
