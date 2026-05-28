@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="gray">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -374,14 +374,6 @@
           box-shadow 0.2s ease;
       }
 
-      .toc-title {
-        margin: 0 0 7px;
-        color: var(--light);
-        font-size: 12px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-      }
-
       .toc-list {
         display: flex;
         flex-wrap: wrap;
@@ -571,13 +563,6 @@
         line-height: 1.35;
         letter-spacing: 0.08em;
         border-bottom: 2px solid var(--accent);
-      }
-
-      .section-note {
-        margin-left: auto;
-        color: var(--light);
-        font-size: 13px;
-        white-space: nowrap;
       }
 
       h3 {
@@ -1286,12 +1271,6 @@
         transform: translateY(-1px);
       }
 
-      .two-col {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px 24px;
-      }
-
       @keyframes page-rise {
         from {
           opacity: 0;
@@ -1407,10 +1386,6 @@
           white-space: normal;
         }
 
-        .two-col {
-          grid-template-columns: 1fr;
-        }
-
         .media-row {
           flex-direction: column;
           width: 100%;
@@ -1484,12 +1459,6 @@
 
         .heading-index li + li::before {
           margin: 0 8px;
-        }
-
-        .section-note {
-          display: block;
-          margin: 5px 0 0;
-          white-space: normal;
         }
       }
 
@@ -1579,8 +1548,17 @@
         >
           <button
             type="button"
-            data-theme-button="solarized"
+            data-theme-button="gray"
             aria-pressed="true"
+            data-i18n="themeGray"
+          >
+            Gray
+          </button>
+          <span aria-hidden="true">|</span>
+          <button
+            type="button"
+            data-theme-button="solarized"
+            aria-pressed="false"
             data-i18n="themeSolarized"
           >
             Solarized
@@ -1593,15 +1571,6 @@
             data-i18n="themeLight"
           >
             Light
-          </button>
-          <span aria-hidden="true">|</span>
-          <button
-            type="button"
-            data-theme-button="gray"
-            aria-pressed="false"
-            data-i18n="themeGray"
-          >
-            Gray
           </button>
           <span aria-hidden="true">|</span>
           <button
@@ -2147,17 +2116,6 @@
           bachelorTitle: "理学学士",
           bachelorTime: "大连理工大学 | 2019.09 &ndash; 2023.06",
           bachelorMeta: "<strong>专业</strong>: 应用物理学",
-          awardCompetitionTitle: "竞赛获奖",
-          awardCompetition2025: "2025年第二十二届“华为杯”国家三等奖",
-          awardCompetition2024: "2024年第十四届“挑战杯”国赛铜奖, 省赛金奖",
-          ennTitle: "新奥成才奖学金",
-          enn2025: "2025年大连理工大学新奥成才奖学金: 博士奖学金 B 类",
-          enn2024: "2024年大连理工大学新奥成才奖学金: 硕士一等奖学金",
-          enn2023: "2023年大连理工大学新奥成才奖学金: 硕士一等奖学金",
-          excellentGraduateTitle: "优秀研究生",
-          excellentGraduate2024: "2024 年大连理工大学优秀研究生",
-          favoredTitle: "菲沃泰奖学金",
-          favored2024: "2024年大连理工大学菲沃泰奖学金",
           imageDialogLabel: "原图预览",
           closeImageLabel: "关闭原图预览",
           imageFallback: "图片",
@@ -2220,12 +2178,12 @@
         const legacyMap = {
           sun: "solarized",
           white: "light",
-          black: "solarized",
+          black: "gray",
         };
         const normalized = legacyMap[theme] ?? theme;
         return ["solarized", "light", "gray", "sage"].includes(normalized)
           ? normalized
-          : "solarized";
+          : "gray";
       };
 
       const clamp = (value, min = 0, max = 1) =>
