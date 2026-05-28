@@ -31,18 +31,92 @@
     <style>
       :root {
         --text: #24211d;
-        --muted: #6f685d;
-        --light: #9a9183;
-        --line: #ddd2bf;
-        --line-soft: #eee5d6;
-        --accent: #2f4a37;
-        --accent-soft: #f3efe5;
-        --accent-hairline: #b49a66;
+        --muted: #655f56;
+        --light: #918879;
+        --line: #ded5c7;
+        --line-soft: #eee8dc;
+        --accent: #2c4636;
+        --accent-soft: #f4f0e8;
+        --accent-hairline: #aa9366;
         --paper: #fffaf1;
         --bg: #eee6d8;
+        --surface: #fffdf8;
+        --media-bg: #ffffff;
+        --page-border: #ded8cc;
+        --nav-bg: rgba(255, 250, 241, 0.82);
+        --meta-text: #8d8375;
+        --summary-text: #38332d;
+        --lightbox-text: #f6efe2;
         --shadow-soft: 0 18px 54px rgba(41, 35, 24, 0.11);
         --shadow-hover: 0 22px 52px rgba(41, 35, 24, 0.15);
         --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        --page-x: 66px;
+      }
+
+      [data-theme="light"] {
+        --text: #242321;
+        --muted: #655f57;
+        --light: #999189;
+        --line: #ded9d2;
+        --line-soft: #efebe6;
+        --accent: #b45432;
+        --accent-soft: #fff1eb;
+        --accent-hairline: #d78362;
+        --paper: #ffffff;
+        --bg: #f7f5f1;
+        --surface: #ffffff;
+        --media-bg: #ffffff;
+        --page-border: #e4dfd7;
+        --nav-bg: rgba(255, 255, 255, 0.88);
+        --meta-text: #958d84;
+        --summary-text: #34312d;
+        --lightbox-text: #fff1eb;
+        --shadow-soft: 0 18px 50px rgba(90, 45, 28, 0.07);
+        --shadow-hover: 0 22px 48px rgba(90, 45, 28, 0.11);
+      }
+
+      [data-theme="sage"] {
+        --text: #22291f;
+        --muted: #5d6657;
+        --light: #87907f;
+        --line: #d3ddc9;
+        --line-soft: #eaf0e4;
+        --accent: #3e5e3e;
+        --accent-soft: #f0f5eb;
+        --accent-hairline: #8fa36a;
+        --paper: #fbfdf6;
+        --bg: #e9f0df;
+        --surface: #fefff9;
+        --media-bg: #ffffff;
+        --page-border: #dbe5d2;
+        --nav-bg: rgba(251, 253, 246, 0.88);
+        --meta-text: #87907f;
+        --summary-text: #2d352a;
+        --lightbox-text: #f4faee;
+        --shadow-soft: 0 18px 50px rgba(51, 75, 44, 0.1);
+        --shadow-hover: 0 22px 48px rgba(51, 75, 44, 0.15);
+      }
+
+      [data-theme="gray"] {
+        --text: #252629;
+        --muted: #62666b;
+        --light: #8c9095;
+        --line: #d7d7d8;
+        --line-soft: #ececed;
+        --accent: #3f7f99;
+        --accent-soft: #eef6f8;
+        --accent-hairline: #7da9b8;
+        --paper: #f7f7f6;
+        --bg: #e7e7e6;
+        --surface: #fbfbfa;
+        --media-bg: #ffffff;
+        --page-border: #dddddc;
+        --nav-bg: rgba(247, 247, 246, 0.9);
+        --meta-text: #888c91;
+        --summary-text: #333539;
+        --lightbox-text: #edf7fa;
+        --shadow-soft: 0 18px 50px rgba(36, 38, 41, 0.08);
+        --shadow-hover: 0 22px 48px rgba(36, 38, 41, 0.13);
       }
 
       * {
@@ -85,9 +159,9 @@
         isolation: isolate;
         max-width: 980px;
         margin: 42px auto;
-        padding: 58px 66px;
+        padding: 58px var(--page-x);
         background: var(--paper);
-        border: 1px solid #ded8cc;
+        border: 1px solid var(--page-border);
         box-shadow: var(--shadow-soft);
         animation: page-rise 0.8s var(--ease-out) both;
       }
@@ -110,7 +184,18 @@
         font-weight: 600;
       }
 
-      .language-switch button {
+      .theme-switch {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 6px;
+        color: var(--light);
+        font-size: 12px;
+      }
+
+      .language-switch button,
+      .theme-switch button {
         padding: 0;
         border: 0;
         background: transparent;
@@ -123,13 +208,16 @@
           transform 0.2s var(--ease-out);
       }
 
-      .language-switch button[aria-pressed="true"] {
+      .language-switch button[aria-pressed="true"],
+      .theme-switch button[aria-pressed="true"] {
         color: var(--accent);
         text-decoration: underline;
       }
 
       .language-switch button:hover,
-      .language-switch button:focus-visible {
+      .language-switch button:focus-visible,
+      .theme-switch button:hover,
+      .theme-switch button:focus-visible {
         color: var(--accent);
         outline: none;
         text-decoration: underline;
@@ -216,29 +304,18 @@
       }
 
       .contact-row {
-        display: grid;
-        grid-template-columns: 4.8em minmax(0, 1fr);
-        gap: 9px;
-        align-items: baseline;
+        display: block;
         padding: 0;
       }
 
-      .contact-label {
-        color: var(--accent);
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        white-space: nowrap;
-      }
-
       .contact-value {
-        color: var(--text);
+        color: var(--accent);
         min-width: 0;
       }
 
       .contact-value a {
-        font-weight: 600;
+        color: inherit;
+        font-weight: 700;
       }
 
       section {
@@ -284,11 +361,13 @@
         position: sticky;
         top: 0;
         z-index: 30;
-        margin: -14px 0 34px;
+        margin: -14px calc(-1 * var(--page-x)) 34px;
         padding-top: 10px;
+        padding-right: var(--page-x);
         padding-bottom: 12px;
+        padding-left: var(--page-x);
         border-bottom: 1px solid var(--line-soft);
-        background: rgba(255, 250, 241, 0.82);
+        background: var(--nav-bg);
         backdrop-filter: blur(16px);
         transition:
           border-color 0.2s ease,
@@ -363,6 +442,7 @@
       }
 
       .toc-list a:hover::after,
+      .toc-list a.is-active::after,
       .heading-index a:hover::after {
         transform: scaleX(1);
         transform-origin: left center;
@@ -385,7 +465,7 @@
         margin: 0;
         padding: 8px 10px;
         list-style: none;
-        background: #fffdf8;
+        background: var(--surface);
         border: 1px solid var(--line);
         box-shadow: 0 10px 26px rgba(48, 42, 32, 0.13);
         opacity: 0;
@@ -686,6 +766,7 @@
       .profile-summary {
         display: grid;
         gap: 12px;
+        max-width: 82ch;
       }
 
       .profile-summary strong {
@@ -808,26 +889,36 @@
       }
 
       .conference-meta {
-        padding-top: 7px;
+        color: var(--meta-text);
+        font-size: 13px;
+        letter-spacing: 0.015em;
+        line-height: 1.62;
+        margin: 8px 0 0;
+        padding: 8px 0 9px;
         border-top: 1px solid var(--line-soft);
       }
 
-      .paper-card .venue,
-      .conference-card .venue {
+      .paper-card .venue {
         margin-top: 11px;
+        padding-top: 10px;
+        border-top: 1px solid var(--line-soft);
+      }
+
+      .conference-card .venue {
+        margin-top: 0;
         padding-top: 10px;
         border-top: 1px solid var(--line-soft);
       }
 
       .summary-text {
         max-width: 72ch;
-        color: #5f584f;
+        color: var(--summary-text);
         line-height: 1.78;
       }
 
       .paper-card .summary-text,
       .conference-card .summary-text {
-        font-size: 13.5px;
+        font-size: 14px;
       }
 
       .venue.is-collapsible {
@@ -919,7 +1010,7 @@
 
       .link-list a:hover,
       .link-list a:focus-visible {
-        background: rgba(243, 239, 229, 0.72);
+        background: var(--accent-soft);
         border-color: var(--accent-hairline);
         box-shadow: 0 5px 12px rgba(41, 35, 24, 0.08);
         outline: none;
@@ -947,7 +1038,7 @@
         margin-top: 14px;
         padding: 12px;
         border: 1px solid var(--line-soft);
-        background: #ffffff;
+        background: var(--media-bg);
         transition:
           border-color 0.2s ease,
           box-shadow 0.2s ease;
@@ -970,7 +1061,7 @@
           )
         );
         margin-inline: auto;
-        background: #ffffff;
+        background: var(--media-bg);
         overflow-x: auto;
       }
 
@@ -982,7 +1073,7 @@
         min-width: 0;
         margin: 0;
         padding: 0 12px;
-        background: #ffffff;
+        background: var(--media-bg);
         transition: transform 0.2s var(--ease-out);
       }
 
@@ -1015,9 +1106,9 @@
         width: 100%;
         max-width: 100%;
         height: auto;
-        border: 1px solid #ffffff;
+        border: 1px solid var(--media-bg);
         border-radius: 3px;
-        background: #ffffff;
+        background: var(--media-bg);
         cursor: zoom-in;
         transition:
           border-color 0.18s ease,
@@ -1060,7 +1151,7 @@
         max-width: min(96vw, 1480px);
         max-height: 84vh;
         object-fit: contain;
-        background: #ffffff;
+        background: var(--media-bg);
         box-shadow: 0 14px 42px rgba(0, 0, 0, 0.24);
         animation: lightbox-zoom 0.24s var(--ease-out) both;
       }
@@ -1068,7 +1159,7 @@
       .image-lightbox-caption {
         max-width: min(96vw, 980px);
         margin: 12px 0 0;
-        color: #f6efe2;
+        color: var(--lightbox-text);
         font-size: 14px;
         line-height: 1.55;
         text-align: center;
@@ -1083,7 +1174,7 @@
         border: 1px solid rgba(246, 239, 226, 0.55);
         border-radius: 999px;
         background: rgba(255, 250, 241, 0.12);
-        color: #fffaf1;
+        color: var(--lightbox-text);
         cursor: pointer;
         font:
           26px/1 "Times New Roman",
@@ -1184,7 +1275,7 @@
         font-size: 12px;
         line-height: 1.6;
         vertical-align: 1px;
-        background: #fffdf8;
+        background: var(--surface);
         transition:
           border-color 0.18s ease,
           transform 0.18s var(--ease-out);
@@ -1244,9 +1335,13 @@
       }
 
       @media (max-width: 760px) {
+        :root {
+          --page-x: 22px;
+        }
+
         .page {
           margin: 0;
-          padding: 30px 22px;
+          padding: 30px var(--page-x);
           border: 0;
           box-shadow: none;
         }
@@ -1257,6 +1352,10 @@
         }
 
         .language-switch {
+          justify-content: flex-start;
+        }
+
+        .theme-switch {
           justify-content: flex-start;
         }
 
@@ -1274,7 +1373,6 @@
           margin-top: -8px;
           top: 0;
           overflow-x: auto;
-          padding-right: 4px;
           scrollbar-width: thin;
         }
 
@@ -1474,6 +1572,47 @@
             English
           </button>
         </div>
+        <div
+          class="theme-switch"
+          aria-label="页面主题"
+          data-i18n-aria-label="themeAria"
+        >
+          <button
+            type="button"
+            data-theme-button="solarized"
+            aria-pressed="true"
+            data-i18n="themeSolarized"
+          >
+            Solarized
+          </button>
+          <span aria-hidden="true">|</span>
+          <button
+            type="button"
+            data-theme-button="light"
+            aria-pressed="false"
+            data-i18n="themeLight"
+          >
+            Light
+          </button>
+          <span aria-hidden="true">|</span>
+          <button
+            type="button"
+            data-theme-button="gray"
+            aria-pressed="false"
+            data-i18n="themeGray"
+          >
+            Gray
+          </button>
+          <span aria-hidden="true">|</span>
+          <button
+            type="button"
+            data-theme-button="sage"
+            aria-pressed="false"
+            data-i18n="themeSage"
+          >
+            Sage
+          </button>
+        </div>
       </div>
       <header>
         <div>
@@ -1494,7 +1633,6 @@
           data-i18n-aria-label="contactAria"
         >
           <div class="contact-row">
-            <span class="contact-label" data-i18n="linksLabel">链接</span>
             <span class="contact-value"
               ><a href="https://orcid.org/0009-0008-8686-1122">ORCID</a> /
               <a href="https://zhangtakeda.github.io/">GitHub</a></span
@@ -1502,7 +1640,6 @@
           </div>
 
           <div class="contact-row">
-            <span class="contact-label" data-i18n="emailLabel">邮箱</span>
             <span class="contact-value"
               ><a href="mailto:zhangtakeda@gmail.com">zhangtakeda@gmail.com</a>
               /
@@ -1795,6 +1932,26 @@
             <div class="link-list" aria-label="论文链接">
               <a href="oral/2026.04.pdf">Oral</a>
             </div>
+            <div class="media-grid">
+              <figure>
+                <img
+                  src="oral/2026.04_01.png"
+                  alt="2026.04 oral presentation slide preview 1"
+                />
+              </figure>
+              <figure>
+                <img
+                  src="oral/2026.04_12.png"
+                  alt="2026.04 oral presentation slide preview 2"
+                />
+              </figure>
+              <figure>
+                <img
+                  src="oral/2026.04_14.png"
+                  alt="2026.04 oral presentation slide preview 3"
+                />
+              </figure>
+            </div>
           </article>
 
           <article
@@ -1946,7 +2103,7 @@
       </section>
     </main>
     <script>
-      const MAX_MEDIA_ROW_WIDTH = 10000;
+      const MAX_MEDIA_ROW_WIDTH = 15000;
       const prefersReducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       );
@@ -1961,8 +2118,11 @@
           affiliationLine:
             '<span class="title-label">单位:</span><span class="title-value">大连理工大学物理学院</span>',
           contactAria: "联系方式",
-          linksLabel: "链接",
-          emailLabel: "邮箱",
+          themeAria: "页面主题",
+          themeSolarized: "Solarized",
+          themeLight: "Light",
+          themeGray: "Gray",
+          themeSage: "Sage",
           tocAria: "页面索引",
           navProfile: "个人简介",
           navEducation: "教育经历",
@@ -2015,8 +2175,11 @@
           affiliationLine:
             '<span class="title-label">Affiliation:</span><span class="title-value">School of Physics, Dalian University of Technology</span>',
           contactAria: "Contact information",
-          linksLabel: "Links",
-          emailLabel: "Email",
+          themeAria: "Page theme",
+          themeSolarized: "Solarized",
+          themeLight: "Light",
+          themeGray: "Gray",
+          themeSage: "Sage",
           tocAria: "Page navigation",
           navProfile: "Profile",
           navEducation: "Education",
@@ -2053,6 +2216,17 @@
       };
 
       const normalizeLanguage = (language) => (language === "en" ? "en" : "zh");
+      const normalizeTheme = (theme) => {
+        const legacyMap = {
+          sun: "solarized",
+          white: "light",
+          black: "solarized",
+        };
+        const normalized = legacyMap[theme] ?? theme;
+        return ["solarized", "light", "gray", "sage"].includes(normalized)
+          ? normalized
+          : "solarized";
+      };
 
       const clamp = (value, min = 0, max = 1) =>
         Math.min(max, Math.max(min, value));
@@ -2060,9 +2234,29 @@
       let currentLanguage = normalizeLanguage(
         localStorage.getItem("cvLanguage"),
       );
+      let currentTheme = normalizeTheme(localStorage.getItem("cvTheme"));
 
       const textFor = (key) =>
         TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS.zh[key] ?? key;
+
+      const applyTheme = (theme) => {
+        currentTheme = normalizeTheme(theme);
+        if (currentTheme === "solarized") {
+          document.documentElement.removeAttribute("data-theme");
+        } else {
+          document.documentElement.dataset.theme = currentTheme;
+        }
+        localStorage.setItem("cvTheme", currentTheme);
+
+        document.querySelectorAll("[data-theme-button]").forEach((button) => {
+          button.setAttribute(
+            "aria-pressed",
+            String(button.dataset.themeButton === currentTheme),
+          );
+        });
+
+        requestAnimationFrame(syncAllSummaryHeights);
+      };
 
       const alignTocSubindexes = () => {
         document.querySelectorAll(".toc-item.has-subindex").forEach((item) => {
@@ -2160,6 +2354,14 @@
               applyLanguage(button.dataset.languageButton);
             });
           });
+      };
+
+      const setupThemeSwitch = () => {
+        document.querySelectorAll("[data-theme-button]").forEach((button) => {
+          button.addEventListener("click", () => {
+            applyTheme(button.dataset.themeButton);
+          });
+        });
       };
 
       const updateScrollProgress = () => {
@@ -2425,6 +2627,7 @@
       };
 
       setupLanguageSwitch();
+      setupThemeSwitch();
       setupImageLightbox();
 
       const slugify = (text) =>
@@ -2625,6 +2828,7 @@
       });
 
       applyLanguage(currentLanguage);
+      applyTheme(currentTheme);
     </script>
   </body>
 </html>
