@@ -40,6 +40,9 @@
         --accent-hairline: #b49a66;
         --paper: #fffaf1;
         --bg: #eee6d8;
+        --shadow-soft: 0 18px 54px rgba(41, 35, 24, 0.11);
+        --shadow-hover: 0 22px 52px rgba(41, 35, 24, 0.15);
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       * {
@@ -51,6 +54,7 @@
       }
 
       body {
+        position: relative;
         margin: 0;
         padding: 0;
         min-height: 100vh;
@@ -61,13 +65,31 @@
         line-height: 1.72;
       }
 
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1200;
+        width: 100%;
+        height: 3px;
+        background: var(--accent);
+        box-shadow: 0 0 18px rgba(180, 154, 102, 0.38);
+        pointer-events: none;
+        transform: scaleX(var(--scroll-progress, 0));
+        transform-origin: left center;
+      }
+
       .page {
+        position: relative;
+        z-index: 1;
+        isolation: isolate;
         max-width: 980px;
         margin: 42px auto;
         padding: 58px 66px;
         background: var(--paper);
         border: 1px solid #ded8cc;
-        box-shadow: 0 18px 54px rgba(41, 35, 24, 0.11);
+        box-shadow: var(--shadow-soft);
+        animation: page-rise 0.8s var(--ease-out) both;
       }
 
       .top-controls {
@@ -96,6 +118,9 @@
         cursor: pointer;
         font: inherit;
         text-underline-offset: 4px;
+        transition:
+          color 0.2s ease,
+          transform 0.2s var(--ease-out);
       }
 
       .language-switch button[aria-pressed="true"] {
@@ -108,6 +133,7 @@
         color: var(--accent);
         outline: none;
         text-decoration: underline;
+        transform: translateY(-1px);
       }
 
       header {
@@ -118,6 +144,14 @@
         padding-bottom: 26px;
         margin-bottom: 34px;
         border-bottom: 2px solid var(--accent);
+      }
+
+      header > * {
+        animation: soft-enter 0.7s var(--ease-out) both;
+      }
+
+      header > :nth-child(2) {
+        animation-delay: 0.08s;
       }
 
       .name {
@@ -164,6 +198,17 @@
         font-size: 14px;
         color: var(--muted);
         font-style: normal;
+        transition:
+          border-color 0.24s ease,
+          box-shadow 0.24s ease,
+          transform 0.24s var(--ease-out);
+      }
+
+      .contact:hover,
+      .contact:focus-within {
+        border-color: rgba(180, 154, 102, 0.82);
+        box-shadow: 0 14px 30px rgba(41, 35, 24, 0.1);
+        transform: translateY(-2px);
       }
 
       .contact-row {
@@ -189,13 +234,37 @@
 
       section {
         margin: 34px 0;
-        scroll-margin-top: 24px;
+        scroll-margin-top: 84px;
+      }
+
+      section.reveal-target {
+        transition:
+          opacity 0.58s var(--ease-out),
+          transform 0.58s var(--ease-out);
+      }
+
+      section.reveal-target:not(.is-visible) {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      section.reveal-target.is-visible {
+        opacity: 1;
       }
 
       .toc {
+        position: sticky;
+        top: 0;
+        z-index: 30;
         margin: -14px 0 34px;
+        padding-top: 10px;
         padding-bottom: 12px;
         border-bottom: 1px solid var(--line-soft);
+        background: rgba(255, 250, 241, 0.82);
+        backdrop-filter: blur(16px);
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
       }
 
       .toc-title {
@@ -230,16 +299,45 @@
       }
 
       .toc-list a {
+        position: relative;
         color: var(--muted);
         font-size: 13px;
         font-weight: 600;
         text-decoration: none;
         text-underline-offset: 4px;
+        transition:
+          color 0.2s ease,
+          transform 0.2s var(--ease-out);
+      }
+
+      .toc-list a::after,
+      .heading-index a::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: -3px;
+        left: 0;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: right center;
+        transition: transform 0.24s var(--ease-out);
+      }
+
+      .toc-list a:hover,
+      .toc-list a.is-active {
+        color: var(--accent);
+        text-decoration: none;
       }
 
       .toc-list a:hover {
-        color: var(--accent);
-        text-decoration: underline;
+        transform: translateY(-1px);
+      }
+
+      .toc-list a:hover::after,
+      .heading-index a:hover::after {
+        transform: scaleX(1);
+        transform-origin: left center;
       }
 
       .toc-item.has-subindex {
@@ -267,7 +365,8 @@
         transform: translate(-50%, -4px);
         transition:
           opacity 0.16s ease,
-          transform 0.16s ease;
+          transform 0.16s ease,
+          box-shadow 0.16s ease;
       }
 
       .toc-subindex::before {
@@ -328,22 +427,24 @@
       }
 
       .heading-index a {
+        position: relative;
         color: var(--muted);
         font-size: 13px;
         font-weight: 600;
         text-decoration: none;
         text-underline-offset: 4px;
+        transition: color 0.2s ease;
       }
 
       .heading-index a:hover {
         color: var(--accent);
-        text-decoration: underline;
+        text-decoration: none;
       }
 
       .paper-card,
       .conference-card,
       .award-card {
-        scroll-margin-top: 24px;
+        scroll-margin-top: 84px;
       }
 
       .section-head {
@@ -395,6 +496,12 @@
         color: var(--accent);
         text-decoration: none;
         text-underline-offset: 3px;
+        transition:
+          color 0.18s ease,
+          background-color 0.18s ease,
+          border-color 0.18s ease,
+          box-shadow 0.18s ease,
+          transform 0.18s var(--ease-out);
       }
 
       a:hover {
@@ -402,9 +509,7 @@
       }
 
       .summary {
-        padding: 17px 18px;
-        background: #fffdf8;
-        border: 1px solid var(--line);
+        padding: 0;
         color: var(--text);
       }
 
@@ -413,9 +518,13 @@
       .conference-card,
       .award-card {
         position: relative;
-        background: #fffdf8;
+        background: var(--paper);
         border: 1px solid var(--line-soft);
         box-shadow: 0 1px 0 rgba(49, 79, 58, 0.04);
+        transition:
+          border-color 0.24s ease,
+          box-shadow 0.24s ease,
+          transform 0.24s var(--ease-out);
       }
 
       .item::before,
@@ -429,11 +538,103 @@
         left: -1px;
         width: 2px;
         background: var(--accent-hairline);
+        transition:
+          width 0.24s var(--ease-out),
+          background-color 0.24s ease;
+      }
+
+      .item:hover,
+      .paper-card:hover,
+      .conference-card:hover,
+      .award-card:hover,
+      .item:focus-within,
+      .paper-card:focus-within,
+      .conference-card:focus-within,
+      .award-card:focus-within {
+        border-color: rgba(180, 154, 102, 0.78);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .item:hover::before,
+      .paper-card:hover::before,
+      .conference-card:hover::before,
+      .award-card:hover::before,
+      .item:focus-within::before,
+      .paper-card:focus-within::before,
+      .conference-card:focus-within::before,
+      .award-card:focus-within::before {
+        background: var(--accent);
+        width: 3px;
       }
 
       .item {
         margin: 14px 0 16px;
         padding: 15px 18px 15px 20px;
+      }
+
+      .timeline {
+        position: relative;
+        display: grid;
+        gap: 14px;
+        margin-top: 12px;
+        padding-left: 22px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: 18px;
+        bottom: 18px;
+        left: 6px;
+        width: 1px;
+        background: var(--line);
+      }
+
+      .timeline .item {
+        margin: 0;
+        padding: 0 0 0 14px;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+      }
+
+      .timeline .item::before {
+        top: 0.75em;
+        bottom: auto;
+        left: -22px;
+        width: 9px;
+        height: 9px;
+        border: 2px solid var(--accent-hairline);
+        border-radius: 999px;
+        background: var(--paper);
+        transition:
+          border-color 0.24s ease,
+          box-shadow 0.24s ease,
+          transform 0.24s var(--ease-out);
+      }
+
+      .timeline .item:hover,
+      .timeline .item:focus-within {
+        border-color: transparent;
+        box-shadow: none;
+      }
+
+      .timeline .item:hover::before,
+      .timeline .item:focus-within::before {
+        width: 9px;
+        background: var(--paper);
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(180, 154, 102, 0.18);
+        transform: scale(1.08);
+      }
+
+      .timeline .item-head {
+        gap: 12px;
+        margin-bottom: 2px;
+      }
+
+      .timeline h3 {
+        color: var(--accent);
       }
 
       .profile-summary {
@@ -483,6 +684,33 @@
       .paper-card,
       .conference-card {
         padding: 18px 20px 18px 22px;
+      }
+
+      .paper-card.reveal-target,
+      .conference-card.reveal-target,
+      .award-card.reveal-target,
+      .item.reveal-target {
+        transition:
+          opacity 0.5s var(--ease-out),
+          transform 0.5s var(--ease-out),
+          border-color 0.24s ease,
+          box-shadow 0.24s ease;
+      }
+
+      .paper-card.reveal-target:not(.is-visible),
+      .conference-card.reveal-target:not(.is-visible),
+      .award-card.reveal-target:not(.is-visible),
+      .item.reveal-target:not(.is-visible) {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      .paper-card.reveal-target.is-visible,
+      .conference-card.reveal-target.is-visible,
+      .award-card.reveal-target.is-visible,
+      .item.reveal-target.is-visible {
+        opacity: 1;
+        transition-delay: var(--reveal-delay, 0ms);
       }
 
       .paper-label,
@@ -537,11 +765,15 @@
         font-size: 13px;
         font-weight: 600;
         white-space: nowrap;
+        transition:
+          color 0.18s ease,
+          transform 0.18s var(--ease-out);
       }
 
       .venue-toggle:hover {
         text-decoration: underline;
         text-underline-offset: 3px;
+        transform: translateX(1px);
       }
 
       .link-list {
@@ -563,9 +795,14 @@
         font-weight: 600;
       }
 
-      .link-list a:hover {
+      .link-list a:hover,
+      .link-list a:focus-visible {
         background: #ebe5d6;
+        border-color: var(--accent-hairline);
+        box-shadow: 0 8px 18px rgba(41, 35, 24, 0.11);
+        outline: none;
         text-decoration: none;
+        transform: translateY(-2px);
       }
 
       .media-grid {
@@ -575,6 +812,14 @@
         padding: 12px;
         border: 1px solid var(--line-soft);
         background: #ffffff;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .media-grid:hover {
+        border-color: rgba(180, 154, 102, 0.62);
+        box-shadow: inset 0 0 0 1px rgba(180, 154, 102, 0.1);
       }
 
       .media-row {
@@ -663,6 +908,7 @@
         padding: 34px 26px 26px;
         background: rgba(30, 27, 22, 0.86);
         backdrop-filter: blur(2px);
+        animation: lightbox-fade 0.2s ease both;
       }
 
       .image-lightbox-img {
@@ -672,6 +918,7 @@
         object-fit: contain;
         background: #ffffff;
         box-shadow: 0 20px 70px rgba(0, 0, 0, 0.34);
+        animation: lightbox-zoom 0.24s var(--ease-out) both;
       }
 
       .image-lightbox-caption {
@@ -703,6 +950,7 @@
       .image-lightbox-close:focus-visible {
         background: rgba(255, 250, 241, 0.22);
         outline: none;
+        transform: rotate(90deg);
       }
 
       .media-grid figcaption {
@@ -760,12 +1008,62 @@
         line-height: 1.6;
         vertical-align: 1px;
         background: #fffdf8;
+        transition:
+          border-color 0.18s ease,
+          transform 0.18s var(--ease-out);
+      }
+
+      .tag:hover {
+        border-color: var(--accent-hairline);
+        transform: translateY(-1px);
       }
 
       .two-col {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 16px 24px;
+      }
+
+      @keyframes page-rise {
+        from {
+          opacity: 0;
+          transform: translateY(16px) scale(0.992);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes soft-enter {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes lightbox-fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes lightbox-zoom {
+        from {
+          opacity: 0;
+          transform: translateY(8px) scale(0.985);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
       }
 
       @media (max-width: 760px) {
@@ -797,6 +1095,15 @@
 
         .toc {
           margin-top: -8px;
+          top: 0;
+          overflow-x: auto;
+          padding-right: 4px;
+          scrollbar-width: thin;
+        }
+
+        .toc-list {
+          flex-wrap: nowrap;
+          min-width: max-content;
         }
 
         .toc-list li + li::before {
@@ -806,6 +1113,19 @@
         .item-head {
           flex-direction: column;
           gap: 0;
+        }
+
+        .timeline {
+          gap: 16px;
+          padding-left: 20px;
+        }
+
+        .timeline .item {
+          padding-left: 12px;
+        }
+
+        .timeline .item::before {
+          left: -20px;
         }
 
         .time {
@@ -837,6 +1157,19 @@
 
         .media-grid img {
           height: auto;
+        }
+
+        .item:hover,
+        .paper-card:hover,
+        .conference-card:hover,
+        .award-card:hover,
+        .item:focus-within,
+        .paper-card:focus-within,
+        .conference-card:focus-within,
+        .award-card:focus-within,
+        .contact:hover,
+        .contact:focus-within {
+          transform: none;
         }
 
         .image-lightbox {
@@ -873,7 +1206,31 @@
         }
       }
 
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.001ms !important;
+        }
+
+        section.reveal-target,
+        .paper-card.reveal-target,
+        .conference-card.reveal-target,
+        .award-card.reveal-target,
+        .item.reveal-target {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
       @media print {
+        .scroll-progress {
+          display: none;
+        }
+
         body {
           background: #ffffff;
         }
@@ -910,6 +1267,7 @@
   </head>
 
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <main class="page">
       <div class="top-controls">
         <div class="language-switch" aria-label="Language switch">
@@ -1014,29 +1372,31 @@
         <div class="section-head">
           <h2 data-i18n="sectionEducation">教育经历</h2>
         </div>
-        <div class="item">
-          <div class="item-head">
-            <h3 data-i18n="phdTitle">博士研究生</h3>
-            <span class="time" data-i18n-html="phdTime"
-              >大连理工大学 | 2023.09 &ndash; 至今</span
-            >
+        <div class="timeline">
+          <div class="item">
+            <div class="item-head">
+              <h3 data-i18n="phdTitle">博士研究生</h3>
+              <span class="time" data-i18n-html="phdTime"
+                >大连理工大学 | 2023.09 &ndash; 至今</span
+              >
+            </div>
+            <p class="meta" data-i18n-html="phdMeta">
+              <strong>专业</strong>: 等离子体物理<br />
+              <strong>导师</strong>: 王正汹教授, 王丰教授
+            </p>
           </div>
-          <p class="meta" data-i18n-html="phdMeta">
-            <strong>专业</strong>: 等离子体物理<br />
-            <strong>导师</strong>: 王正汹教授, 王丰教授
-          </p>
-        </div>
 
-        <div class="item">
-          <div class="item-head">
-            <h3 data-i18n="bachelorTitle">理学学士</h3>
-            <span class="time" data-i18n-html="bachelorTime"
-              >大连理工大学 | 2019.09 &ndash; 2023.06</span
-            >
+          <div class="item">
+            <div class="item-head">
+              <h3 data-i18n="bachelorTitle">理学学士</h3>
+              <span class="time" data-i18n-html="bachelorTime"
+                >大连理工大学 | 2019.09 &ndash; 2023.06</span
+              >
+            </div>
+            <p class="meta" data-i18n-html="bachelorMeta">
+              <strong>专业</strong>: 应用物理学
+            </p>
           </div>
-          <p class="meta" data-i18n-html="bachelorMeta">
-            <strong>专业</strong>: 应用物理学
-          </p>
         </div>
       </section>
 
@@ -1110,17 +1470,21 @@
             </div>
             <div class="media-grid">
               <figure>
-                <img
-                  src="2026-VEQ/1.png"
-                  alt="求解时间、参数规模与重构误差对比"
-                />
+                <img src="2026-VEQ/1.png" alt="2026-VEQ/1.png" />
+                <figcaption>
+                  Controlled PF-route demonstration equilibrium used for the
+                  internal route-consistency benchmark.
+                </figcaption>
+              </figure>
+              <figure>
+                <img src="2026-VEQ/2.png" alt="2026-VEQ/2.png" />
                 <figcaption>
                   Internal consistency across input routes derived from the same
                   controlled reference equilibrium.
                 </figcaption>
               </figure>
               <figure>
-                <img src="2026-VEQ/2.png" alt="残差分布和剖面误差结果" />
+                <img src="2026-VEQ/3.png" alt="2026-VEQ/3.png" />
                 <figcaption>
                   Accuracy--cost Pareto analysis for reduced VEQ configurations.
                 </figcaption>
@@ -1388,7 +1752,10 @@
       </section>
     </main>
     <script>
-      const MAX_MEDIA_ROW_WIDTH = 7500;
+      const MAX_MEDIA_ROW_WIDTH = 10000;
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
 
       const TRANSLATIONS = {
         zh: {
@@ -1493,6 +1860,9 @@
 
       const normalizeLanguage = (language) => (language === "en" ? "en" : "zh");
 
+      const clamp = (value, min = 0, max = 1) =>
+        Math.min(max, Math.max(min, value));
+
       let currentLanguage = normalizeLanguage(
         localStorage.getItem("cvLanguage"),
       );
@@ -1595,6 +1965,121 @@
               applyLanguage(button.dataset.languageButton);
             });
           });
+      };
+
+      const updateScrollProgress = () => {
+        const scrollable =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+        document.documentElement.style.setProperty(
+          "--scroll-progress",
+          String(clamp(progress)),
+        );
+      };
+
+      const setupScrollProgress = () => {
+        let ticking = false;
+        const requestUpdate = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            updateScrollProgress();
+            ticking = false;
+          });
+        };
+
+        updateScrollProgress();
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
+      };
+
+      const setupActiveNavigation = () => {
+        const links = Array.from(
+          document.querySelectorAll('.toc-list > li > a[href^="#"]'),
+        );
+        const pairs = links
+          .map((link) => ({
+            link,
+            section: document.getElementById(
+              decodeURIComponent(link.hash.slice(1)),
+            ),
+          }))
+          .filter(({ section }) => section);
+
+        if (!pairs.length) return;
+
+        let ticking = false;
+        const findActivePair = (anchorLine) => {
+          for (let index = pairs.length - 1; index >= 0; index -= 1) {
+            if (
+              pairs[index].section.getBoundingClientRect().top <= anchorLine
+            ) {
+              return pairs[index];
+            }
+          }
+          return pairs[0];
+        };
+
+        const updateActive = () => {
+          const anchorLine = Math.min(window.innerHeight * 0.32, 220);
+          const activePair = findActivePair(anchorLine);
+
+          pairs.forEach(({ link }) => link.classList.remove("is-active"));
+          activePair.link.classList.add("is-active");
+        };
+
+        const requestUpdate = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            updateActive();
+            ticking = false;
+          });
+        };
+
+        updateActive();
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
+      };
+
+      const setupRevealEffects = () => {
+        const targets = Array.from(
+          document.querySelectorAll(
+            "section, .item, .paper-card, .conference-card, .award-card",
+          ),
+        );
+
+        targets.forEach((target, index) => {
+          target.classList.add("reveal-target");
+          target.style.setProperty(
+            "--reveal-delay",
+            `${Math.min((index % 5) * 42, 168)}ms`,
+          );
+        });
+
+        if (
+          prefersReducedMotion.matches ||
+          !("IntersectionObserver" in window)
+        ) {
+          targets.forEach((target) => target.classList.add("is-visible"));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          {
+            rootMargin: "0px 0px -8% 0px",
+            threshold: 0.08,
+          },
+        );
+
+        targets.forEach((target) => observer.observe(target));
       };
 
       const whenImageReady = (img) =>
@@ -1782,6 +2267,9 @@
         .forEach(buildHeadingIndex);
       window.addEventListener("resize", alignTocSubindexes);
       alignTocSubindexes();
+      setupScrollProgress();
+      setupActiveNavigation();
+      setupRevealEffects();
 
       const SUMMARY_PREVIEW_CHARS = 200;
 
