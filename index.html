@@ -70,9 +70,42 @@
         box-shadow: 0 18px 54px rgba(41, 35, 24, 0.11);
       }
 
+      .language-switch {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 7px;
+        margin: -30px 0 24px;
+        color: var(--light);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .language-switch button {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font: inherit;
+        text-underline-offset: 4px;
+      }
+
+      .language-switch button[aria-pressed="true"] {
+        color: var(--accent);
+        text-decoration: underline;
+      }
+
+      .language-switch button:hover,
+      .language-switch button:focus-visible {
+        color: var(--accent);
+        outline: none;
+        text-decoration: underline;
+      }
+
       header {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(270px, 0.82fr);
+        grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1fr);
         gap: 34px;
         align-items: end;
         padding-bottom: 26px;
@@ -97,12 +130,30 @@
         font-weight: 600;
       }
 
+      .title-line {
+        display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        column-gap: 0.35em;
+        align-items: baseline;
+      }
+
+      .title-label {
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .title-value {
+        color: var(--muted);
+        min-width: 0;
+      }
+
       .contact {
         display: grid;
-        gap: 8px;
-        padding: 15px 16px;
+        gap: 10px;
+        padding: 16px 18px;
         background: #fffdf8;
         border: 1px solid var(--line);
+        border-left: 3px solid var(--accent-hairline);
         font-size: 14px;
         color: var(--muted);
         font-style: normal;
@@ -110,15 +161,18 @@
 
       .contact-row {
         display: grid;
-        grid-template-columns: 4em 1fr;
-        gap: 12px;
+        grid-template-columns: 4.8em minmax(0, 1fr);
+        gap: 9px;
         align-items: baseline;
       }
 
       .contact-label {
         color: var(--accent);
+        font-size: 12px;
         font-weight: 700;
         letter-spacing: 0.12em;
+        text-transform: uppercase;
+        white-space: nowrap;
       }
 
       .contact-value {
@@ -312,6 +366,24 @@
       .item {
         margin: 14px 0 16px;
         padding: 15px 18px 15px 20px;
+      }
+
+      .profile-summary {
+        display: grid;
+        gap: 12px;
+      }
+
+      .profile-summary strong {
+        color: var(--accent);
+      }
+
+      .research-list {
+        margin: 0;
+        padding-left: 1.25em;
+      }
+
+      .research-list li {
+        margin: 2px 0;
       }
 
       .item-head {
@@ -576,7 +648,7 @@
 
       .award-list {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
         gap: 12px;
       }
 
@@ -636,6 +708,10 @@
           box-shadow: none;
         }
 
+        .language-switch {
+          margin: 0 0 18px;
+        }
+
         header {
           grid-template-columns: 1fr;
           gap: 18px;
@@ -663,8 +739,7 @@
           white-space: normal;
         }
 
-        .two-col,
-        .award-list {
+        .two-col {
           grid-template-columns: 1fr;
         }
 
@@ -763,15 +838,35 @@
 
   <body>
     <main class="page">
+      <div class="language-switch" aria-label="Language switch">
+        <button type="button" data-language-button="zh" aria-pressed="true">
+          中文
+        </button>
+        <span aria-hidden="true">|</span>
+        <button type="button" data-language-button="en" aria-pressed="false">
+          English
+        </button>
+      </div>
       <header>
         <div>
-          <h1 class="name">张若涵</h1>
-          <p class="title">博士研究生 (在读)</p>
-          <p class="title">研究方向: 托卡马克等离子体的快速高保真集成建模</p>
+          <h1 class="name" data-i18n="name">张若涵</h1>
+          <p class="title" data-i18n="role">博士研究生</p>
+          <p class="title title-line" data-i18n-html="majorLine">
+            <span class="title-label">专业:</span
+            ><span class="title-value">等离子体物理</span>
+          </p>
+          <p class="title title-line" data-i18n-html="affiliationLine">
+            <span class="title-label">单位:</span
+            ><span class="title-value">大连理工大学物理学院</span>
+          </p>
         </div>
-        <address class="contact" aria-label="联系方式">
+        <address
+          class="contact"
+          aria-label="联系方式"
+          data-i18n-aria-label="contactAria"
+        >
           <div class="contact-row">
-            <span class="contact-label">主页</span>
+            <span class="contact-label" data-i18n="linksLabel">链接</span>
             <span class="contact-value"
               ><a href="https://orcid.org/0009-0008-8686-1122">ORCID</a> /
               <a href="https://zhangtakeda.github.io/">GitHub</a></span
@@ -779,18 +874,10 @@
           </div>
 
           <div class="contact-row">
-            <span class="contact-label">单位</span>
-            <span class="contact-value">
-              <a href="https://physics.dlut.edu.cn/"
-                >大连理工大学物理学院</a
-              ></span
-            >
-          </div>
-
-          <div class="contact-row">
-            <span class="contact-label">邮箱</span>
+            <span class="contact-label" data-i18n="emailLabel">邮箱</span>
             <span class="contact-value"
               ><a href="mailto:zhangtakeda@gmail.com">zhangtakeda@gmail.com</a>
+              /
               <a href="mailto:rhzhang@mail.dlut.edu.cn"
                 >rhzhang@mail.dlut.edu.cn</a
               >
@@ -799,61 +886,81 @@
         </address>
       </header>
 
-      <nav class="toc" aria-label="页面索引">
+      <nav class="toc" aria-label="页面索引" data-i18n-aria-label="tocAria">
         <ol class="toc-list">
-          <li><a href="#profile">个人简介</a></li>
-          <li><a href="#education">教育经历</a></li>
-          <li><a href="#publications">科研论文</a></li>
-          <li><a href="#conferences">学术会议</a></li>
-          <li><a href="#honors">获得荣誉</a></li>
+          <li><a href="#profile" data-i18n="navProfile">个人简介</a></li>
+          <li><a href="#education" data-i18n="navEducation">教育经历</a></li>
+          <li>
+            <a href="#publications" data-i18n="navPublications">论文发表</a>
+          </li>
+          <li>
+            <a href="#conferences" data-i18n="navConferences">会议报告</a>
+          </li>
+          <li><a href="#honors" data-i18n="navHonors">获得荣誉</a></li>
         </ol>
       </nav>
 
       <section id="profile">
         <div class="section-head">
-          <h2>个人简介</h2>
+          <h2 data-i18n="sectionProfile">个人简介</h2>
         </div>
-        <div class="summary">
-          本人主要从事托卡马克等离子体的快速高保真集成建模,
-          围绕聚变等离子体平衡和输运过程,
-          以及耦合集成建模开展数值模拟与算法研究. 对于 Python 和 C++
-          的高性能计算项目开发具有一定的经验, 熟悉常用的数值算法和科学计算库.
-          指导教师为大连理工大学的王正汹和王丰二位教授,
-          同时与谢华生博士交流并在其指导下进行开发工作.
+        <div class="summary profile-summary" data-i18n-html="profileSummary">
+          <p>
+            大连理工大学等离子体物理在读博士,
+            重点关注聚变等离子体平衡、输运及其耦合建模中的数值算法与科学计算方法.
+            具备 Python 与 C++ 科学计算程序开发经验,
+            熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授,
+            并与谢华生博士合作开展相关算法与代码开发工作.
+          </p>
+          <div>
+            <strong>研究方向</strong>:
+            <ul class="research-list">
+              <li>托卡马克等离子体的快速高保真集成建模</li>
+              <li>聚变等离子体平衡与输运耦合建模</li>
+              <li>计算物理学和数值算法</li>
+            </ul>
+          </div>
         </div>
       </section>
 
       <section id="education">
         <div class="section-head">
-          <h2>教育经历</h2>
+          <h2 data-i18n="sectionEducation">教育经历</h2>
         </div>
         <div class="item">
           <div class="item-head">
-            <h3>博士研究生</h3>
-            <span class="time">大连理工大学 | 2023.09 -- 现在</span>
+            <h3 data-i18n="phdTitle">博士研究生</h3>
+            <span class="time" data-i18n-html="phdTime"
+              >大连理工大学 | 2023.09 &ndash; 至今</span
+            >
           </div>
-          <p class="meta">
-            <strong>专业</strong>: 等离子体物理 | <strong>导师</strong>:
-            王正汹教授, 王丰教授
+          <p class="meta" data-i18n-html="phdMeta">
+            <strong>专业</strong>: 等离子体物理<br />
+            <strong>导师</strong>: 王正汹教授, 王丰教授
           </p>
         </div>
 
         <div class="item">
           <div class="item-head">
-            <h3>本科</h3>
-            <span class="time">大连理工大学 | 2019.09 -- 2023.06</span>
+            <h3 data-i18n="bachelorTitle">理学学士</h3>
+            <span class="time" data-i18n-html="bachelorTime"
+              >大连理工大学 | 2019.09 &ndash; 2023.06</span
+            >
           </div>
-          <p class="meta"><strong>专业</strong>: 应用物理学</p>
+          <p class="meta" data-i18n-html="bachelorMeta">
+            <strong>专业</strong>: 应用物理学
+          </p>
         </div>
       </section>
 
       <section id="publications">
         <div class="section-head">
-          <h2>科研论文</h2>
+          <h2 data-i18n="sectionPublications">论文发表</h2>
           <ol
             class="heading-index"
             data-card-selector=".paper-card"
-            aria-label="科研论文索引"
+            aria-label="论文发表索引"
+            data-i18n-aria-label="pubIndexAria"
           ></ol>
         </div>
         <div class="paper-grid">
@@ -873,7 +980,7 @@
               <em>Journal of Computational Physics</em>.
             </p>
             <div class="tag-list" aria-label="Paper tags">
-              <span class="tag">To Be Submitted</span>
+              <span class="tag">In Preparation</span>
             </div>
             <p class="venue summary-text">
               Veloce and Variational EQuilibrium (VEQ) is a compact weak-form
@@ -912,12 +1019,12 @@
               post-processing or higher-fidelity solves.
             </p>
             <div class="link-list" aria-label="论文链接">
-              <a href="https://arxiv.org/abs/2301.00000">arXiv</a>
+              <a href="https://zhangtakeda.github.io">arXiv (in preparation)</a>
             </div>
             <div class="media-grid">
               <figure>
                 <img
-                  src="/2026-VEQ/1.png"
+                  src="2026-VEQ/1.png"
                   alt="求解时间、参数规模与重构误差对比"
                 />
                 <figcaption>
@@ -926,7 +1033,7 @@
                 </figcaption>
               </figure>
               <figure>
-                <img src="/2026-VEQ/2.png" alt="残差分布和剖面误差结果" />
+                <img src="2026-VEQ/2.png" alt="残差分布和剖面误差结果" />
                 <figcaption>
                   Accuracy--cost Pareto analysis for reduced VEQ configurations.
                 </figcaption>
@@ -989,11 +1096,12 @@
 
       <section id="conferences">
         <div class="section-head">
-          <h2>学术会议</h2>
+          <h2 data-i18n="sectionConferences">会议报告</h2>
           <ol
             class="heading-index"
             data-card-selector=".conference-card"
-            aria-label="学术会议索引"
+            aria-label="会议报告索引"
+            data-i18n-aria-label="confIndexAria"
           ></ol>
         </div>
         <div class="conference-grid">
@@ -1037,7 +1145,7 @@
               本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效、可靠替代方案.
             </p>
             <div class="link-list" aria-label="论文链接">
-              <a href="/oral/2026.04.pdf">Oral</a>
+              <a href="oral/2026.04.pdf">Oral</a>
             </div>
           </article>
 
@@ -1074,7 +1182,7 @@
               未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.
             </p>
             <div class="link-list" aria-label="论文链接">
-              <a href="/poster/2025.11.pdf">Poster</a>
+              <a href="poster/2025.11.pdf">Poster</a>
             </div>
           </article>
 
@@ -1111,7 +1219,7 @@
               未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.
             </p>
             <div class="link-list" aria-label="论文链接">
-              <a href="/poster/2025.05.pdf">Poster</a>
+              <a href="poster/2025.05.pdf">Poster</a>
             </div>
           </article>
 
@@ -1151,7 +1259,7 @@
               (如 TGLF), 以扩展其功能和应用范围.
             </p>
             <div class="link-list" aria-label="论文链接">
-              <a href="/poster/2024.08.pdf">Poster</a>
+              <a href="poster/2024.08.pdf">Poster</a>
             </div>
           </article>
         </div>
@@ -1159,44 +1267,34 @@
 
       <section id="honors">
         <div class="section-head">
-          <h2>获得荣誉</h2>
+          <h2 data-i18n="sectionHonors">获得荣誉</h2>
         </div>
         <div class="award-list">
           <article class="award-card">
             <div class="award-title">
-              <h3>国家奖学金 / 学业奖学金</h3>
-              <span class="award-years">20XX、20XX</span>
+              <h3>竞赛获奖</h3>
             </div>
             <p class="award-meta">
-              授予单位: XX大学 / 教育部 / 学院. 可填写奖项级别、排名或获奖比例.
+              2025年“华为杯”第二十二届中国研究生数学建模: 国家三等奖
+            </p>
+            <p class="award-meta">
+              2024年“挑战杯”第十四届中国大学生创业计划竞赛: 国赛铜奖, 省赛金奖
             </p>
           </article>
-
           <article class="award-card">
             <div class="award-title">
-              <h3>优秀研究生 / 优秀学生干部</h3>
-              <span class="award-years">20XX</span>
-            </div>
-            <p class="award-meta">授予单位: XX大学 / XX学院.</p>
-          </article>
-
-          <article class="award-card">
-            <div class="award-title">
-              <h3>优秀论文 / 最佳报告奖</h3>
-              <span class="award-years">20XX</span>
+              <h3>学业获奖</h3>
             </div>
             <p class="award-meta">
-              授予单位: 会议名称 / 学术组织. 可填写获奖论文或报告题目.
+              2025年大连理工大学新奥成才奖学金: 博士奖学金 B 类
             </p>
-          </article>
-
-          <article class="award-card">
-            <div class="award-title">
-              <h3>其他荣誉</h3>
-              <span class="award-years">20XX–20XX</span>
-            </div>
             <p class="award-meta">
-              新奥奖学金, 菲沃泰奖学金, 优秀研究生, 华为杯, 挑战杯
+              2024年大连理工大学新奥成才奖学金: 硕士一等奖学金
+            </p>
+            <p class="award-meta">2024年大连理工大学菲沃泰奖学金</p>
+            <p class="award-meta">2024 年大连理工大学优秀研究生</p>
+            <p class="award-meta">
+              2023年大连理工大学新奥成才奖学金: 硕士一等奖学金
             </p>
           </article>
         </div>
@@ -1204,6 +1302,187 @@
     </main>
     <script>
       const MAX_MEDIA_ROW_WIDTH = 7500;
+
+      const TRANSLATIONS = {
+        zh: {
+          documentTitle: "Academic CV",
+          name: "张若涵",
+          role: "博士研究生",
+          majorLine:
+            '<span class="title-label">专业:</span><span class="title-value">等离子体物理</span>',
+          affiliationLine:
+            '<span class="title-label">单位:</span><span class="title-value">大连理工大学物理学院</span>',
+          contactAria: "联系方式",
+          linksLabel: "链接",
+          emailLabel: "邮箱",
+          tocAria: "页面索引",
+          navProfile: "个人简介",
+          navEducation: "教育经历",
+          navPublications: "论文发表",
+          navConferences: "会议报告",
+          navHonors: "获得荣誉",
+          sectionProfile: "个人简介",
+          sectionEducation: "教育经历",
+          sectionPublications: "论文发表",
+          sectionConferences: "会议报告",
+          sectionHonors: "获得荣誉",
+          pubIndexAria: "论文发表索引",
+          confIndexAria: "会议报告索引",
+          profileSummary:
+            '<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡、输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p><div><strong>研究方向</strong>:<ul class="research-list"><li>托卡马克等离子体的快速高保真集成建模</li><li>聚变等离子体的平衡与输运</li><li>计算物理学和数值算法</li></ul></div>',
+          phdTitle: "博士研究生",
+          phdTime: "大连理工大学 | 2023.09 &ndash; 至今",
+          phdMeta:
+            "<strong>专业</strong>: 等离子体物理<br /><strong>导师</strong>: 王正汹教授, 王丰教授",
+          bachelorTitle: "理学学士",
+          bachelorTime: "大连理工大学 | 2019.09 &ndash; 2023.06",
+          bachelorMeta: "<strong>专业</strong>: 应用物理学",
+          awardCompetitionTitle: "竞赛获奖",
+          awardCompetition2025: "2025年第二十二届“华为杯”国家三等奖",
+          awardCompetition2024: "2024年第十四届“挑战杯”国赛铜奖, 省赛金奖",
+          ennTitle: "新奥成才奖学金",
+          enn2025: "2025年大连理工大学新奥成才奖学金: 博士奖学金 B 类",
+          enn2024: "2024年大连理工大学新奥成才奖学金: 硕士一等奖学金",
+          enn2023: "2023年大连理工大学新奥成才奖学金: 硕士一等奖学金",
+          excellentGraduateTitle: "优秀研究生",
+          excellentGraduate2024: "2024 年大连理工大学优秀研究生",
+          favoredTitle: "菲沃泰奖学金",
+          favored2024: "2024年大连理工大学菲沃泰奖学金",
+          imageDialogLabel: "原图预览",
+          closeImageLabel: "关闭原图预览",
+          imageFallback: "图片",
+          openImageHint: "点击查看原图",
+          imagePreviewFallback: "原图预览",
+          showMore: "... 展开",
+          showLess: "收起",
+        },
+        en: {
+          documentTitle: "Academic CV",
+          name: "Ruohan Zhang",
+          role: "Ph.D. Student",
+          majorLine:
+            '<span class="title-label">Major:</span><span class="title-value">Plasma Physics</span>',
+          affiliationLine:
+            '<span class="title-label">Affiliation:</span><span class="title-value">School of Physics, Dalian University of Technology</span>',
+          contactAria: "Contact information",
+          linksLabel: "Links",
+          emailLabel: "Email",
+          tocAria: "Page navigation",
+          navProfile: "Profile",
+          navEducation: "Education",
+          navPublications: "Publications",
+          navConferences: "Conferences",
+          navHonors: "Honors",
+          sectionProfile: "Profile",
+          sectionEducation: "Education",
+          sectionPublications: "Publications",
+          sectionConferences: "Conferences",
+          sectionHonors: "Honors",
+          pubIndexAria: "Publication index",
+          confIndexAria: "Conference presentation index",
+          profileSummary:
+            '<p>I am a Ph.D. student in plasma physics at Dalian University of Technology. My work focuses on numerical algorithms and scientific-computing methods for fusion-plasma equilibrium, transport, and coupled modeling. I have experience developing scientific-computing codes in Python and C++, and I am familiar with numerical optimization and high-performance-computing implementations. I am advised by Prof. Zhengxiong Wang and Prof. Feng Wang, and collaborate with Dr. Huasheng Xie on related algorithm and code development.</p><div><strong>Research Focus</strong>:<ul class="research-list"><li>Fast, high-fidelity integrated modeling for tokamak plasmas</li><li>Coupled modeling of fusion-plasma equilibrium and transport</li><li>Computational physics and numerical algorithms</li></ul></div>',
+          phdTitle: "Ph.D. Student",
+          phdTime: "Dalian University of Technology | 2023.09 &ndash; Present",
+          phdMeta:
+            "<strong>Major</strong>: Plasma Physics<br /><strong>Advisors</strong>: Prof. Zhengxiong Wang, Prof. Feng Wang",
+          bachelorTitle: "B.Sc.",
+          bachelorTime:
+            "Dalian University of Technology | 2019.09 &ndash; 2023.06",
+          bachelorMeta: "<strong>Major</strong>: Applied Physics",
+          imageDialogLabel: "Full-size image preview",
+          closeImageLabel: "Close full-size image preview",
+          imageFallback: "Image",
+          openImageHint: "click to view full-size image",
+          imagePreviewFallback: "Full-size image preview",
+          showMore: "... Show more",
+          showLess: "Show less",
+        },
+      };
+
+      const normalizeLanguage = (language) => (language === "en" ? "en" : "zh");
+
+      let currentLanguage = normalizeLanguage(
+        localStorage.getItem("cvLanguage"),
+      );
+
+      const textFor = (key) =>
+        TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS.zh[key] ?? key;
+
+      const updateSummaryToggleLabels = () => {
+        document.querySelectorAll(".venue-toggle").forEach((toggle) => {
+          toggle.textContent =
+            toggle.getAttribute("aria-expanded") === "true"
+              ? textFor("showLess")
+              : textFor("showMore");
+        });
+      };
+
+      const updateImageButtonLabels = () => {
+        document.querySelectorAll(".media-grid img").forEach((thumbnail) => {
+          thumbnail.setAttribute(
+            "aria-label",
+            `${thumbnail.alt || textFor("imageFallback")}, ${textFor(
+              "openImageHint",
+            )}`,
+          );
+        });
+      };
+
+      const applyLanguage = (language) => {
+        currentLanguage = normalizeLanguage(language);
+        document.documentElement.lang =
+          currentLanguage === "zh" ? "zh-CN" : "en";
+        document.title = textFor("documentTitle");
+        localStorage.setItem("cvLanguage", currentLanguage);
+
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          element.textContent = textFor(element.dataset.i18n);
+        });
+
+        document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+          element.innerHTML = textFor(element.dataset.i18nHtml);
+        });
+
+        document
+          .querySelectorAll("[data-i18n-aria-label]")
+          .forEach((element) => {
+            element.setAttribute(
+              "aria-label",
+              textFor(element.dataset.i18nAriaLabel),
+            );
+          });
+
+        document
+          .querySelectorAll("[data-language-button]")
+          .forEach((button) => {
+            button.setAttribute(
+              "aria-pressed",
+              String(button.dataset.languageButton === currentLanguage),
+            );
+          });
+
+        const lightbox = document.getElementById("image-lightbox");
+        if (lightbox)
+          lightbox.setAttribute("aria-label", textFor("imageDialogLabel"));
+        const closeButton = lightbox?.querySelector(".image-lightbox-close");
+        if (closeButton) {
+          closeButton.setAttribute("aria-label", textFor("closeImageLabel"));
+        }
+
+        updateSummaryToggleLabels();
+        updateImageButtonLabels();
+      };
+
+      const setupLanguageSwitch = () => {
+        document
+          .querySelectorAll("[data-language-button]")
+          .forEach((button) => {
+            button.addEventListener("click", () => {
+              applyLanguage(button.dataset.languageButton);
+            });
+          });
+      };
 
       const whenImageReady = (img) =>
         img.complete && img.naturalWidth
@@ -1275,13 +1554,13 @@
         lightbox.hidden = true;
         lightbox.setAttribute("role", "dialog");
         lightbox.setAttribute("aria-modal", "true");
-        lightbox.setAttribute("aria-label", "原图预览");
+        lightbox.setAttribute("aria-label", textFor("imageDialogLabel"));
 
         image.className = "image-lightbox-img";
         caption.className = "image-lightbox-caption";
         closeButton.type = "button";
         closeButton.className = "image-lightbox-close";
-        closeButton.setAttribute("aria-label", "关闭原图预览");
+        closeButton.setAttribute("aria-label", textFor("closeImageLabel"));
         closeButton.textContent = "×";
 
         lightbox.append(image, caption, closeButton);
@@ -1302,7 +1581,8 @@
             ?.textContent.trim();
 
           image.src = thumbnail.currentSrc || thumbnail.src;
-          image.alt = thumbnail.alt || figureCaption || "原图预览";
+          image.alt =
+            thumbnail.alt || figureCaption || textFor("imagePreviewFallback");
           caption.textContent = figureCaption || thumbnail.alt || "";
           lightbox.hidden = false;
           document.body.classList.add("is-lightbox-open");
@@ -1322,7 +1602,7 @@
           thumbnail.setAttribute("role", "button");
           thumbnail.setAttribute(
             "aria-label",
-            `${thumbnail.alt || "图片"}, 点击查看原图`,
+            `${thumbnail.alt || textFor("imageFallback")}, ${textFor("openImageHint")}`,
           );
           thumbnail.addEventListener("click", () => openLightbox(thumbnail));
           thumbnail.addEventListener("keydown", (event) => {
@@ -1334,6 +1614,7 @@
         });
       };
 
+      setupLanguageSwitch();
       setupImageLightbox();
 
       const slugify = (text) =>
@@ -1417,7 +1698,7 @@
         const renderCollapsed = () => {
           summary.classList.add("is-collapsed", "is-collapsible");
           textSpan.textContent = collapsedText;
-          toggle.textContent = "... Show more";
+          toggle.textContent = textFor("showMore");
           toggle.setAttribute("aria-expanded", "false");
           typesetMath(summary);
         };
@@ -1425,7 +1706,7 @@
         const renderExpanded = () => {
           summary.classList.remove("is-collapsed");
           textSpan.textContent = original;
-          toggle.textContent = "Show less";
+          toggle.textContent = textFor("showLess");
           toggle.setAttribute("aria-expanded", "true");
           typesetMath(summary);
         };
@@ -1445,6 +1726,8 @@
           ".paper-card .summary-text, .conference-card .summary-text",
         )
         .forEach(collapseSummary);
+
+      applyLanguage(currentLanguage);
     </script>
   </body>
 </html>
