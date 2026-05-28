@@ -249,6 +249,11 @@
         letter-spacing: 0.14em;
         color: var(--accent);
         font-weight: 700;
+        white-space: nowrap;
+      }
+
+      html[lang="en"] .name {
+        letter-spacing: 0.08em;
       }
 
       .title {
@@ -1346,6 +1351,11 @@
 
         .contact {
           width: 100%;
+        }
+
+        html[lang="en"] .name {
+          font-size: clamp(30px, 9.6vw, 38px);
+          letter-spacing: 0.06em;
         }
 
         .toc {
