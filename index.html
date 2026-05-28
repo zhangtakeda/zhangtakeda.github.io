@@ -237,18 +237,37 @@
         scroll-margin-top: 84px;
       }
 
-      section.reveal-target {
+      section.reveal-target,
+      .section-head.reveal-target,
+      .profile-summary.reveal-target,
+      .timeline.reveal-target,
+      .paper-grid.reveal-target,
+      .conference-grid.reveal-target,
+      .award-list.reveal-target {
         transition:
           opacity 0.58s var(--ease-out),
           transform 0.58s var(--ease-out);
+        transition-delay: var(--reveal-delay, 0ms);
       }
 
-      section.reveal-target:not(.is-visible) {
+      section.reveal-target:not(.is-visible),
+      .section-head.reveal-target:not(.is-visible),
+      .profile-summary.reveal-target:not(.is-visible),
+      .timeline.reveal-target:not(.is-visible),
+      .paper-grid.reveal-target:not(.is-visible),
+      .conference-grid.reveal-target:not(.is-visible),
+      .award-list.reveal-target:not(.is-visible) {
         opacity: 0;
         transform: translateY(18px);
       }
 
-      section.reveal-target.is-visible {
+      section.reveal-target.is-visible,
+      .section-head.reveal-target.is-visible,
+      .profile-summary.reveal-target.is-visible,
+      .timeline.reveal-target.is-visible,
+      .paper-grid.reveal-target.is-visible,
+      .conference-grid.reveal-target.is-visible,
+      .award-list.reveal-target.is-visible {
         opacity: 1;
       }
 
@@ -746,6 +765,17 @@
         color: var(--text);
         font-size: 17px;
         line-height: 1.5;
+        transition:
+          color 0.22s ease,
+          transform 0.22s var(--ease-out);
+      }
+
+      .paper-card:hover .paper-title,
+      .paper-card:focus-within .paper-title,
+      .conference-card:hover .conference-title,
+      .conference-card:focus-within .conference-title {
+        color: var(--accent);
+        transform: translateY(-1px);
       }
 
       .authors,
@@ -764,11 +794,25 @@
       }
 
       .venue.is-collapsible {
-        transition: color 0.2s ease;
+        transition:
+          color 0.2s ease,
+          height 0.34s var(--ease-out),
+          opacity 0.2s ease,
+          transform 0.2s var(--ease-out);
       }
 
       .venue.is-collapsed {
-        overflow: visible;
+        overflow: hidden;
+      }
+
+      .venue.is-summary-animating {
+        overflow: hidden;
+        will-change: height, opacity, transform;
+      }
+
+      .venue.is-summary-fading {
+        opacity: 0.62;
+        transform: translateY(1px);
       }
 
       .venue-toggle {
@@ -794,33 +838,67 @@
         transform: translateX(1px);
       }
 
+      .venue-toggle:disabled {
+        cursor: default;
+        opacity: 0.72;
+        text-decoration: none;
+        transform: none;
+      }
+
       .link-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 12px;
+        gap: 6px;
+        margin-top: 11px;
       }
 
       .link-list a {
         display: inline-flex;
         align-items: center;
-        min-height: 28px;
-        padding: 2px 10px;
+        gap: 4px;
+        min-height: 24px;
+        padding: 1px 8px;
         border: 1px solid var(--line);
-        background: var(--accent-soft);
+        background: transparent;
         color: var(--accent);
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
+        letter-spacing: 0.04em;
+        line-height: 1.4;
+      }
+
+      .link-list a::after {
+        content: "↗";
+        color: var(--accent-hairline);
+        font-size: 11px;
+        line-height: 1;
+        transition:
+          color 0.18s ease,
+          transform 0.18s var(--ease-out);
       }
 
       .link-list a:hover,
       .link-list a:focus-visible {
-        background: #ebe5d6;
+        background: rgba(243, 239, 229, 0.72);
         border-color: var(--accent-hairline);
-        box-shadow: 0 8px 18px rgba(41, 35, 24, 0.11);
+        box-shadow: 0 5px 12px rgba(41, 35, 24, 0.08);
         outline: none;
         text-decoration: none;
-        transform: translateY(-2px);
+        transform: translateY(-1px);
+      }
+
+      .link-list a:hover::after,
+      .link-list a:focus-visible::after {
+        color: var(--accent);
+        transform: translate(1px, -1px);
+      }
+
+      .paper-card:hover .link-list a,
+      .paper-card:focus-within .link-list a,
+      .conference-card:hover .link-list a,
+      .conference-card:focus-within .link-list a {
+        border-color: rgba(180, 154, 102, 0.74);
+        box-shadow: 0 5px 12px rgba(41, 35, 24, 0.07);
       }
 
       .media-grid {
@@ -865,6 +943,14 @@
         margin: 0;
         padding: 0 12px;
         background: #ffffff;
+        transition: transform 0.2s var(--ease-out);
+      }
+
+      .media-row figure:hover,
+      .media-grid > figure:hover,
+      .media-row figure:focus-within,
+      .media-grid > figure:focus-within {
+        transform: translateY(-1px);
       }
 
       .media-row figure:first-child,
@@ -904,7 +990,7 @@
         border-color: var(--accent-hairline);
         box-shadow: 0 8px 18px rgba(48, 42, 32, 0.12);
         outline: none;
-        transform: translateY(-1px);
+        transform: scale(0.997);
       }
 
       body.is-lightbox-open {
@@ -978,35 +1064,68 @@
         font-size: 12px;
         line-height: 1.5;
         text-align: center;
+        transition:
+          color 0.2s ease,
+          transform 0.2s var(--ease-out);
+      }
+
+      .media-row figure:hover figcaption,
+      .media-grid > figure:hover figcaption,
+      .media-row figure:focus-within figcaption,
+      .media-grid > figure:focus-within figcaption {
+        color: var(--accent);
+        transform: translateY(-1px);
       }
 
       .award-list {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 10px;
       }
 
       .award-card {
-        padding: 14px 16px 14px 18px;
+        display: grid;
+        grid-template-columns: minmax(5.8em, max-content) minmax(0, 1fr);
+        gap: 10px 12px;
+        align-items: start;
+        padding: 15px 18px 15px 20px;
       }
 
       .award-title {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 10px;
-        align-items: baseline;
-        margin-bottom: 4px;
+        margin: 0;
+        padding-right: 12px;
+        border-right: 1px solid var(--line-soft);
       }
 
-      .award-years {
+      .award-title h3 {
         color: var(--accent);
-        font-size: 13px;
-        font-weight: 700;
       }
 
-      .award-meta {
+      .award-items {
+        display: grid;
+        gap: 7px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .award-items li {
+        position: relative;
+        margin: 0;
+        padding-left: 14px;
         color: var(--muted);
         font-size: 14px;
+      }
+
+      .award-items li::before {
+        content: "";
+        position: absolute;
+        top: 0.72em;
+        left: 0;
+        width: 4px;
+        height: 4px;
+        border-radius: 999px;
+        background: var(--accent-hairline);
       }
 
       .tag-list {
@@ -1213,6 +1332,18 @@
           padding-left: 0;
         }
 
+        .award-card {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .award-title {
+          padding-right: 0;
+          padding-bottom: 5px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line-soft);
+        }
+
         .heading-index li + li::before {
           margin: 0 8px;
         }
@@ -1235,6 +1366,12 @@
         }
 
         section.reveal-target,
+        .section-head.reveal-target,
+        .profile-summary.reveal-target,
+        .timeline.reveal-target,
+        .paper-grid.reveal-target,
+        .conference-grid.reveal-target,
+        .award-list.reveal-target,
         .paper-card.reveal-target,
         .conference-card.reveal-target,
         .award-card.reveal-target,
@@ -1369,10 +1506,10 @@
         </div>
         <div class="summary profile-summary" data-i18n-html="profileSummary">
           <p>
-            大连理工大学等离子体物理在读博士,
-            重点关注聚变等离子体平衡、输运及其耦合建模中的数值算法与科学计算方法.
-            具备 Python 与 C++ 科学计算程序开发经验,
-            熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授,
+            大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡,
+            输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++
+            科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现.
+            师从王正汹教授和王丰教授,
             并与谢华生博士合作开展相关算法与代码开发工作.
           </p>
           <div>
@@ -1593,10 +1730,10 @@
             <p class="venue summary-text">
               在托卡马克集成模拟及等离子体实时控制中,
               快速且高精度的Grad-Shafranov方程求解是不可或缺的基础环节. 然而,
-              面对多约束输入、反复迭代与参数扫描等场景, 传统的三矩平衡程序
-              (如METIS和ASTRA)
-              在计算速度、收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性.
-              为此, 本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为VEQ
+              面对多约束输入, 反复迭代与参数扫描等场景, 传统的三矩平衡程序
+              (如METIS和ASTRA) 在计算速度,
+              收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性. 为此,
+              本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为VEQ
               (Veloce/Variational EQuilibrium) 项目的固定边界求解组件,
               可实现系统程序 (system code) 级别的快速求解.
               该程序参考MXH-Cheb[1]参数化方法,
@@ -1604,14 +1741,16 @@
               能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上, veqpy
               提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略,
               以“数据-算子-求解器”为抽象架构实现了多种算子,
-              支持包括环向电流密度、平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入,
-              实现了对多种物理约束 (等离子体总电流、环向比压) 的稳健收敛. 此外,
+              支持包括环向电流密度,
+              平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入,
+              实现了对多种物理约束 (等离子体总电流, 环向比压) 的稳健收敛. 此外,
               模块内置的冷/热启动基准算例涵盖整个算子族,
               为代码的回归测试与在物理上的一致性验证提供了完整支撑.
               基准测试表明, 与高保真平衡程序相比, veqpy
               计算的磁面几何参数与物理场量计算误差可被严格控制在1 mm以内 ,
               同时能够在CPU上于1~100 ms量级实现单线程平衡求解.
-              本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效、可靠替代方案.
+              本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效,
+              可靠替代方案.
             </p>
             <div class="link-list" aria-label="论文链接">
               <a href="oral/2026.04.pdf">Oral</a>
@@ -1631,8 +1770,8 @@
               <strong>张若涵</strong>, 徐亚楠, 王丰, 王正汹*
             </p>
             <p class="conference-meta">
-              第二届“磁约束等离子体运行模式和集成模拟”研讨会 | 2025.11 |
-              广东深圳, 中国 | 墙报展示
+              第二届磁约束等离子体运行模式和集成模拟研讨会 | 2025.11 | 广东深圳,
+              中国 | 墙报展示
             </p>
             <p class="venue summary-text">
               集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具,
@@ -1705,8 +1844,8 @@
               <strong>张若涵</strong>, 李纯东, 王丰, 王正汹*
             </p>
             <p class="conference-meta">
-              第一届“磁约束等离子体运行模式和集成模拟”研讨会 | 2024.08 |
-              四川成都, 中国 | 墙报展示
+              第一届磁约束等离子体运行模式和集成模拟研讨会 | 2024.08 | 四川成都,
+              中国 | 墙报展示
             </p>
             <p class="venue summary-text">
               输运模块是托卡马克集成模拟计算中最基本的部分之一,
@@ -1715,17 +1854,18 @@
               (One-dimensional Transport Computing module for integrated tokamak
               modeling), 并完成了基本的验证工作. OTC 目前能够同时计算新经典输运
               (neoclassical transport) 中多个剖面的演化,
-              包括各种主要离子和杂质离子的密度、电子和离子的温度以及电流密度.
+              包括各种主要离子和杂质离子的密度, 电子和离子的温度以及电流密度.
               OTC 基于 C++ 编写以实现高效率计算,
               并使用了适合求解任意多个变量的对流-扩散方程组的通用求解器,
               因此可以无限制地添加各种离子和杂质,
               设计上也可以进行其他输运模型的计算. 该模块内置了用户自定义的权重,
               可以通过接口在程序外部进行控制, 便于对输运系数或物理过程进行修正.
               未来, 我们计划将其打包并在 Python 环境中实现调用,
-              从而与集成模拟平台上的加热与电流驱动模块、平衡模块等模块进行工作流整合,
-              最后发展为完整的软件. 同时纳入更多物理过程, 并利用 ONETWO
-              等常用输运模块对 OTC 进行验证, 最终可能还会集成其他湍流输运模型
-              (如 TGLF), 以扩展其功能和应用范围.
+              从而与集成模拟平台上的加热与电流驱动模块,
+              平衡模块等模块进行工作流整合, 最后发展为完整的软件.
+              同时纳入更多物理过程, 并利用 ONETWO 等常用输运模块对 OTC 进行验证,
+              最终可能还会集成其他湍流输运模型 (如 TGLF),
+              以扩展其功能和应用范围.
             </p>
             <div class="link-list" aria-label="论文链接">
               <a href="poster/2024.08.pdf">Poster</a>
@@ -1743,28 +1883,24 @@
             <div class="award-title">
               <h3>竞赛获奖</h3>
             </div>
-            <p class="award-meta">
-              2025年“华为杯”第二十二届中国研究生数学建模: 国家三等奖
-            </p>
-            <p class="award-meta">
-              2024年“挑战杯”第十四届中国大学生创业计划竞赛: 国赛铜奖, 省赛金奖
-            </p>
+            <ul class="award-items">
+              <li>2025年“华为杯”第二十二届中国研究生数学建模: 国家三等奖</li>
+              <li>
+                2024年“挑战杯”第十四届中国大学生创业计划竞赛: 国赛铜奖, 省赛金奖
+              </li>
+            </ul>
           </article>
           <article class="award-card">
             <div class="award-title">
               <h3>学业获奖</h3>
             </div>
-            <p class="award-meta">
-              2025年大连理工大学新奥成才奖学金: 博士奖学金 B 类
-            </p>
-            <p class="award-meta">
-              2024年大连理工大学新奥成才奖学金: 硕士一等奖学金
-            </p>
-            <p class="award-meta">2024年大连理工大学菲沃泰奖学金</p>
-            <p class="award-meta">2024 年大连理工大学优秀研究生</p>
-            <p class="award-meta">
-              2023年大连理工大学新奥成才奖学金: 硕士一等奖学金
-            </p>
+            <ul class="award-items">
+              <li>2025年大连理工大学新奥成才奖学金: 博士奖学金 B 类</li>
+              <li>2024年大连理工大学新奥成才奖学金: 硕士一等奖学金</li>
+              <li>2024年大连理工大学菲沃泰奖学金</li>
+              <li>2024年大连理工大学优秀研究生</li>
+              <li>2023年大连理工大学新奥成才奖学金: 硕士一等奖学金</li>
+            </ul>
           </article>
         </div>
       </section>
@@ -1803,7 +1939,7 @@
           pubSubindexAria: "论文发表子索引",
           confSubindexAria: "会议报告子索引",
           profileSummary:
-            '<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡、输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p><div><strong>研究方向</strong>:<ul class="research-list"><li>托卡马克等离子体的快速高保真集成建模</li><li>聚变等离子体的平衡与输运</li><li>计算物理和数值算法</li></ul></div>',
+            '<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡, 输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p><div><strong>研究方向</strong>:<ul class="research-list"><li>托卡马克等离子体的快速高保真集成建模</li><li>聚变等离子体的平衡与输运</li><li>计算物理和数值算法</li></ul></div>',
           phdTitle: "博士研究生",
           phdTime: "大连理工大学 | 2023.09 &ndash; 至今",
           phdMeta:
@@ -1915,6 +2051,7 @@
             toggle.getAttribute("aria-expanded") === "true"
               ? textFor("showLess")
               : textFor("showMore");
+          syncSummaryHeight(toggle.closest(".venue.is-collapsible"));
         });
       };
 
@@ -2061,18 +2198,35 @@
       };
 
       const setupRevealEffects = () => {
-        const targets = Array.from(
-          document.querySelectorAll(
-            "section, .item, .paper-card, .conference-card, .award-card",
-          ),
-        );
-
-        targets.forEach((target, index) => {
+        const targets = [];
+        const addRevealTarget = (target, delay = 0) => {
+          if (!target || targets.includes(target)) return;
           target.classList.add("reveal-target");
-          target.style.setProperty(
-            "--reveal-delay",
-            `${Math.min((index % 5) * 42, 168)}ms`,
+          target.style.setProperty("--reveal-delay", `${delay}ms`);
+          targets.push(target);
+        };
+
+        document.querySelectorAll("section").forEach((section) => {
+          addRevealTarget(section, 0);
+
+          const head = section.querySelector(":scope > .section-head");
+          addRevealTarget(head, 40);
+
+          const directBlocks = section.querySelectorAll(
+            ":scope > .profile-summary, :scope > .timeline, :scope > .paper-grid, :scope > .conference-grid, :scope > .award-list",
           );
+
+          directBlocks.forEach((block, blockIndex) => {
+            addRevealTarget(block, 90 + blockIndex * 35);
+
+            block
+              .querySelectorAll(
+                ":scope > .item, :scope > .paper-card, :scope > .conference-card, :scope > .award-card",
+              )
+              .forEach((item, itemIndex) => {
+                addRevealTarget(item, 135 + itemIndex * 55);
+              });
+          });
         });
 
         if (
@@ -2293,10 +2447,85 @@
 
       const typesetMath = (element) => {
         if (window.MathJax?.typesetPromise) {
-          window.MathJax.typesetPromise([element]).catch((error) => {
+          return window.MathJax.typesetPromise([element]).catch((error) => {
             console.warn("MathJax typesetting failed:", error);
           });
         }
+        return Promise.resolve();
+      };
+
+      const nextFrame = () =>
+        new Promise((resolve) => requestAnimationFrame(resolve));
+
+      const measureNaturalSummaryHeight = (summary) => {
+        const previousHeight = summary.style.height;
+        summary.style.height = "auto";
+        const height = Math.ceil(summary.getBoundingClientRect().height);
+        summary.style.height = previousHeight;
+        return height;
+      };
+
+      const syncSummaryHeight = (summary) => {
+        if (
+          !summary ||
+          !summary.classList.contains("is-collapsible") ||
+          summary.classList.contains("is-summary-animating") ||
+          !summary.style.height
+        ) {
+          return;
+        }
+
+        summary.style.height = `${measureNaturalSummaryHeight(summary)}px`;
+      };
+
+      const syncAllSummaryHeights = () => {
+        document
+          .querySelectorAll(".venue.is-collapsible")
+          .forEach(syncSummaryHeight);
+      };
+
+      const animateSummaryRender = async (summary, render) => {
+        if (summary.classList.contains("is-summary-animating")) return;
+
+        const toggle = summary.querySelector(".venue-toggle");
+        if (toggle) toggle.disabled = true;
+
+        if (prefersReducedMotion.matches) {
+          await render();
+          if (toggle) toggle.disabled = false;
+          return;
+        }
+
+        const startHeight = summary.getBoundingClientRect().height;
+        summary.style.height = `${startHeight}px`;
+        summary.classList.add("is-summary-animating", "is-summary-fading");
+
+        await nextFrame();
+        await render();
+
+        const targetHeight = measureNaturalSummaryHeight(summary);
+        summary.style.height = `${startHeight}px`;
+        summary.offsetHeight;
+        summary.style.height = `${targetHeight}px`;
+        await nextFrame();
+        summary.classList.remove("is-summary-fading");
+
+        let cleanedUp = false;
+        const cleanup = () => {
+          if (cleanedUp) return;
+          cleanedUp = true;
+          summary.classList.remove("is-summary-animating");
+          summary.style.height = `${targetHeight}px`;
+          if (toggle) toggle.disabled = false;
+          summary.removeEventListener("transitionend", handleTransitionEnd);
+        };
+
+        const handleTransitionEnd = (event) => {
+          if (event.propertyName === "height") cleanup();
+        };
+
+        summary.addEventListener("transitionend", handleTransitionEnd);
+        window.setTimeout(cleanup, 460);
       };
 
       const collapseSummary = (summary) => {
@@ -2324,7 +2553,7 @@
           textSpan.textContent = collapsedText;
           toggle.textContent = textFor("showMore");
           toggle.setAttribute("aria-expanded", "false");
-          typesetMath(summary);
+          return typesetMath(summary);
         };
 
         const renderExpanded = () => {
@@ -2332,15 +2561,15 @@
           textSpan.textContent = original;
           toggle.textContent = textFor("showLess");
           toggle.setAttribute("aria-expanded", "true");
-          typesetMath(summary);
+          return typesetMath(summary);
         };
 
         renderCollapsed();
         toggle.addEventListener("click", () => {
           if (summary.classList.contains("is-collapsed")) {
-            renderExpanded();
+            animateSummaryRender(summary, renderExpanded);
           } else {
-            renderCollapsed();
+            animateSummaryRender(summary, renderCollapsed);
           }
         });
       };
@@ -2350,6 +2579,10 @@
           ".paper-card .summary-text, .conference-card .summary-text",
         )
         .forEach(collapseSummary);
+
+      window.addEventListener("resize", () => {
+        requestAnimationFrame(syncAllSummaryHeights);
+      });
 
       applyLanguage(currentLanguage);
     </script>
