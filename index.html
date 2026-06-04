@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="gray">
+<html lang="en" data-theme="gray">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -1543,12 +1543,12 @@
     <main class="page">
       <div class="top-controls">
         <div class="language-switch" aria-label="Language switch">
-          <button type="button" data-language-button="zh" aria-pressed="true">
-            中文
+          <button type="button" data-language-button="en" aria-pressed="true">
+            English
           </button>
           <span aria-hidden="true">|</span>
-          <button type="button" data-language-button="en" aria-pressed="false">
-            English
+          <button type="button" data-language-button="zh" aria-pressed="false">
+            中文
           </button>
         </div>
         <div
@@ -2183,7 +2183,7 @@
         },
       };
 
-      const normalizeLanguage = (language) => (language === "en" ? "en" : "zh");
+      const normalizeLanguage = (language) => (language === "zh" ? "zh" : "en");
       const normalizeTheme = (theme) => {
         const legacyMap = {
           sun: "solarized",
@@ -2205,7 +2205,7 @@
       let currentTheme = normalizeTheme(localStorage.getItem("cvTheme"));
 
       const textFor = (key) =>
-        TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS.zh[key] ?? key;
+        TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS.en[key] ?? key;
 
       const applyTheme = (theme) => {
         currentTheme = normalizeTheme(theme);
