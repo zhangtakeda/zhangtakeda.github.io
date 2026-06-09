@@ -28,6 +28,298 @@
       defer
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
     ></script>
+    <script>
+      const CV_DATA = {
+        translations: {
+          zh: {
+            documentTitle: "Academic CV",
+            name: "张若涵",
+            role: "博士研究生",
+            majorLine:
+              '<span class="title-label">专业:</span><span class="title-value">等离子体物理</span>',
+            affiliationLine:
+              '<span class="title-label">单位:</span><span class="title-value">大连理工大学物理学院</span>',
+            contactAria: "联系方式",
+            themeAria: "页面主题",
+            themeSolarized: "Solarized",
+            themeLight: "Light",
+            themeGray: "Gray",
+            themeSage: "Sage",
+            tocAria: "页面索引",
+            navProfile: "个人简介",
+            navEducation: "教育经历",
+            navSoftware: "软件",
+            navPublications: "论文发表",
+            navConferences: "会议报告",
+            navHonors: "获得荣誉",
+            sectionProfile: "个人简介",
+            sectionEducation: "教育经历",
+            sectionSoftware: "软件",
+            sectionPublications: "论文发表",
+            sectionConferences: "会议报告",
+            sectionHonors: "获得荣誉",
+            pubIndexAria: "论文发表索引",
+            confIndexAria: "会议报告索引",
+            pubSubindexAria: "论文发表子索引",
+            confSubindexAria: "会议报告子索引",
+            profileSummary:
+              '<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡, 输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p><div><strong>研究方向</strong>:<ul class="research-list"><li>托卡马克等离子体的快速高保真集成建模</li><li>聚变等离子体的平衡与输运</li><li>计算物理和数值算法</li></ul></div>',
+            phdTitle: "博士研究生",
+            phdTime: "大连理工大学 | 2023.09 &ndash; 至今",
+            phdMeta:
+              "<strong>专业</strong>: 等离子体物理<br /><strong>导师</strong>: 王正汹教授, 王丰教授",
+            bachelorTitle: "理学学士",
+            bachelorTime: "大连理工大学 | 2019.09 &ndash; 2023.06",
+            bachelorMeta: "<strong>专业</strong>: 应用物理学",
+            imageDialogLabel: "原图预览",
+            closeImageLabel: "关闭原图预览",
+            imageFallback: "图片",
+            openImageHint: "点击查看原图",
+            imagePreviewFallback: "原图预览",
+            showMore: "... 展开",
+            showLess: "收起",
+          },
+          en: {
+            documentTitle: "Academic CV",
+            name: "Ruohan Zhang",
+            role: "Ph.D. Student",
+            majorLine:
+              '<span class="title-label">Major:</span><span class="title-value">Plasma Physics</span>',
+            affiliationLine:
+              '<span class="title-label">Affiliation:</span><span class="title-value">School of Physics, Dalian University of Technology</span>',
+            contactAria: "Contact information",
+            themeAria: "Page theme",
+            themeSolarized: "Solarized",
+            themeLight: "Light",
+            themeGray: "Gray",
+            themeSage: "Sage",
+            tocAria: "Page navigation",
+            navProfile: "Profile",
+            navEducation: "Education",
+            navSoftware: "Software",
+            navPublications: "Publications",
+            navConferences: "Conferences",
+            navHonors: "Honors",
+            sectionProfile: "Profile",
+            sectionEducation: "Education",
+            sectionSoftware: "Software",
+            sectionPublications: "Publications",
+            sectionConferences: "Conferences",
+            sectionHonors: "Honors",
+            pubIndexAria: "Publication index",
+            confIndexAria: "Conference presentation index",
+            pubSubindexAria: "Publication subindex",
+            confSubindexAria: "Conference presentation subindex",
+            profileSummary:
+              '<p>I am a Ph.D. student in plasma physics at Dalian University of Technology. My work focuses on numerical algorithms and scientific-computing methods for fusion-plasma equilibrium, transport, and coupled modeling. I have experience developing scientific-computing codes in Python and C++, and I am familiar with numerical optimization and high-performance-computing implementations. I am advised by Prof. Zhengxiong Wang and Prof. Feng Wang, and collaborate with Dr. Huasheng Xie on related algorithm and code development.</p><div><strong>Research Focus</strong>:<ul class="research-list"><li>Fast, high-fidelity integrated modeling for tokamak plasmas</li><li>Coupled modeling of fusion-plasma equilibrium and transport</li><li>Computational physics and numerical algorithms</li></ul></div>',
+            phdTitle: "Ph.D. Student",
+            phdTime:
+              "Dalian University of Technology | 2023.09 &ndash; Present",
+            phdMeta:
+              "<strong>Major</strong>: Plasma Physics<br /><strong>Advisors</strong>: Prof. Zhengxiong Wang, Prof. Feng Wang",
+            bachelorTitle: "B.Sc.",
+            bachelorTime:
+              "Dalian University of Technology | 2019.09 &ndash; 2023.06",
+            bachelorMeta: "<strong>Major</strong>: Applied Physics",
+            imageDialogLabel: "Full-size image preview",
+            closeImageLabel: "Close full-size image preview",
+            imageFallback: "Image",
+            openImageHint: "click to view full-size image",
+            imagePreviewFallback: "Full-size image preview",
+            showMore: "... Show more",
+            showLess: "Show less",
+          },
+        },
+        software: [
+          {
+            id: "software-veqpy",
+            indexLabel: "veqpy",
+            label: "Maintained Package",
+            title: "VEQPy",
+            metaHtml:
+              "<strong>Role</strong>: Maintainer · <strong>License</strong>: BSD-3-Clause",
+            tagsAriaLabel: "Repository topics",
+            tags: [
+              "Python",
+              "Grad-Shafranov",
+              "Tokamak Equilibrium",
+              "GEQDSK Workflow",
+            ],
+            summary:
+              "Python implementation of VEQ, a fast parametric Grad-Shafranov solver for fixed-boundary, axisymmetric tokamak equilibria, with compact MXH/Chebyshev representations, multiple source routes, GEQDSK workflow support, equilibrium snapshots, and residual diagnostics for repeated modeling calls.",
+            links: [
+              { href: "https://github.com/zhangtakeda/veqpy", label: "GitHub" },
+              { href: "https://pypi.org/project/veqpy/", label: "PyPI" },
+            ],
+          },
+        ],
+        publications: [
+          {
+            id: "paper-2026-veq",
+            indexLabel: "2026-VEQ",
+            label: "Manuscript",
+            title:
+              "VEQ: a fast weak-form solver for fixed-boundary tokamak equilibria with flexible source inputs",
+            authorsHtml:
+              "<strong>R. Zhang</strong>, H. Xie*, Y. Li, W. Meng, F. Wang, Z. Wang*, to be submitted to <em>Journal of Computational Physics</em>.",
+            tagsAriaLabel: "Paper tags",
+            tags: ["In Preparation"],
+            summary: [
+              "Veloce and Variational EQuilibrium (VEQ) is a compact weak-form equilibrium framework for repeated tokamak-modeling calls requiring continuous equilibrium geometry at low latency.",
+              String.raw`The present \(\texttt{veqpy}\) implementation realizes this framework as a fixed-boundary, axisymmetric Grad--Shafranov solver.`,
+              "It targets integrated-modeling regimes in which analytic closures are too restrictive and full equilibrium or reconstruction pipelines are too costly for every scan point, preprocessing step or control step.",
+              "In this realization, instead of nodal values of a grid-based flux map, the active unknowns are radial profiles of MXH-type flux-surface harmonics and Chebyshev profile/source coefficients.",
+              "Six source-specification routes admit pressure-gradient, toroidal-field, flux-gradient, current and safety-factor information through different closures, all reduced to a common packed residual system.",
+              "Controlled benchmarks show route consistency for smooth mutually consistent inputs generated from one reference equilibrium.",
+              String.raw`For the Pareto-selected reduced configurations, the D-shape, H-mode and smoothed X-point target use 6, 66 and 95 active parameters, respectively, and give normalized direct target-shape errors of $1.59\times 10^{-3}$, $1.28\times 10^{-3}$ and $1.79\times 10^{-3}$, with solve-only medians of 1.10, 15.72 and 15.46 ms.`,
+              "Sampled local strong-form diagnostics show that increasing the active representation mainly reduces the interior transformed Grad--Shafranov residual, whereas all-sample and maximum statistics in the H-mode and X-point cases can remain near-boundary dominated.",
+              "Together with the packed projected residual, these maps distinguish geometry-dominated cases from boundary-limited ones.",
+              "A scope-controlled one-dimensional transport-coupling test shows sub-percent to percent-level changes in a common flux-surface-averaged transport operator.",
+              String.raw`These results support the present \(\texttt{veqpy}\) implementation as a repeated-call geometry provider with local diagnostics for cases requiring boundary treatment, post-processing or higher-fidelity solves.`,
+            ].join(" "),
+            media: [
+              {
+                src: "2026-VEQ-1.png",
+                alt: "2026-VEQ-1.png",
+                caption:
+                  "Controlled PF-route demonstration equilibrium used for the internal route-consistency benchmark.",
+              },
+              {
+                src: "2026-VEQ-2.png",
+                alt: "2026-VEQ-2.png",
+                caption:
+                  "Internal consistency across input routes derived from the same controlled reference equilibrium.",
+              },
+              {
+                src: "2026-VEQ-3.png",
+                alt: "2026-VEQ-3.png",
+                caption:
+                  "Accuracy--cost Pareto analysis for reduced VEQ configurations.",
+              },
+            ],
+            linksAriaLabel: "论文链接",
+            links: [
+              {
+                href: "https://zhangtakeda.github.io",
+                label: "arXiv (in preparation)",
+              },
+            ],
+          },
+          {
+            id: "paper-2024-cpp",
+            indexLabel: "2024-CPP",
+            label: "Journal Article",
+            title:
+              "Structure-preserving algorithms for guiding center dynamics based on the slow manifold of classical Pauli particle",
+            authorsHtml:
+              "<strong>R. Zhang</strong>, Z. Wang, J. Xiao, F. Wang*, <em>Plasma Sci. Technol.</em> <strong>26</strong> (2024) 065101.",
+            tagsAriaLabel: "Paper tags",
+            tags: ["SCIE", "JCR Q3"],
+            summary: [
+              "Classical Pauli particle (CPP) serves as a slow manifold, substituting the conventional guiding center dynamics.",
+              "Based on the CPP, we utilize averaged vector field (AVF) method in the computations of drift orbits.",
+              "Demonstrating significantly higher efficiency, this advanced method is capable of accomplishing the simulation in less than one-third time of directly computing the guiding center motion.",
+              "In contrast to the CPP-based Boris algorithm, this approach inherits the advantages of the AVF method, yielding stable trajectories even achieved with a tenfold time step and reducing energy error with two orders of magnitude.",
+              "By comparing these two CPP algorithms with the traditional RK4 method, numerical results indicate the remarkable performance in terms of both computational efficiency and error elimination.",
+              "Moreover, we verify the properties of slow manifold integrators and successfully observe the bounce on both sides of the limiting slow manifold with deliberately chosen perturbed initial conditions.",
+              "To evaluate the practical value of the methods, we conduct simulations in non-axisymmetric perturbation magnetic fields as part of the experiments, demonstrating that our CPP-based AVF method can handle simulations under complex magnetic field configurations with high accuracy, which the CPP-based Boris algorithm lacks.",
+              "Through numerical experiments, we demonstrate that CPP can replace guiding center dynamics in using energy-preserving algorithms for computations, providing a new, efficient, as well as stable approach for applying structure-preserving algorithms in plasma simulations.",
+            ].join(" "),
+            linksAriaLabel: "论文链接",
+            links: [
+              {
+                href: "https://doi.org/10.1088/2058-6272/ad225b",
+                label: "DOI",
+              },
+            ],
+          },
+        ],
+        conferences: [
+          {
+            id: "conference-2026-dalian-veq",
+            indexLabel: "2026.04",
+            label: "Oral Presentation",
+            title: "基于变分矩方法的高保真快速平衡求解器",
+            authorsHtml:
+              "<strong>张若涵</strong>, 李跃岩, 谢华生*, 王丰, 王正汹*",
+            meta: "第十四届全国磁约束聚变理论与模拟会议 | 2026.04 | 辽宁大连, 中国 | 口头报告",
+            summary:
+              "在托卡马克集成模拟及等离子体实时控制中, 快速且高精度的Grad-Shafranov方程求解是不可或缺的基础环节. 然而, 面对多约束输入, 反复迭代与参数扫描等场景, 传统的三矩平衡程序 (如METIS和ASTRA) 在计算速度, 收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性. 为此, 本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为VEQ (Veloce/Variational EQuilibrium) 项目的固定边界求解组件, 可实现系统程序 (system code) 级别的快速求解. 该程序参考MXH-Cheb[1]参数化方法, 采用Chebyshev和Fourier多项式对磁面几何进行参数化展开, 能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上, veqpy 提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略, 以“数据-算子-求解器”为抽象架构实现了多种算子, 支持包括环向电流密度, 平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入, 实现了对多种物理约束 (等离子体总电流, 环向比压) 的稳健收敛. 此外, 模块内置的冷/热启动基准算例涵盖整个算子族, 为代码的回归测试与在物理上的一致性验证提供了完整支撑. 基准测试表明, 与高保真平衡程序相比, veqpy 计算的磁面几何参数与物理场量计算误差可被严格控制在1 mm以内 , 同时能够在CPU上于1~100 ms量级实现单线程平衡求解. 本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效, 可靠替代方案.",
+            media: [
+              {
+                src: "2026.04-oral-1.png",
+                alt: "2026.04 oral presentation slide preview 1",
+              },
+              {
+                src: "2026.04-oral-2.png",
+                alt: "2026.04 oral presentation slide preview 2",
+              },
+              {
+                src: "2026.04-oral-3.png",
+                alt: "2026.04 oral presentation slide preview 3",
+              },
+            ],
+            linksAriaLabel: "论文链接",
+            links: [{ href: "2026.04-oral.pdf", label: "Oral" }],
+          },
+          {
+            id: "conference-2025-shenzhen-otc-heq",
+            indexLabel: "2025.11",
+            label: "Poster Presentation",
+            title: "面向集成模拟的输运-平衡耦合框架开发",
+            authorsHtml: "<strong>张若涵</strong>, 徐亚楠, 王丰, 王正汹*",
+            meta: "第二届磁约束等离子体运行模式和集成模拟研讨会 | 2025.11 | 广东深圳, 中国 | 墙报展示",
+            summary:
+              "集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具, 绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流. 国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱, 严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python 环境的集成模拟平台, 已经实现基础的输运和平衡模块, 并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC 可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核, 能在毫秒量级内高效求解非线性对流-扩散方程组, 同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了 Green 函数生成机制来提升计算效率, 避免了可能的奇异值问题, 并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S 方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合, 支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务. 未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.",
+            linksAriaLabel: "论文链接",
+            links: [{ href: "2025.11-poster.pdf", label: "Poster" }],
+          },
+          {
+            id: "conference-2025-hangzhou-otc-heq",
+            indexLabel: "2025.05",
+            label: "Poster Presentation",
+            title: "面向集成模拟的输运-平衡耦合框架开发",
+            authorsHtml: "<strong>张若涵</strong>, 徐亚楠, 王丰, 王正汹*",
+            meta: "第十三届全国磁约束聚变理论与模拟会议 | 2025.05 | 浙江杭州, 中国 | 墙报展示",
+            summary:
+              "集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具, 绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流. 国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱, 严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python 环境的集成模拟平台, 已经实现基础的输运和平衡模块, 并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC 可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核, 能在毫秒量级内高效求解非线性对流-扩散方程组, 同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了 Green 函数生成机制来提升计算效率, 避免了可能的奇异值数值问题, 并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S 方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合, 支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务. 未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.",
+            linksAriaLabel: "论文链接",
+            links: [{ href: "2025.05-poster.pdf", label: "Poster" }],
+          },
+          {
+            id: "conference-2024-otc",
+            indexLabel: "2024.08",
+            label: "Poster Presentation",
+            title: "面向托卡马克集成模拟的一维输运计算模块开发",
+            authorsHtml: "<strong>张若涵</strong>, 李纯东, 王丰, 王正汹*",
+            meta: "第一届磁约束等离子体运行模式和集成模拟研讨会 | 2024.08 | 四川成都, 中国 | 墙报展示",
+            summary:
+              "输运模块是托卡马克集成模拟计算中最基本的部分之一, 对国内目前开展的集成模拟平台的建设工作至关重要. 最近, 我们团队开发了面向托卡马克集成模拟的一维输运计算模块 OTC (One-dimensional Transport Computing module for integrated tokamak modeling), 并完成了基本的验证工作. OTC 目前能够同时计算新经典输运 (neoclassical transport) 中多个剖面的演化, 包括各种主要离子和杂质离子的密度, 电子和离子的温度以及电流密度. OTC 基于 C++ 编写以实现高效率计算, 并使用了适合求解任意多个变量的对流-扩散方程组的通用求解器, 因此可以无限制地添加各种离子和杂质, 设计上也可以进行其他输运模型的计算. 该模块内置了用户自定义的权重, 可以通过接口在程序外部进行控制, 便于对输运系数或物理过程进行修正. 未来, 我们计划将其打包并在 Python 环境中实现调用, 从而与集成模拟平台上的加热与电流驱动模块, 平衡模块等模块进行工作流整合, 最后发展为完整的软件. 同时纳入更多物理过程, 并利用 ONETWO 等常用输运模块对 OTC 进行验证, 最终可能还会集成其他湍流输运模型 (如 TGLF), 以扩展其功能和应用范围.",
+            linksAriaLabel: "论文链接",
+            links: [{ href: "2024.08-poster.pdf", label: "Poster" }],
+          },
+        ],
+        honors: [
+          {
+            title: "Competition Awards",
+            items: [
+              "2025年“华为杯”第二十二届中国研究生数学建模: 国家三等奖",
+              "2024年“挑战杯”第十四届中国大学生创业计划竞赛: 国赛铜奖, 省赛金奖",
+            ],
+          },
+          {
+            title: "Academic Awards",
+            items: [
+              "2025年大连理工大学新奥成才奖学金: 博士奖学金 B 类",
+              "2024年大连理工大学新奥成才奖学金: 硕士一等奖学金",
+              "2024年大连理工大学菲沃泰奖学金",
+              "2024年大连理工大学优秀研究生",
+              "2023年大连理工大学新奥成才奖学金: 硕士一等奖学金",
+            ],
+          },
+        ],
+      };
+    </script>
     <style>
       :root {
         --text: #24211d;
@@ -1743,57 +2035,7 @@
         <div class="section-head">
           <h2 data-i18n="sectionSoftware">Software</h2>
         </div>
-        <div class="software-list">
-          <article
-            class="software-card"
-            id="software-veqpy"
-            data-index-label="veqpy"
-          >
-            <div class="software-label" data-i18n="softwareVeqpyLabel">
-              Maintained Package
-            </div>
-            <h3 class="software-title">veqpy</h3>
-            <p class="software-meta" data-i18n-html="softwareVeqpyMeta">
-              <strong>Role</strong>: Maintainer · <strong>License</strong>:
-              BSD-3-Clause
-            </p>
-            <div
-              class="tag-list"
-              aria-label="Repository topics"
-              data-i18n-aria-label="softwareTopicsAria"
-            >
-              <span class="tag" data-i18n="softwareTagPython">Python</span>
-              <span class="tag" data-i18n="softwareTagEquilibrium"
-                >Grad-Shafranov</span
-              >
-              <span class="tag" data-i18n="softwareTagTokamak"
-                >Tokamak Equilibrium</span
-              >
-              <span class="tag" data-i18n="softwareTagComputing"
-                >GEQDSK Workflow</span
-              >
-            </div>
-            <p class="software-summary" data-i18n="softwareVeqpySummary">
-              Python implementation of VEQ, a fast parametric Grad-Shafranov
-              solver for fixed-boundary, axisymmetric tokamak equilibria, with
-              compact MXH/Chebyshev representations, multiple source routes,
-              GEQDSK workflow support, equilibrium snapshots, and residual
-              diagnostics for repeated modeling calls.
-            </p>
-            <div class="link-list">
-              <a
-                href="https://github.com/zhangtakeda/veqpy"
-                data-i18n="softwareRepoLink"
-                >GitHub</a
-              >
-              <a
-                href="https://pypi.org/project/veqpy/"
-                data-i18n="softwarePypiLink"
-                >PyPI</a
-              >
-            </div>
-          </article>
-        </div>
+        <div class="software-list" data-render-list="software"></div>
       </section>
 
       <section id="publications">
@@ -1806,139 +2048,7 @@
             data-i18n-aria-label="pubIndexAria"
           ></ol>
         </div>
-        <div class="paper-grid">
-          <article
-            class="paper-card"
-            id="paper-2026-veq"
-            data-index-label="2026-VEQ"
-          >
-            <div class="paper-label">Manuscript</div>
-            <h3 class="paper-title">
-              VEQ: a fast weak-form solver for fixed-boundary tokamak equilibria
-              with flexible source inputs
-            </h3>
-            <p class="authors">
-              <strong>R. Zhang</strong>, H. Xie*, Y. Li, W. Meng, F. Wang, Z.
-              Wang*, to be submitted to
-              <em>Journal of Computational Physics</em>.
-            </p>
-            <div class="tag-list" aria-label="Paper tags">
-              <span class="tag">In Preparation</span>
-            </div>
-            <p class="venue summary-text">
-              Veloce and Variational EQuilibrium (VEQ) is a compact weak-form
-              equilibrium framework for repeated tokamak-modeling calls
-              requiring continuous equilibrium geometry at low latency. The
-              present \(\texttt{veqpy}\) implementation realizes this framework
-              as a fixed-boundary, axisymmetric Grad--Shafranov solver. It
-              targets integrated-modeling regimes in which analytic closures are
-              too restrictive and full equilibrium or reconstruction pipelines
-              are too costly for every scan point, preprocessing step or control
-              step. In this realization, instead of nodal values of a grid-based
-              flux map, the active unknowns are radial profiles of MXH-type
-              flux-surface harmonics and Chebyshev profile/source coefficients.
-              Six source-specification routes admit pressure-gradient,
-              toroidal-field, flux-gradient, current and safety-factor
-              information through different closures, all reduced to a common
-              packed residual system. Controlled benchmarks show route
-              consistency for smooth mutually consistent inputs generated from
-              one reference equilibrium. For the Pareto-selected reduced
-              configurations, the D-shape, H-mode and smoothed X-point target
-              use 6, 66 and 95 active parameters, respectively, and give
-              normalized direct target-shape errors of $1.59\times 10^{-3}$,
-              $1.28\times 10^{-3}$ and $1.79\times 10^{-3}$, with solve-only
-              medians of 1.10, 15.72 and 15.46 ms. Sampled local strong-form
-              diagnostics show that increasing the active representation mainly
-              reduces the interior transformed Grad--Shafranov residual, whereas
-              all-sample and maximum statistics in the H-mode and X-point cases
-              can remain near-boundary dominated. Together with the packed
-              projected residual, these maps distinguish geometry-dominated
-              cases from boundary-limited ones. A scope-controlled
-              one-dimensional transport-coupling test shows sub-percent to
-              percent-level changes in a common flux-surface-averaged transport
-              operator. These results support the present \(\texttt{veqpy}\)
-              implementation as a repeated-call geometry provider with local
-              diagnostics for cases requiring boundary treatment,
-              post-processing or higher-fidelity solves.
-            </p>
-            <div class="media-grid">
-              <figure>
-                <img src="2026-VEQ-1.png" alt="2026-VEQ-1.png" />
-                <figcaption>
-                  Controlled PF-route demonstration equilibrium used for the
-                  internal route-consistency benchmark.
-                </figcaption>
-              </figure>
-              <figure>
-                <img src="2026-VEQ-2.png" alt="2026-VEQ-2.png" />
-                <figcaption>
-                  Internal consistency across input routes derived from the same
-                  controlled reference equilibrium.
-                </figcaption>
-              </figure>
-              <figure>
-                <img src="2026-VEQ-3.png" alt="2026-VEQ-3.png" />
-                <figcaption>
-                  Accuracy--cost Pareto analysis for reduced VEQ configurations.
-                </figcaption>
-              </figure>
-            </div>
-            <div class="link-list" aria-label="论文链接">
-              <a href="https://zhangtakeda.github.io">arXiv (in preparation)</a>
-            </div>
-          </article>
-
-          <article
-            class="paper-card"
-            id="paper-2024-cpp"
-            data-index-label="2024-CPP"
-          >
-            <div class="paper-label">Journal Article</div>
-            <h3 class="paper-title">
-              Structure-preserving algorithms for guiding center dynamics based
-              on the slow manifold of classical Pauli particle
-            </h3>
-            <p class="authors">
-              <strong>R. Zhang</strong>, Z. Wang, J. Xiao, F. Wang*,
-              <em>Plasma Sci. Technol.</em> <strong>26</strong> (2024) 065101.
-            </p>
-            <div class="tag-list" aria-label="Paper tags">
-              <span class="tag">SCIE</span>
-              <span class="tag">JCR Q3</span>
-            </div>
-            <p class="venue summary-text">
-              Classical Pauli particle (CPP) serves as a slow manifold,
-              substituting the conventional guiding center dynamics. Based on
-              the CPP, we utilize averaged vector field (AVF) method in the
-              computations of drift orbits. Demonstrating significantly higher
-              efficiency, this advanced method is capable of accomplishing the
-              simulation in less than one-third time of directly computing the
-              guiding center motion. In contrast to the CPP-based Boris
-              algorithm, this approach inherits the advantages of the AVF
-              method, yielding stable trajectories even achieved with a tenfold
-              time step and reducing energy error with two orders of magnitude.
-              By comparing these two CPP algorithms with the traditional RK4
-              method, numerical results indicate the remarkable performance in
-              terms of both computational efficiency and error elimination.
-              Moreover, we verify the properties of slow manifold integrators
-              and successfully observe the bounce on both sides of the limiting
-              slow manifold with deliberately chosen perturbed initial
-              conditions. To evaluate the practical value of the methods, we
-              conduct simulations in non-axisymmetric perturbation magnetic
-              fields as part of the experiments, demonstrating that our
-              CPP-based AVF method can handle simulations under complex magnetic
-              field configurations with high accuracy, which the CPP-based Boris
-              algorithm lacks. Through numerical experiments, we demonstrate
-              that CPP can replace guiding center dynamics in using
-              energy-preserving algorithms for computations, providing a new,
-              efficient, as well as stable approach for applying
-              structure-preserving algorithms in plasma simulations.
-            </p>
-            <div class="link-list" aria-label="论文链接">
-              <a href="https://doi.org/10.1088/2058-6272/ad225b">DOI</a>
-            </div>
-          </article>
-        </div>
+        <div class="paper-grid" data-render-list="publications"></div>
       </section>
 
       <section id="conferences">
@@ -1951,219 +2061,14 @@
             data-i18n-aria-label="confIndexAria"
           ></ol>
         </div>
-        <div class="conference-grid">
-          <article
-            class="conference-card"
-            id="conference-2026-dalian-veq"
-            data-index-label="2026.04"
-          >
-            <div class="conference-label">Oral Presentation</div>
-            <h3 class="conference-title">
-              基于变分矩方法的高保真快速平衡求解器
-            </h3>
-            <p class="authors">
-              <strong>张若涵</strong>, 李跃岩, 谢华生*, 王丰, 王正汹*
-            </p>
-            <p class="conference-meta">
-              第十四届全国磁约束聚变理论与模拟会议 | 2026.04 | 辽宁大连, 中国 |
-              口头报告
-            </p>
-            <p class="venue summary-text">
-              在托卡马克集成模拟及等离子体实时控制中,
-              快速且高精度的Grad-Shafranov方程求解是不可或缺的基础环节. 然而,
-              面对多约束输入, 反复迭代与参数扫描等场景, 传统的三矩平衡程序
-              (如METIS和ASTRA) 在计算速度,
-              收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性. 为此,
-              本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为VEQ
-              (Veloce/Variational EQuilibrium) 项目的固定边界求解组件,
-              可实现系统程序 (system code) 级别的快速求解.
-              该程序参考MXH-Cheb[1]参数化方法,
-              采用Chebyshev和Fourier多项式对磁面几何进行参数化展开,
-              能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上, veqpy
-              提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略,
-              以“数据-算子-求解器”为抽象架构实现了多种算子,
-              支持包括环向电流密度,
-              平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入,
-              实现了对多种物理约束 (等离子体总电流, 环向比压) 的稳健收敛. 此外,
-              模块内置的冷/热启动基准算例涵盖整个算子族,
-              为代码的回归测试与在物理上的一致性验证提供了完整支撑.
-              基准测试表明, 与高保真平衡程序相比, veqpy
-              计算的磁面几何参数与物理场量计算误差可被严格控制在1 mm以内 ,
-              同时能够在CPU上于1~100 ms量级实现单线程平衡求解.
-              本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效,
-              可靠替代方案.
-            </p>
-            <div class="media-grid">
-              <figure>
-                <img
-                  src="2026.04-oral-1.png"
-                  alt="2026.04 oral presentation slide preview 1"
-                />
-              </figure>
-              <figure>
-                <img
-                  src="2026.04-oral-2.png"
-                  alt="2026.04 oral presentation slide preview 2"
-                />
-              </figure>
-              <figure>
-                <img
-                  src="2026.04-oral-3.png"
-                  alt="2026.04 oral presentation slide preview 3"
-                />
-              </figure>
-            </div>
-            <div class="link-list" aria-label="论文链接">
-              <a href="2026.04-oral.pdf">Oral</a>
-            </div>
-          </article>
-
-          <article
-            class="conference-card"
-            id="conference-2025-shenzhen-otc-heq"
-            data-index-label="2025.11"
-          >
-            <div class="conference-label">Poster Presentation</div>
-            <h3 class="conference-title">
-              面向集成模拟的输运-平衡耦合框架开发
-            </h3>
-            <p class="authors">
-              <strong>张若涵</strong>, 徐亚楠, 王丰, 王正汹*
-            </p>
-            <p class="conference-meta">
-              第二届磁约束等离子体运行模式和集成模拟研讨会 | 2025.11 | 广东深圳,
-              中国 | 墙报展示
-            </p>
-            <p class="venue summary-text">
-              集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具,
-              绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流.
-              国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱,
-              严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python
-              环境的集成模拟平台, 已经实现基础的输运和平衡模块,
-              并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC
-              可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核,
-              能在毫秒量级内高效求解非线性对流-扩散方程组,
-              同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了
-              Green 函数生成机制来提升计算效率, 避免了可能的奇异值问题,
-              并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S
-              方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合,
-              支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务.
-              未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.
-            </p>
-            <div class="link-list" aria-label="论文链接">
-              <a href="2025.11-poster.pdf">Poster</a>
-            </div>
-          </article>
-
-          <article
-            class="conference-card"
-            id="conference-2025-hangzhou-otc-heq"
-            data-index-label="2025.05"
-          >
-            <div class="conference-label">Poster Presentation</div>
-            <h3 class="conference-title">
-              面向集成模拟的输运-平衡耦合框架开发
-            </h3>
-            <p class="authors">
-              <strong>张若涵</strong>, 徐亚楠, 王丰, 王正汹*
-            </p>
-            <p class="conference-meta">
-              第十三届全国磁约束聚变理论与模拟会议 | 2025.05 | 浙江杭州, 中国 |
-              墙报展示
-            </p>
-            <p class="venue summary-text">
-              集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具,
-              绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流.
-              国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱,
-              严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python
-              环境的集成模拟平台, 已经实现基础的输运和平衡模块,
-              并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC
-              可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核,
-              能在毫秒量级内高效求解非线性对流-扩散方程组,
-              同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了
-              Green 函数生成机制来提升计算效率, 避免了可能的奇异值数值问题,
-              并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S
-              方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合,
-              支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务.
-              未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.
-            </p>
-            <div class="link-list" aria-label="论文链接">
-              <a href="2025.05-poster.pdf">Poster</a>
-            </div>
-          </article>
-
-          <article
-            class="conference-card"
-            id="conference-2024-otc"
-            data-index-label="2024.08"
-          >
-            <div class="conference-label">Poster Presentation</div>
-            <h3 class="conference-title">
-              面向托卡马克集成模拟的一维输运计算模块开发
-            </h3>
-            <p class="authors">
-              <strong>张若涵</strong>, 李纯东, 王丰, 王正汹*
-            </p>
-            <p class="conference-meta">
-              第一届磁约束等离子体运行模式和集成模拟研讨会 | 2024.08 | 四川成都,
-              中国 | 墙报展示
-            </p>
-            <p class="venue summary-text">
-              输运模块是托卡马克集成模拟计算中最基本的部分之一,
-              对国内目前开展的集成模拟平台的建设工作至关重要. 最近,
-              我们团队开发了面向托卡马克集成模拟的一维输运计算模块 OTC
-              (One-dimensional Transport Computing module for integrated tokamak
-              modeling), 并完成了基本的验证工作. OTC 目前能够同时计算新经典输运
-              (neoclassical transport) 中多个剖面的演化,
-              包括各种主要离子和杂质离子的密度, 电子和离子的温度以及电流密度.
-              OTC 基于 C++ 编写以实现高效率计算,
-              并使用了适合求解任意多个变量的对流-扩散方程组的通用求解器,
-              因此可以无限制地添加各种离子和杂质,
-              设计上也可以进行其他输运模型的计算. 该模块内置了用户自定义的权重,
-              可以通过接口在程序外部进行控制, 便于对输运系数或物理过程进行修正.
-              未来, 我们计划将其打包并在 Python 环境中实现调用,
-              从而与集成模拟平台上的加热与电流驱动模块,
-              平衡模块等模块进行工作流整合, 最后发展为完整的软件.
-              同时纳入更多物理过程, 并利用 ONETWO 等常用输运模块对 OTC 进行验证,
-              最终可能还会集成其他湍流输运模型 (如 TGLF),
-              以扩展其功能和应用范围.
-            </p>
-            <div class="link-list" aria-label="论文链接">
-              <a href="2024.08-poster.pdf">Poster</a>
-            </div>
-          </article>
-        </div>
+        <div class="conference-grid" data-render-list="conferences"></div>
       </section>
 
       <section id="honors">
         <div class="section-head">
           <h2 data-i18n="sectionHonors">获得荣誉</h2>
         </div>
-        <div class="award-list">
-          <article class="award-card">
-            <div class="award-title">
-              <h3>Competition Awards</h3>
-            </div>
-            <ul class="award-items">
-              <li>2025年“华为杯”第二十二届中国研究生数学建模: 国家三等奖</li>
-              <li>
-                2024年“挑战杯”第十四届中国大学生创业计划竞赛: 国赛铜奖, 省赛金奖
-              </li>
-            </ul>
-          </article>
-          <article class="award-card">
-            <div class="award-title">
-              <h3>Academic Awards</h3>
-            </div>
-            <ul class="award-items">
-              <li>2025年大连理工大学新奥成才奖学金: 博士奖学金 B 类</li>
-              <li>2024年大连理工大学新奥成才奖学金: 硕士一等奖学金</li>
-              <li>2024年大连理工大学菲沃泰奖学金</li>
-              <li>2024年大连理工大学优秀研究生</li>
-              <li>2023年大连理工大学新奥成才奖学金: 硕士一等奖学金</li>
-            </ul>
-          </article>
-        </div>
+        <div class="award-list" data-render-list="honors"></div>
       </section>
     </main>
     <script>
@@ -2172,129 +2077,195 @@
         "(prefers-reduced-motion: reduce)",
       );
 
-      const TRANSLATIONS = {
-        zh: {
-          documentTitle: "Academic CV",
-          name: "张若涵",
-          role: "博士研究生",
-          majorLine:
-            '<span class="title-label">专业:</span><span class="title-value">等离子体物理</span>',
-          affiliationLine:
-            '<span class="title-label">单位:</span><span class="title-value">大连理工大学物理学院</span>',
-          contactAria: "联系方式",
-          themeAria: "页面主题",
-          themeSolarized: "Solarized",
-          themeLight: "Light",
-          themeGray: "Gray",
-          themeSage: "Sage",
-          tocAria: "页面索引",
-          navProfile: "个人简介",
-          navEducation: "教育经历",
-          navSoftware: "软件",
-          navPublications: "论文发表",
-          navConferences: "会议报告",
-          navHonors: "获得荣誉",
-          sectionProfile: "个人简介",
-          sectionEducation: "教育经历",
-          sectionSoftware: "软件",
-          sectionPublications: "论文发表",
-          sectionConferences: "会议报告",
-          sectionHonors: "获得荣誉",
-          pubIndexAria: "论文发表索引",
-          confIndexAria: "会议报告索引",
-          pubSubindexAria: "论文发表子索引",
-          confSubindexAria: "会议报告子索引",
-          softwareTopicsAria: "仓库主题",
-          profileSummary:
-            '<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡, 输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p><div><strong>研究方向</strong>:<ul class="research-list"><li>托卡马克等离子体的快速高保真集成建模</li><li>聚变等离子体的平衡与输运</li><li>计算物理和数值算法</li></ul></div>',
-          phdTitle: "博士研究生",
-          phdTime: "大连理工大学 | 2023.09 &ndash; 至今",
-          phdMeta:
-            "<strong>专业</strong>: 等离子体物理<br /><strong>导师</strong>: 王正汹教授, 王丰教授",
-          bachelorTitle: "理学学士",
-          bachelorTime: "大连理工大学 | 2019.09 &ndash; 2023.06",
-          bachelorMeta: "<strong>专业</strong>: 应用物理学",
-          softwareVeqpyLabel: "维护软件包",
-          softwareVeqpyMeta:
-            "<strong>角色</strong>: 维护者 · <strong>许可证</strong>: BSD-3-Clause",
-          softwareVeqpySummary:
-            "VEQ 的 Python 实现, 面向固定边界、轴对称托卡马克平衡的快速参数化 Grad-Shafranov 求解器。项目使用紧凑的 MXH/Chebyshev 表示, 支持多源输入路线、GEQDSK 工作流、平衡快照导出与残差诊断, 适用于反复建模调用。",
-          softwareTagPython: "Python",
-          softwareTagEquilibrium: "Grad-Shafranov",
-          softwareTagTokamak: "托卡马克平衡",
-          softwareTagComputing: "GEQDSK 工作流",
-          softwareRepoLink: "GitHub",
-          softwarePypiLink: "PyPI",
-          imageDialogLabel: "原图预览",
-          closeImageLabel: "关闭原图预览",
-          imageFallback: "图片",
-          openImageHint: "点击查看原图",
-          imagePreviewFallback: "原图预览",
-          showMore: "... 展开",
-          showLess: "收起",
+      const TRANSLATIONS = CV_DATA.translations;
+
+      const createElement = (
+        tagName,
+        { className, id, text, html, attributes = {}, dataset = {} } = {},
+        children = [],
+      ) => {
+        const element = document.createElement(tagName);
+        if (className) element.className = className;
+        if (id) element.id = id;
+        if (text !== undefined) element.textContent = text;
+        if (html !== undefined) element.innerHTML = html;
+
+        Object.entries(attributes).forEach(([name, value]) => {
+          if (value !== undefined && value !== null && value !== false) {
+            element.setAttribute(name, String(value));
+          }
+        });
+
+        Object.entries(dataset).forEach(([name, value]) => {
+          if (value !== undefined && value !== null) {
+            element.dataset[name] = String(value);
+          }
+        });
+
+        children.filter(Boolean).forEach((child) => element.appendChild(child));
+        return element;
+      };
+
+      const renderTagList = (item) => {
+        if (!item.tags?.length) return null;
+        return createElement(
+          "div",
+          {
+            className: "tag-list",
+            attributes: { "aria-label": item.tagsAriaLabel },
+          },
+          item.tags.map((tag) =>
+            createElement("span", { className: "tag", text: tag }),
+          ),
+        );
+      };
+
+      const renderLinkList = (item) => {
+        if (!item.links?.length) return null;
+        return createElement(
+          "div",
+          {
+            className: "link-list",
+            attributes: { "aria-label": item.linksAriaLabel },
+          },
+          item.links.map((link) =>
+            createElement("a", {
+              text: link.label,
+              attributes: { href: link.href },
+            }),
+          ),
+        );
+      };
+
+      const renderMediaGrid = (media) => {
+        if (!media?.length) return null;
+        return createElement(
+          "div",
+          { className: "media-grid" },
+          media.map((image) =>
+            createElement("figure", {}, [
+              createElement("img", {
+                attributes: { src: image.src, alt: image.alt },
+              }),
+              image.caption
+                ? createElement("figcaption", { text: image.caption })
+                : null,
+            ]),
+          ),
+        );
+      };
+
+      const cardMetadata = (item) => ({
+        id: item.id,
+        dataset: { indexLabel: item.indexLabel },
+      });
+
+      const renderSoftwareCard = (item) =>
+        createElement(
+          "article",
+          { className: "software-card", ...cardMetadata(item) },
+          [
+            createElement("div", {
+              className: "software-label",
+              text: item.label,
+            }),
+            createElement("h3", {
+              className: "software-title",
+              text: item.title,
+            }),
+            createElement("p", {
+              className: "software-meta",
+              html: item.metaHtml,
+            }),
+            renderTagList(item),
+            createElement("p", {
+              className: "software-summary",
+              text: item.summary,
+            }),
+            renderLinkList(item),
+          ],
+        );
+
+      const researchCardClasses = {
+        publication: {
+          card: "paper-card",
+          label: "paper-label",
+          title: "paper-title",
         },
-        en: {
-          documentTitle: "Academic CV",
-          name: "Ruohan Zhang",
-          role: "Ph.D. Student",
-          majorLine:
-            '<span class="title-label">Major:</span><span class="title-value">Plasma Physics</span>',
-          affiliationLine:
-            '<span class="title-label">Affiliation:</span><span class="title-value">School of Physics, Dalian University of Technology</span>',
-          contactAria: "Contact information",
-          themeAria: "Page theme",
-          themeSolarized: "Solarized",
-          themeLight: "Light",
-          themeGray: "Gray",
-          themeSage: "Sage",
-          tocAria: "Page navigation",
-          navProfile: "Profile",
-          navEducation: "Education",
-          navSoftware: "Software",
-          navPublications: "Publications",
-          navConferences: "Conferences",
-          navHonors: "Honors",
-          sectionProfile: "Profile",
-          sectionEducation: "Education",
-          sectionSoftware: "Software",
-          sectionPublications: "Publications",
-          sectionConferences: "Conferences",
-          sectionHonors: "Honors",
-          pubIndexAria: "Publication index",
-          confIndexAria: "Conference presentation index",
-          pubSubindexAria: "Publication subindex",
-          confSubindexAria: "Conference presentation subindex",
-          softwareTopicsAria: "Repository topics",
-          profileSummary:
-            '<p>I am a Ph.D. student in plasma physics at Dalian University of Technology. My work focuses on numerical algorithms and scientific-computing methods for fusion-plasma equilibrium, transport, and coupled modeling. I have experience developing scientific-computing codes in Python and C++, and I am familiar with numerical optimization and high-performance-computing implementations. I am advised by Prof. Zhengxiong Wang and Prof. Feng Wang, and collaborate with Dr. Huasheng Xie on related algorithm and code development.</p><div><strong>Research Focus</strong>:<ul class="research-list"><li>Fast, high-fidelity integrated modeling for tokamak plasmas</li><li>Coupled modeling of fusion-plasma equilibrium and transport</li><li>Computational physics and numerical algorithms</li></ul></div>',
-          phdTitle: "Ph.D. Student",
-          phdTime: "Dalian University of Technology | 2023.09 &ndash; Present",
-          phdMeta:
-            "<strong>Major</strong>: Plasma Physics<br /><strong>Advisors</strong>: Prof. Zhengxiong Wang, Prof. Feng Wang",
-          bachelorTitle: "B.Sc.",
-          bachelorTime:
-            "Dalian University of Technology | 2019.09 &ndash; 2023.06",
-          bachelorMeta: "<strong>Major</strong>: Applied Physics",
-          softwareVeqpyLabel: "Maintained Package",
-          softwareVeqpyMeta:
-            "<strong>Role</strong>: Maintainer · <strong>License</strong>: BSD-3-Clause",
-          softwareVeqpySummary:
-            "Python implementation of VEQ, a fast parametric Grad-Shafranov solver for fixed-boundary, axisymmetric tokamak equilibria, with compact MXH/Chebyshev representations, multiple source routes, GEQDSK workflow support, equilibrium snapshots, and residual diagnostics for repeated modeling calls.",
-          softwareTagPython: "Python",
-          softwareTagEquilibrium: "Grad-Shafranov",
-          softwareTagTokamak: "Tokamak Equilibrium",
-          softwareTagComputing: "GEQDSK Workflow",
-          softwareRepoLink: "GitHub",
-          softwarePypiLink: "PyPI",
-          imageDialogLabel: "Full-size image preview",
-          closeImageLabel: "Close full-size image preview",
-          imageFallback: "Image",
-          openImageHint: "click to view full-size image",
-          imagePreviewFallback: "Full-size image preview",
-          showMore: "... Show more",
-          showLess: "Show less",
+        conference: {
+          card: "conference-card",
+          label: "conference-label",
+          title: "conference-title",
+          meta: "conference-meta",
         },
       };
+
+      const renderResearchCard = (item, type) => {
+        const classes = researchCardClasses[type];
+        return createElement(
+          "article",
+          { className: classes.card, ...cardMetadata(item) },
+          [
+            createElement("div", {
+              className: classes.label,
+              text: item.label,
+            }),
+            createElement("h3", { className: classes.title, text: item.title }),
+            createElement("p", {
+              className: "authors",
+              html: item.authorsHtml,
+            }),
+            classes.meta && item.meta
+              ? createElement("p", { className: classes.meta, text: item.meta })
+              : null,
+            renderTagList(item),
+            createElement("p", {
+              className: "venue summary-text",
+              text: item.summary,
+            }),
+            renderMediaGrid(item.media),
+            renderLinkList(item),
+          ],
+        );
+      };
+
+      const renderAwardCard = (group) =>
+        createElement("article", { className: "award-card" }, [
+          createElement("div", { className: "award-title" }, [
+            createElement("h3", { text: group.title }),
+          ]),
+          createElement(
+            "ul",
+            { className: "award-items" },
+            group.items.map((item) => createElement("li", { text: item })),
+          ),
+        ]);
+
+      const renderCollection = (key, items, renderItem) => {
+        if (!Array.isArray(items)) {
+          throw new TypeError(`CV data for "${key}" must be an array.`);
+        }
+
+        const mount = document.querySelector(`[data-render-list="${key}"]`);
+        if (!mount) {
+          throw new Error(`Missing render mount for "${key}".`);
+        }
+
+        mount.replaceChildren(...items.map(renderItem));
+      };
+
+      const renderCvCards = () => {
+        renderCollection("software", CV_DATA.software, renderSoftwareCard);
+        renderCollection("publications", CV_DATA.publications, (item) =>
+          renderResearchCard(item, "publication"),
+        );
+        renderCollection("conferences", CV_DATA.conferences, (item) =>
+          renderResearchCard(item, "conference"),
+        );
+        renderCollection("honors", CV_DATA.honors, renderAwardCard);
+      };
+
+      renderCvCards();
 
       const normalizeLanguage = (language) => (language === "zh" ? "zh" : "en");
       const normalizeTheme = (theme) => {
