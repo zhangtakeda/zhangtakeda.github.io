@@ -154,49 +154,39 @@
             indexLabel: "2026-VEQ",
             label: "Manuscript",
             title:
-              "VEQ: a fast weak-form solver for fixed-boundary tokamak equilibria with flexible source inputs",
+              "VEQ: a fast parametric Grad–Shafranov solver for fixed-boundary tokamak equilibria with flexible source profiles",
             authorsHtml:
               "<strong>R. Zhang</strong>, H. Xie*, Y. Li, W. Meng, F. Wang, Z. Wang*, to be submitted to <em>Journal of Computational Physics</em>.",
             tagsAriaLabel: "Paper tags",
-            tags: ["In Preparation"],
+            tags: ["in preparation"],
             summary: [
-              "Veloce and Variational EQuilibrium (VEQ) is a compact weak-form equilibrium framework for repeated tokamak-modeling calls requiring continuous equilibrium geometry at low latency.",
-              String.raw`The present \(\texttt{veqpy}\) implementation realizes this framework as a fixed-boundary, axisymmetric Grad--Shafranov solver.`,
-              "It targets integrated-modeling regimes in which analytic closures are too restrictive and full equilibrium or reconstruction pipelines are too costly for every scan point, preprocessing step or control step.",
-              "In this realization, instead of nodal values of a grid-based flux map, the active unknowns are radial profiles of MXH-type flux-surface harmonics and Chebyshev profile/source coefficients.",
-              "Six source-specification routes admit pressure-gradient, toroidal-field, flux-gradient, current and safety-factor information through different closures, all reduced to a common packed residual system.",
-              "Controlled benchmarks show route consistency for smooth mutually consistent inputs generated from one reference equilibrium.",
-              String.raw`For the Pareto-selected reduced configurations, the D-shape, H-mode and smoothed X-point target use 6, 66 and 95 active parameters, respectively, and give normalized direct target-shape errors of $1.59\times 10^{-3}$, $1.28\times 10^{-3}$ and $1.79\times 10^{-3}$, with solve-only medians of 1.10, 15.72 and 15.46 ms.`,
-              "Sampled local strong-form diagnostics show that increasing the active representation mainly reduces the interior transformed Grad--Shafranov residual, whereas all-sample and maximum statistics in the H-mode and X-point cases can remain near-boundary dominated.",
-              "Together with the packed projected residual, these maps distinguish geometry-dominated cases from boundary-limited ones.",
-              "A scope-controlled one-dimensional transport-coupling test shows sub-percent to percent-level changes in a common flux-surface-averaged transport operator.",
-              String.raw`These results support the present \(\texttt{veqpy}\) implementation as a repeated-call geometry provider with local diagnostics for cases requiring boundary treatment, post-processing or higher-fidelity solves.`,
+              "Veloce EQuilibrium (VEQ) is a compact parametric framework for tokamak modeling workflows that repeatedly query continuous fixed-boundary equilibria at low latency. The VEQPy implementation evaluated here is an axisymmetric fixed-boundary Grad-Shafranov solver whose main solve enforces a variationally induced projected residual. Its active unknowns are MXH-type flux-surface harmonics and shifted-Chebyshev coefficients for radial profile and source closures. Six input routes accept pressure-gradient, toroidal-field-function, poloidal-flux-gradient, enclosed toroidal current, current-density and safety-factor information through route-specific closures, while all routes map to the same finite-dimensional residual operator. Controlled tests show route consistency for smooth, mutually compatible inputs generated from a common reference equilibrium. For Pareto-selected reduced configurations in three G-EQDSK cases, the most accurate selected rows correspond to a D-shaped case (9 active parameters, minor-radius-normalized shape error 1.4e-3, solve-only median 1.6 ms), an H-mode case (65, 1.1e-3, 19 ms), and an X-point case treated as a smoothed fixed-boundary representation of a diverted boundary (94, 1.9e-3, 15 ms). Sampled pointwise strong-form Grad-Shafranov diagnostics show that enriching the active representation mainly improves interior force balance, whereas the global RMS and maximum values for the H-mode and X-point cases remain dominated by near-boundary contributions. In an isolated one-dimensional transport-geometry coupling test against the target geometry read from G-EQDSK, the temperature-profile response remains below about one percent. These results support using VEQ for repeated equilibrium-geometry queries, provided that pointwise diagnostics are retained to screen cases requiring boundary refinement, local correction or higher-fidelity equilibrium solves.",
             ].join(" "),
             media: [
               {
                 src: "2026-VEQ-1.png",
                 alt: "2026-VEQ-1.png",
                 caption:
-                  "Controlled PF-route demonstration equilibrium used for the internal route-consistency benchmark.",
+                  "Controlled PF-route reference equilibrium used for the route-consistency benchmark.",
               },
               {
                 src: "2026-VEQ-2.png",
                 alt: "2026-VEQ-2.png",
                 caption:
-                  "Internal consistency across input routes derived from the same controlled reference equilibrium.",
+                  "Consistency across input routes derived from the same controlled reference equilibrium",
               },
               {
                 src: "2026-VEQ-3.png",
                 alt: "2026-VEQ-3.png",
                 caption:
-                  "Accuracy--cost Pareto analysis for reduced VEQ configurations.",
+                  "Accuracy–cost Pareto analysis for reduced VEQ configurations.",
               },
             ],
             linksAriaLabel: "论文链接",
             links: [
               {
-                href: "https://zhangtakeda.github.io",
-                label: "arXiv (in preparation)",
+                href: "https://doi.org/10.48550/arXiv.2606.11821",
+                label: "arXiv",
               },
             ],
           },
