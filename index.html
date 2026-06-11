@@ -265,7 +265,7 @@
             title: "基于变分矩方法的高保真快速平衡求解器",
             authorsHtml:
               "<strong>张若涵</strong>, 李跃岩, 谢华生*, 王丰, 王正汹*",
-            meta: "第十四届全国磁约束聚变理论与模拟会议 | 2026.04 | 辽宁大连, 中国 | 口头报告",
+            meta: "第十四届全国磁约束聚变理论与模拟会议 | 2026.04 | 辽宁大连",
             summary:
               "在托卡马克集成模拟及等离子体实时控制中, 快速且高精度的Grad-Shafranov方程求解是不可或缺的基础环节. 然而, 面对多约束输入, 反复迭代与参数扫描等场景, 传统的三矩平衡程序 (如METIS和ASTRA) 在计算速度, 收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性. 为此, 本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为VEQ (Veloce/Variational EQuilibrium) 项目的固定边界求解组件, 可实现系统程序 (system code) 级别的快速求解. 该程序参考MXH-Cheb[1]参数化方法, 采用Chebyshev和Fourier多项式对磁面几何进行参数化展开, 能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上, veqpy 提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略, 以“数据-算子-求解器”为抽象架构实现了多种算子, 支持包括环向电流密度, 平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入, 实现了对多种物理约束 (等离子体总电流, 环向比压) 的稳健收敛. 此外, 模块内置的冷/热启动基准算例涵盖整个算子族, 为代码的回归测试与在物理上的一致性验证提供了完整支撑. 基准测试表明, 与高保真平衡程序相比, veqpy 计算的磁面几何参数与物理场量计算误差可被严格控制在1 mm以内 , 同时能够在CPU上于1~100 ms量级实现单线程平衡求解. 本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效, 可靠替代方案.",
             media: [
@@ -291,7 +291,7 @@
             label: "Poster Presentation",
             title: "面向集成模拟的输运-平衡耦合框架开发",
             authorsHtml: "<strong>张若涵</strong>, 徐亚楠, 王丰, 王正汹*",
-            meta: "第二届磁约束等离子体运行模式和集成模拟研讨会 | 2025.11 | 广东深圳, 中国 | 墙报展示",
+            meta: "第二届磁约束等离子体运行模式和集成模拟研讨会 | 2025.11 | 广东深圳",
             summary:
               "集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具, 绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流. 国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱, 严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python 环境的集成模拟平台, 已经实现基础的输运和平衡模块, 并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC 可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核, 能在毫秒量级内高效求解非线性对流-扩散方程组, 同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了 Green 函数生成机制来提升计算效率, 避免了可能的奇异值问题, 并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S 方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合, 支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务. 未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.",
             linksAriaLabel: "论文链接",
@@ -303,7 +303,7 @@
             label: "Poster Presentation",
             title: "面向集成模拟的输运-平衡耦合框架开发",
             authorsHtml: "<strong>张若涵</strong>, 徐亚楠, 王丰, 王正汹*",
-            meta: "第十三届全国磁约束聚变理论与模拟会议 | 2025.05 | 浙江杭州, 中国 | 墙报展示",
+            meta: "第十三届全国磁约束聚变理论与模拟会议 | 2025.05 | 浙江杭州",
             summary:
               "集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具, 绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流. 国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱, 严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python 环境的集成模拟平台, 已经实现基础的输运和平衡模块, 并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC 可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核, 能在毫秒量级内高效求解非线性对流-扩散方程组, 同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了 Green 函数生成机制来提升计算效率, 避免了可能的奇异值数值问题, 并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S 方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合, 支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务. 未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.",
             linksAriaLabel: "论文链接",
@@ -315,7 +315,7 @@
             label: "Poster Presentation",
             title: "面向托卡马克集成模拟的一维输运计算模块开发",
             authorsHtml: "<strong>张若涵</strong>, 李纯东, 王丰, 王正汹*",
-            meta: "第一届磁约束等离子体运行模式和集成模拟研讨会 | 2024.08 | 四川成都, 中国 | 墙报展示",
+            meta: "第一届磁约束等离子体运行模式和集成模拟研讨会 | 2024.08 | 四川成都",
             summary:
               "输运模块是托卡马克集成模拟计算中最基本的部分之一, 对国内目前开展的集成模拟平台的建设工作至关重要. 最近, 我们团队开发了面向托卡马克集成模拟的一维输运计算模块 OTC (One-dimensional Transport Computing module for integrated tokamak modeling), 并完成了基本的验证工作. OTC 目前能够同时计算新经典输运 (neoclassical transport) 中多个剖面的演化, 包括各种主要离子和杂质离子的密度, 电子和离子的温度以及电流密度. OTC 基于 C++ 编写以实现高效率计算, 并使用了适合求解任意多个变量的对流-扩散方程组的通用求解器, 因此可以无限制地添加各种离子和杂质, 设计上也可以进行其他输运模型的计算. 该模块内置了用户自定义的权重, 可以通过接口在程序外部进行控制, 便于对输运系数或物理过程进行修正. 未来, 我们计划将其打包并在 Python 环境中实现调用, 从而与集成模拟平台上的加热与电流驱动模块, 平衡模块等模块进行工作流整合, 最后发展为完整的软件. 同时纳入更多物理过程, 并利用 ONETWO 等常用输运模块对 OTC 进行验证, 最终可能还会集成其他湍流输运模型 (如 TGLF), 以扩展其功能和应用范围.",
             linksAriaLabel: "论文链接",
@@ -988,9 +988,17 @@
         flex-wrap: wrap;
         align-items: center;
         gap: 0;
-        margin: 0 0 0 12px;
+        margin: 0;
         padding-left: 0;
         list-style: none;
+      }
+
+      .heading-index::before {
+        content: "";
+        width: 1px;
+        height: 0.9em;
+        margin: 0 9px 0 0;
+        background: var(--line);
       }
 
       .heading-index li {
@@ -1112,8 +1120,7 @@
       .item,
       .paper-card,
       .conference-card,
-      .software-card,
-      .award-card {
+      .software-card {
         position: relative;
         background:
           linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 160px),
@@ -1130,8 +1137,7 @@
       .item::before,
       .paper-card::before,
       .conference-card::before,
-      .software-card::before,
-      .award-card::before {
+      .software-card::before {
         content: "";
         position: absolute;
         top: 12px;
@@ -1148,12 +1154,10 @@
       .paper-card:hover,
       .conference-card:hover,
       .software-card:hover,
-      .award-card:hover,
       .item:focus-within,
       .paper-card:focus-within,
       .conference-card:focus-within,
-      .software-card:focus-within,
-      .award-card:focus-within {
+      .software-card:focus-within {
         border-color: rgba(180, 154, 102, 0.78);
         box-shadow: var(--shadow-hover);
         transform: translateY(-2px);
@@ -1163,12 +1167,10 @@
       .paper-card:hover::before,
       .conference-card:hover::before,
       .software-card:hover::before,
-      .award-card:hover::before,
       .item:focus-within::before,
       .paper-card:focus-within::before,
       .conference-card:focus-within::before,
-      .software-card:focus-within::before,
-      .award-card:focus-within::before {
+      .software-card:focus-within::before {
         background: var(--accent);
         width: 3px;
       }
@@ -1495,6 +1497,7 @@
         padding-top: 9px;
         border-top: 1px solid var(--line-soft);
         color: var(--summary-text);
+        font-family: var(--font-ui);
         font-size: 14px;
         line-height: 1.72;
         text-wrap: pretty;
@@ -1839,59 +1842,77 @@
       .award-list {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 0;
+        border-top: 1px solid var(--line-soft);
+        border-bottom: 1px solid var(--line-soft);
       }
 
       .award-card {
         display: grid;
-        grid-template-columns: 1fr;
-        gap: 8px;
+        grid-template-columns: minmax(150px, 0.32fr) minmax(0, 1fr);
+        gap: 22px;
         align-items: start;
-        padding: 15px 18px 15px 20px;
+        padding: 14px 0;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .award-card + .award-card {
+        border-top: 1px solid var(--line-soft);
       }
 
       .award-title {
         margin: 0;
-        padding-bottom: 5px;
-        border-bottom: 1px solid var(--line-soft);
+        padding: 1px 0 0;
+        border-bottom: 0;
       }
 
       .award-title h3 {
-        color: var(--accent);
+        color: var(--meta-text);
+        font-family: var(--font-ui);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.45;
+        text-transform: uppercase;
       }
 
       .award-items {
         display: grid;
-        gap: 7px;
+        gap: 6px;
         margin: 0;
         padding: 0;
         list-style: none;
       }
 
       .award-items li {
-        position: relative;
         margin: 0;
-        padding-left: 14px;
+        padding-left: 0;
         color: var(--muted);
         font-family: var(--font-ui);
-        font-size: 14px;
+        font-size: 13px;
+        line-height: 1.58;
       }
 
       .award-items li::before {
-        content: "";
-        position: absolute;
-        top: 0.72em;
-        left: 0;
-        width: 4px;
-        height: 4px;
-        border-radius: 999px;
-        background: var(--accent-hairline);
+        display: none;
+      }
+
+      .award-card.reveal-target {
+        transition: opacity 0.4s ease;
+      }
+
+      .award-card.reveal-target:not(.is-visible),
+      .award-card.reveal-target.is-visible {
+        transform: none;
       }
 
       .tag-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 6px 10px;
+        gap: 6px 16px;
         margin: 7px 0 0;
         padding: 0;
         list-style: none;
@@ -1900,7 +1921,7 @@
       .tag {
         display: inline-flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
         margin-left: 0;
         padding: 0;
         border: 0;
@@ -2092,6 +2113,11 @@
           height: auto;
         }
 
+        .award-card {
+          grid-template-columns: 1fr;
+          gap: 5px;
+        }
+
         .item:hover,
         .paper-card:hover,
         .conference-card:hover,
@@ -2128,6 +2154,10 @@
         .heading-index {
           margin: 6px 0 0;
           padding-left: 0;
+        }
+
+        .heading-index::before {
+          display: none;
         }
 
         .heading-index li + li::before {
@@ -3105,6 +3135,57 @@
       setupRevealEffects();
 
       const SUMMARY_PREVIEW_CHARS = 200;
+      const WIDE_CHARACTER_PATTERN =
+        /[\u1100-\u115f\u2e80-\u303f\u3040-\u30ff\u3100-\u312f\u31a0-\u31bf\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff00-\uffef]/u;
+      const WIDE_TEXT_BREAK_PATTERN = /[\s,.;:!?，。；：！？、）)]/u;
+
+      const measurePreviewLength = (text) =>
+        Array.from(text).reduce(
+          (total, character) =>
+            total + (WIDE_CHARACTER_PATTERN.test(character) ? 2 : 1),
+          0,
+        );
+
+      const preferNearbyWideTextBreak = (text, cutAt) => {
+        let offset = 0;
+        let preferredCut = cutAt;
+
+        for (const character of text.slice(0, cutAt)) {
+          offset += character.length;
+          if (WIDE_TEXT_BREAK_PATTERN.test(character)) {
+            preferredCut = offset;
+          }
+        }
+
+        return measurePreviewLength(text.slice(preferredCut, cutAt)) <= 24
+          ? preferredCut
+          : cutAt;
+      };
+
+      const findPreviewCut = (text, maxLength) => {
+        let measuredLength = 0;
+        let offset = 0;
+        let cutAt = text.length;
+
+        for (const character of text) {
+          measuredLength += WIDE_CHARACTER_PATTERN.test(character) ? 2 : 1;
+          offset += character.length;
+          if (measuredLength >= maxLength) {
+            cutAt = offset;
+            break;
+          }
+        }
+
+        if (cutAt >= text.length) return text.length;
+
+        const hasWideCharacters = WIDE_CHARACTER_PATTERN.test(
+          text.slice(0, cutAt),
+        );
+        if (hasWideCharacters) return preferNearbyWideTextBreak(text, cutAt);
+
+        const nextSpace = text.indexOf(" ", cutAt);
+        return nextSpace === -1 ? cutAt : nextSpace;
+      };
 
       const typesetMath = (element) => {
         if (window.MathJax?.typesetPromise) {
@@ -3191,15 +3272,14 @@
 
       const collapseSummary = (summary) => {
         const original = summary.textContent.trim().replace(/\s+/g, " ");
-        if (original.length <= SUMMARY_PREVIEW_CHARS) {
+        if (measurePreviewLength(original) <= SUMMARY_PREVIEW_CHARS) {
           typesetMath(summary);
           return;
         }
 
         const textSpan = document.createElement("span");
         const toggle = document.createElement("button");
-        const nextSpace = original.indexOf(" ", SUMMARY_PREVIEW_CHARS);
-        const cutAt = nextSpace === -1 ? original.length : nextSpace;
+        const cutAt = findPreviewCut(original, SUMMARY_PREVIEW_CHARS);
         const collapsedText = original.slice(0, cutAt).trimEnd();
 
         toggle.type = "button";
