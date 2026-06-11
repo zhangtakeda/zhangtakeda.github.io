@@ -503,7 +503,7 @@
 
       header {
         display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1fr);
+        grid-template-columns: max-content minmax(0, 1fr);
         gap: 34px;
         align-items: end;
         padding-bottom: 26px;
@@ -565,8 +565,8 @@
       .contact {
         display: grid;
         gap: 7px;
-        justify-self: end;
-        width: min(100%, 430px);
+        justify-self: stretch;
+        width: 100%;
         padding: 4px 0 0 22px;
         background: transparent;
         border: 0;
@@ -587,17 +587,21 @@
 
       .contact-row {
         display: block;
+        min-width: 0;
         padding: 0;
       }
 
       .contact-value {
         color: var(--accent);
+        display: block;
         min-width: 0;
       }
 
       .contact-value a {
         color: inherit;
+        display: block;
         font-weight: 700;
+        overflow-wrap: anywhere;
       }
 
       section {
@@ -1916,18 +1920,15 @@
           data-i18n-aria-label="contactAria"
         >
           <div class="contact-row">
-            <span class="contact-value"
-              ><a href="https://orcid.org/0009-0008-8686-1122">ORCID</a> /
-              <a href="https://zhangtakeda.github.io/">GitHub</a></span
-            >
-          </div>
-
-          <div class="contact-row">
             <span class="contact-value">
               <a href="mailto:rhzhang@mail.dlut.edu.cn"
                 >rhzhang@mail.dlut.edu.cn</a
               >
-              /
+            </span>
+          </div>
+
+          <div class="contact-row">
+            <span class="contact-value">
               <a href="mailto:zhangtakeda@gmail.com">zhangtakeda@gmail.com</a>
             </span>
           </div>
