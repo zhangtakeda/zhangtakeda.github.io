@@ -58,10 +58,8 @@
               "张若涵, 大连理工大学等离子体物理博士研究生, 研究聚变等离子体平衡、输运与科学计算方法.",
             name: "张若涵",
             role: "博士研究生",
-            majorLine:
-              '<span class="title-label">专业:</span><span class="title-value">等离子体物理</span>',
             affiliationLine:
-              '<span class="title-label">单位:</span><span class="title-value">大连理工大学物理学院</span>',
+              '<span class="title-value">大连理工大学物理学院</span>',
             contactAria: "联系方式",
             contactEmail: "邮箱",
             contactGithub: "GitHub",
@@ -115,10 +113,8 @@
               "Ruohan Zhang, Ph.D. student in plasma physics at Dalian University of Technology, working on fusion-plasma equilibrium, transport, and scientific computing.",
             name: "Ruohan Zhang",
             role: "Ph.D. Student",
-            majorLine:
-              '<span class="title-label">Major:</span><span class="title-value">Plasma Physics</span>',
             affiliationLine:
-              '<span class="title-label">Affiliation:</span><span class="title-value">School of Physics, Dalian University of Technology</span>',
+              '<span class="title-value">School of Physics, Dalian University of Technology</span>',
             contactAria: "Contact information",
             contactEmail: "Email",
             contactGithub: "GitHub",
@@ -252,7 +248,7 @@
             links: [
               {
                 href: "https://doi.org/10.1088/2058-6272/ad225b",
-                label: "DOI",
+                label: "PST",
               },
             ],
           },
@@ -733,33 +729,17 @@
         opacity: 1;
       }
 
-      .toc {
-        position: sticky;
-        top: 0;
-        z-index: 30;
-        width: min(560px, 100%);
-        --toc-expanded-depth: 76px;
-        --toc-section-gap: 38px;
-        margin: 0 0 calc(var(--toc-expanded-depth) + var(--toc-section-gap));
+      .milestone-ledger {
+        width: min(620px, 100%);
+        margin: 0 0 40px;
         padding: 0;
         border-radius: 6px;
         background: transparent;
         font-family: var(--font-ui);
-        transition:
-          background-color 0.22s ease,
-          box-shadow 0.22s ease;
-      }
-
-      .toc.is-compact {
-        background: rgba(251, 251, 250, 0.9);
-        box-shadow:
-          0 0 0 1px rgba(125, 169, 184, 0.34),
-          0 12px 26px rgba(36, 38, 41, 0.08);
-        backdrop-filter: blur(16px);
       }
 
       .contribution-index-label {
-        margin: 0 0 4px;
+        margin: 0 0 8px;
         color: var(--accent);
         font-family: var(--font-serif);
         font-size: 15.5px;
@@ -769,55 +749,30 @@
         text-transform: none;
       }
 
-      .contribution-detail {
-        display: none;
-      }
-
-      .toc-list {
-        position: relative;
+      .milestone-ledger .toc-list {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 7px;
         margin: 0;
         padding: 0;
-        border-radius: 6px;
         list-style: none;
-        transition:
-          background-color 0.22s ease,
-          box-shadow 0.22s ease;
       }
 
-      .toc-list > li {
-        position: relative;
-        display: block;
+      .milestone-ledger .toc-list > li {
+        display: grid;
+        grid-template-columns: minmax(164px, 0.38fr) minmax(0, 1fr);
+        column-gap: 18px;
+        align-items: baseline;
         min-width: 0;
         margin: 0;
-        text-align: center;
       }
 
-      .toc-list > li + li {
-        border-left: 0;
-      }
-
-      .toc-list > li + li::before {
-        content: "|";
-        position: absolute;
-        top: 4px;
-        left: 0;
-        display: block;
-        color: var(--line);
-        font-family: var(--font-ui);
-        font-size: 13px;
-        font-weight: 500;
-        line-height: 1.35;
-        transform: translateX(-50%);
-      }
-
-      .toc-list > li > a {
-        position: relative;
-        display: block;
-        min-height: 0;
-        padding: 5px 8px 6px;
+      .milestone-ledger .toc-list > li > a {
+        display: grid;
+        grid-template-columns: 34px minmax(0, 1fr);
+        column-gap: 10px;
+        align-items: baseline;
+        padding: 0;
         color: var(--muted);
         font-size: 13px;
         font-weight: 600;
@@ -829,25 +784,24 @@
           transform 0.2s var(--ease-out);
       }
 
-      .toc-list > li > a::after {
-        display: none;
+      .milestone-ledger .toc-list > li > a:hover,
+      .milestone-ledger .toc-list > li > a:focus-visible {
+        color: var(--accent);
+        text-decoration: none;
       }
 
-      .heading-index a::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        bottom: -3px;
-        left: 0;
-        height: 1px;
-        background: currentColor;
-        transform: scaleX(0);
-        transform-origin: right center;
-        transition: transform 0.24s var(--ease-out);
+      .milestone-ledger .toc-list > li > a:hover .contribution-title,
+      .milestone-ledger .toc-list > li > a:focus-visible .contribution-title {
+        color: var(--accent);
       }
 
-      .contribution-number {
-        display: none;
+      .milestone-ledger .contribution-number {
+        display: block;
+        color: var(--accent-hairline);
+        font-size: 12px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        line-height: 1.35;
       }
 
       .contribution-copy {
@@ -863,146 +817,64 @@
         transition: color 0.2s ease;
       }
 
-      .toc-list > li > a:hover,
-      .toc.is-compact .toc-list > li > a.is-active {
-        color: var(--accent);
-        text-decoration: none;
+      .contribution-detail {
+        display: none;
       }
 
-      .toc-list > li > a:hover .contribution-title {
-        color: var(--accent);
-      }
-
-      .toc-list > li > a:hover {
-        transform: translateY(-1px);
-      }
-
-      .toc-list > li > a:hover::after {
-        color: var(--accent);
-        opacity: 1;
-        transform: translateY(2px);
-      }
-
-      .heading-index a:hover::after {
-        transform: scaleX(1);
-        transform-origin: left center;
-      }
-
-      .toc-item.has-subindex {
-        position: relative;
-      }
-
-      .toc-subindex {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: 0;
-        z-index: 18;
-        display: grid;
-        align-content: start;
-        justify-items: center;
-        gap: 2px;
-        width: auto;
+      .milestone-ledger .toc-subindex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 12px;
+        align-items: baseline;
         min-width: 0;
-        max-width: none;
         margin: 0;
-        padding: 6px 8px 8px;
+        padding: 0;
         list-style: none;
-        border-left: 0;
-        background: transparent;
-        opacity: 1;
-        pointer-events: auto;
-        transform: none;
-        transition:
-          opacity 0.18s ease,
-          transform 0.18s ease;
+        color: var(--muted);
       }
 
-      .toc-subindex::before {
-        display: none;
-      }
-
-      .toc-item.has-subindex:hover .toc-subindex,
-      .toc-item.has-subindex:focus-within .toc-subindex {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transform: none;
-      }
-
-      .toc-subindex li {
-        display: block;
+      .milestone-ledger .toc-subindex li {
+        display: inline-flex;
+        align-items: baseline;
         margin: 0;
       }
 
-      .toc-subindex li + li::before {
-        display: none;
-      }
-
-      .toc-subindex a {
-        display: block;
+      .milestone-ledger .toc-subindex a {
+        display: inline;
         overflow: hidden;
         padding: 0;
         color: var(--muted);
         font-size: 12px;
         font-weight: 600;
         line-height: 1.45;
-        text-align: center;
+        text-align: left;
         text-decoration: none;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
 
-      .toc-subindex a:hover {
+      .milestone-ledger .toc-subindex a:hover,
+      .milestone-ledger .toc-subindex a:focus-visible {
         color: var(--accent);
         text-decoration: none;
       }
 
-      .toc.is-compact .toc-subindex {
-        top: calc(100% + 5px);
-        right: 6px;
-        left: 6px;
-        padding: 7px 8px 8px;
-        border: 1px solid rgba(125, 169, 184, 0.36);
-        border-radius: 6px;
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.68), transparent),
-          var(--surface);
-        box-shadow: 0 10px 24px rgba(36, 38, 41, 0.1);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transform: translateY(-3px);
+      .heading-index a::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: -3px;
+        left: 0;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: right center;
+        transition: transform 0.24s var(--ease-out);
       }
 
-      .toc.is-compact .toc-subindex::before {
-        display: none;
-      }
-
-      .toc.is-compact .toc-item.has-subindex:hover .toc-subindex,
-      .toc.is-compact .toc-item.has-subindex:focus-within .toc-subindex {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transform: translateY(0);
-      }
-
-      .toc.is-compact .toc-list {
-        background: rgba(251, 251, 250, 0.92);
-        box-shadow: inset 0 0 0 1px rgba(125, 169, 184, 0.34);
-      }
-
-      .toc.is-compact .toc-list > li + li::before {
-        color: rgba(125, 169, 184, 0.58);
-      }
-
-      .toc.is-compact .contribution-title {
-        color: var(--text);
-      }
-
-      .toc.is-compact .toc-list > li > a.is-active .contribution-title,
-      .toc.is-compact .toc-list > li > a:hover .contribution-title {
-        color: var(--accent);
+      .heading-index a:hover::after {
+        transform: scaleX(1);
+        transform-origin: left center;
       }
 
       .heading-index {
@@ -1060,10 +932,6 @@
       section:not(.cv-abstract) {
         position: relative;
         padding-top: 36px;
-      }
-
-      .toc + section {
-        margin-top: 0;
       }
 
       section:not(.cv-abstract)::before {
@@ -2072,63 +1940,32 @@
           letter-spacing: 0;
         }
 
-        .toc {
-          --toc-expanded-depth: 82px;
-          --toc-section-gap: 38px;
-          padding: 0;
-          overflow-x: visible;
+        .milestone-ledger {
+          width: 100%;
+          margin-bottom: 38px;
         }
 
-        .toc-list {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          min-width: 0;
+        .milestone-ledger .toc-list {
+          gap: 8px;
         }
 
-        .toc-list > li {
-          display: block;
-          padding-right: 0;
+        .milestone-ledger .toc-list > li {
+          grid-template-columns: minmax(116px, 0.38fr) minmax(0, 1fr);
+          column-gap: 10px;
         }
 
-        .toc-list > li + li {
-          padding-left: 0;
-          border-top: 0;
-          border-left: 0;
-        }
-
-        .toc-list > li > a {
-          min-height: auto;
-          padding: 4px 4px 5px;
-        }
-
-        .toc-list > li > a::after {
-          display: none;
+        .milestone-ledger .toc-list > li > a {
+          grid-template-columns: 26px minmax(0, 1fr);
+          column-gap: 8px;
         }
 
         .contribution-title {
           font-size: 12px;
         }
 
-        .toc-subindex {
-          padding: 5px 3px 6px;
-          border-left: 0;
-        }
-
-        .toc.is-compact .toc-subindex {
-          padding: 5px 3px 6px;
-          border: 1px solid rgba(125, 169, 184, 0.36);
-        }
-
-        .toc.is-compact {
-          overflow: visible;
-        }
-
-        .toc.is-compact .toc-list {
-          min-width: 0;
-        }
-
-        .toc-subindex li + li::before {
-          display: none;
+        .milestone-ledger .contribution-number,
+        .milestone-ledger .toc-subindex a {
+          font-size: 11.5px;
         }
 
         .cv-abstract {
@@ -2140,10 +1977,6 @@
 
         section {
           margin: 44px 0;
-        }
-
-        .toc + section {
-          margin-top: 0;
         }
 
         section:not(.cv-abstract) {
@@ -2358,10 +2191,6 @@
         <div>
           <h1 class="name" data-i18n="name">张若涵</h1>
           <p class="title" data-i18n="role">博士研究生</p>
-          <p class="title title-line" data-i18n-html="majorLine">
-            <span class="title-label">专业:</span
-            ><span class="title-value">等离子体物理</span>
-          </p>
           <p class="title title-line" data-i18n-html="affiliationLine">
             <span class="title-label">单位:</span
             ><span class="title-value">大连理工大学物理学院</span>
@@ -2441,7 +2270,11 @@
       <p class="contribution-index-label" data-i18n="contributionIndexLabel">
         Selected Work:
       </p>
-      <nav class="toc" aria-label="成果索引" data-i18n-aria-label="tocAria">
+      <nav
+        class="milestone-ledger"
+        aria-label="成果索引"
+        data-i18n-aria-label="tocAria"
+      >
         <ol class="toc-list">
           <li class="toc-item has-subindex">
             <a class="contribution-link" href="#software">
@@ -2764,57 +2597,6 @@
       const textFor = (key) =>
         TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS.en[key] ?? key;
 
-      const alignTocSubindexes = () => {
-        document.querySelectorAll(".toc-item.has-subindex").forEach((item) => {
-          const trigger = Array.from(item.children).find(
-            (child) => child.tagName === "A",
-          );
-          const subindex = Array.from(item.children).find((child) =>
-            child.classList.contains("toc-subindex"),
-          );
-          if (!trigger || !subindex) return;
-
-          subindex.style.setProperty(
-            "--toc-subindex-left",
-            `${trigger.offsetLeft + trigger.offsetWidth / 2}px`,
-          );
-          subindex.style.setProperty(
-            "--toc-trigger-width",
-            `${trigger.offsetWidth}px`,
-          );
-        });
-      };
-
-      const syncTocExpandedSpacing = () => {
-        const toc = document.querySelector(".toc");
-        if (!toc) return;
-
-        const wasCompact = toc.classList.contains("is-compact");
-        if (wasCompact) toc.classList.remove("is-compact");
-
-        const tocRect = toc.getBoundingClientRect();
-        const expandedDepth = Array.from(
-          toc.querySelectorAll(".toc-subindex"),
-        ).reduce((maxDepth, subindex) => {
-          if (!subindex.children.length) return maxDepth;
-          const depth =
-            subindex.getBoundingClientRect().bottom - tocRect.bottom;
-          return Math.max(maxDepth, depth);
-        }, 0);
-
-        toc.style.setProperty(
-          "--toc-expanded-depth",
-          `${Math.max(0, Math.ceil(expandedDepth))}px`,
-        );
-
-        if (wasCompact) toc.classList.add("is-compact");
-      };
-
-      const updateTocLayout = () => {
-        alignTocSubindexes();
-        syncTocExpandedSpacing();
-      };
-
       const updateSummaryToggleLabels = () => {
         document.querySelectorAll(".venue-toggle").forEach((toggle) => {
           toggle.textContent =
@@ -2888,7 +2670,6 @@
 
         updateSummaryToggleLabels();
         updateImageButtonLabels();
-        requestAnimationFrame(updateTocLayout);
       };
 
       const setupLanguageSwitch = () => {
@@ -2923,81 +2704,6 @@
         };
 
         updateScrollProgress();
-        window.addEventListener("scroll", requestUpdate, { passive: true });
-        window.addEventListener("resize", requestUpdate);
-      };
-
-      const setupActiveNavigation = () => {
-        const links = Array.from(
-          document.querySelectorAll('.toc-list > li > a[href^="#"]'),
-        );
-        const pairs = links
-          .map((link) => ({
-            link,
-            section: document.getElementById(
-              decodeURIComponent(link.hash.slice(1)),
-            ),
-          }))
-          .filter(({ section }) => section);
-
-        if (!pairs.length) return;
-
-        let ticking = false;
-        const findActivePair = (anchorLine) => {
-          for (let index = pairs.length - 1; index >= 0; index -= 1) {
-            if (
-              pairs[index].section.getBoundingClientRect().top <= anchorLine
-            ) {
-              return pairs[index];
-            }
-          }
-          return pairs[0];
-        };
-
-        const updateActive = () => {
-          const anchorLine = Math.min(window.innerHeight * 0.32, 220);
-          const activePair = findActivePair(anchorLine);
-
-          pairs.forEach(({ link }) => link.classList.remove("is-active"));
-          activePair.link.classList.add("is-active");
-        };
-
-        const requestUpdate = () => {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(() => {
-            updateActive();
-            ticking = false;
-          });
-        };
-
-        updateActive();
-        window.addEventListener("scroll", requestUpdate, { passive: true });
-        window.addEventListener("resize", requestUpdate);
-      };
-
-      const setupStickyTocState = () => {
-        const toc = document.querySelector(".toc");
-        if (!toc) return;
-
-        let ticking = false;
-        const updateCompactState = () => {
-          toc.classList.toggle(
-            "is-compact",
-            toc.getBoundingClientRect().top <= 0 && window.scrollY > 0,
-          );
-        };
-
-        const requestUpdate = () => {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(() => {
-            updateCompactState();
-            ticking = false;
-          });
-        };
-
-        updateCompactState();
         window.addEventListener("scroll", requestUpdate, { passive: true });
         window.addEventListener("resize", requestUpdate);
       };
@@ -3242,13 +2948,7 @@
           ".heading-index[data-card-selector], .toc-subindex[data-card-selector]",
         )
         .forEach(buildHeadingIndex);
-      window.addEventListener("resize", () =>
-        requestAnimationFrame(updateTocLayout),
-      );
-      updateTocLayout();
       setupScrollProgress();
-      setupStickyTocState();
-      setupActiveNavigation();
       setupRevealEffects();
 
       const SUMMARY_PREVIEW_CHARS = 200;
