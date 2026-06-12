@@ -93,12 +93,14 @@
               "<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡, 输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p>",
             phdTitle: "博士研究生",
             phdInstitution: "大连理工大学",
+            phdMajor: "等离子体物理",
             phdDate: "2023.09 &ndash; 至今",
             phdTime: "大连理工大学 | 2023.09 &ndash; 至今",
             phdMeta:
               "<strong>专业</strong>: 等离子体物理<br><strong>导师</strong>: 王正汹教授, 王丰教授",
             bachelorTitle: "理学学士",
             bachelorInstitution: "大连理工大学",
+            bachelorMajor: "应用物理学",
             bachelorDate: "2019.09 &ndash; 2023.06",
             bachelorTime: "大连理工大学 | 2019.09 &ndash; 2023.06",
             bachelorMeta: "<strong>专业</strong>: 应用物理学",
@@ -123,7 +125,7 @@
             contactGithub: "GitHub",
             skipLink: "Skip to content",
             tocAria: "Contribution index",
-            contributionSoftware: "1 repo",
+            contributionSoftware: "1 repository",
             contributionPublications: "2 papers",
             contributionConferences: "4 presentations",
             focusLabel: "Research Focus",
@@ -154,12 +156,14 @@
               "<p>I am a Ph.D. student in plasma physics at Dalian University of Technology. My work focuses on numerical algorithms and scientific-computing methods for fusion-plasma equilibrium, transport, and coupled modeling. I have experience developing scientific-computing codes in Python and C++, and I am familiar with numerical optimization and high-performance-computing implementations. I am advised by Prof. Zhengxiong Wang and Prof. Feng Wang, and collaborate with Dr. Huasheng Xie on related algorithm and code development.</p>",
             phdTitle: "Ph.D. Student",
             phdInstitution: "Dalian University of Technology",
+            phdMajor: "Plasma Physics",
             phdDate: "2023.09 &ndash; Present",
             phdTime:
               "Dalian University of Technology | 2023.09 &ndash; Present",
             phdMeta: "<strong>Major</strong>: Plasma Physics<br>",
             bachelorTitle: "B.Sc.",
             bachelorInstitution: "Dalian University of Technology",
+            bachelorMajor: "Applied Physics",
             bachelorDate: "2019.09 &ndash; 2023.06",
             bachelorTime:
               "Dalian University of Technology | 2019.09 &ndash; 2023.06",
@@ -1208,7 +1212,7 @@
         );
         margin: 34px 0 0 var(--overview-leading-offset);
         padding-bottom: 18px;
-        border-bottom: 0;
+        border-bottom: 1px solid var(--line);
         scroll-margin-top: 24px;
       }
 
@@ -1341,8 +1345,18 @@
       }
 
       .abstract-education .timeline {
+        gap: 22px;
         margin-top: 0;
         margin-left: 14px;
+      }
+
+      .abstract-education .timeline::after {
+        content: "";
+        position: absolute;
+        left: 6px;
+        bottom: -6px;
+        height: 24px;
+        border-left: 1px dashed var(--line);
       }
 
       .abstract-education h3 {
@@ -2396,7 +2410,7 @@
                     <span
                       class="contribution-detail"
                       data-i18n="contributionSoftware"
-                      >1 repo</span
+                      >1 repositories</span
                     >
                   </span>
                 </a>
@@ -2454,6 +2468,7 @@
                 <h3 data-i18n="phdTitle">博士研究生</h3>
                 <div class="education-subtitles">
                   <span data-i18n="phdInstitution">大连理工大学</span>
+                  <span data-i18n="phdMajor">等离子体物理</span>
                   <span data-i18n-html="phdDate">2023.09 &ndash; 至今</span>
                 </div>
               </div>
@@ -2464,6 +2479,7 @@
                 <h3 data-i18n="bachelorTitle">理学学士</h3>
                 <div class="education-subtitles">
                   <span data-i18n="bachelorInstitution">大连理工大学</span>
+                  <span data-i18n="bachelorMajor">应用物理学</span>
                   <span data-i18n-html="bachelorDate"
                     >2019.09 &ndash; 2023.06</span
                   >
