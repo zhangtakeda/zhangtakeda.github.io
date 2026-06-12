@@ -65,29 +65,30 @@
             contactGithub: "GitHub",
             skipLink: "跳到正文",
             tocAria: "成果索引",
-            contributionIndexLabel: "里程碑:",
-            contributionSoftware: "VEQPy · 开源 Grad-Shafranov 平衡求解器",
-            contributionPublications: "2 篇论文 · VEQ, CPP",
-            contributionConferences: "4 项会议报告 · 2024–2026",
-            contributionHonors: "获奖 · 数学建模, 创新创业",
+            contributionSoftware: "1 个代码仓库",
+            contributionPublications: "2 篇论文",
+            contributionConferences: "4 项会议报告",
+            focusLabel: "Research Focus",
+            focusFastModeling: "托卡马克等离子体的快速高保真集成建模",
+            focusEquilibriumTransport: "聚变等离子体的平衡与输运",
+            focusNumericalAlgorithms: "计算物理和数值算法",
             navProfile: "个人简介",
             navEducation: "教育经历",
             navSoftware: "软件",
             navPublications: "论文发表",
             navConferences: "会议报告",
-            navHonors: "获得荣誉",
             sectionProfile: "个人简介",
             sectionEducation: "教育经历",
             sectionSoftware: "软件",
             sectionPublications: "论文发表",
             sectionConferences: "会议报告",
-            sectionHonors: "获得荣誉",
+            sectionHonors: "其他",
             pubIndexAria: "论文发表索引",
             confIndexAria: "会议报告索引",
             pubSubindexAria: "论文发表子索引",
             confSubindexAria: "会议报告子索引",
             profileSummary:
-              '<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡, 输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p><div><strong>研究方向</strong>:<ul class="research-list"><li>托卡马克等离子体的快速高保真集成建模</li><li>聚变等离子体的平衡与输运</li><li>计算物理和数值算法</li></ul></div>',
+              "<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡, 输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p>",
             phdTitle: "博士研究生",
             phdInstitution: "大连理工大学",
             phdDate: "2023.09 &ndash; 至今",
@@ -120,29 +121,33 @@
             contactGithub: "GitHub",
             skipLink: "Skip to content",
             tocAria: "Contribution index",
-            contributionIndexLabel: "Milestones:",
-            contributionSoftware: "VEQPy · open-source equilibrium solver",
-            contributionPublications: "2 papers · VEQ, CPP",
-            contributionConferences: "4 presentations · 2024–2026",
-            contributionHonors: "Awards · modeling, entrepreneurship",
+            contributionSoftware: "1 repo",
+            contributionPublications: "2 papers",
+            contributionConferences: "4 presentations",
+            focusLabel: "Research Focus",
+            focusFastModeling:
+              "Fast, high-fidelity integrated modeling for tokamak plasmas",
+            focusEquilibriumTransport:
+              "Coupled modeling of fusion-plasma equilibrium and transport",
+            focusNumericalAlgorithms:
+              "Computational physics and numerical algorithms",
             navProfile: "Profile",
             navEducation: "Education",
             navSoftware: "Software",
             navPublications: "Publications",
             navConferences: "Conferences",
-            navHonors: "Honors",
             sectionProfile: "Profile",
             sectionEducation: "Education",
             sectionSoftware: "Software",
             sectionPublications: "Publications",
             sectionConferences: "Conferences",
-            sectionHonors: "Honors",
+            sectionHonors: "Other",
             pubIndexAria: "Publication index",
             confIndexAria: "Conference presentation index",
             pubSubindexAria: "Publication subindex",
             confSubindexAria: "Conference presentation subindex",
             profileSummary:
-              '<p>I am a Ph.D. student in plasma physics at Dalian University of Technology. My work focuses on numerical algorithms and scientific-computing methods for fusion-plasma equilibrium, transport, and coupled modeling. I have experience developing scientific-computing codes in Python and C++, and I am familiar with numerical optimization and high-performance-computing implementations. I am advised by Prof. Zhengxiong Wang and Prof. Feng Wang, and collaborate with Dr. Huasheng Xie on related algorithm and code development.</p><div><strong>Research Focus:</strong><ul class="research-list"><li>Fast, high-fidelity integrated modeling for tokamak plasmas</li><li>Coupled modeling of fusion-plasma equilibrium and transport</li><li>Computational physics and numerical algorithms</li></ul></div>',
+              "<p>I am a Ph.D. student in plasma physics at Dalian University of Technology. My work focuses on numerical algorithms and scientific-computing methods for fusion-plasma equilibrium, transport, and coupled modeling. I have experience developing scientific-computing codes in Python and C++, and I am familiar with numerical optimization and high-performance-computing implementations. I am advised by Prof. Zhengxiong Wang and Prof. Feng Wang, and collaborate with Dr. Huasheng Xie on related algorithm and code development.</p>",
             phdTitle: "Ph.D. Student",
             phdInstitution: "Dalian University of Technology",
             phdDate: "2023.09 &ndash; Present",
@@ -168,7 +173,7 @@
           {
             id: "software-veqpy",
             indexLabel: "VEQPy",
-            label: "Open Source Software",
+            label: "Open Source",
             title: "VEQPy",
             metaHtml:
               "<strong>Role</strong>: Maintainer · <strong>License</strong>: BSD-3-Clause",
@@ -376,6 +381,16 @@
         --focus-outline: rgba(63, 127, 153, 0.3);
         --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
         --page-x: 66px;
+        --profile-photo-width: 43.75mm;
+        --profile-gap: 46px;
+        --focus-main-width: 520px;
+        --focus-gap: 28px;
+        --focus-leading-space: 14px;
+        --focus-row-top-space: 18px;
+        --education-width: 280px;
+        --overview-width: calc(
+          var(--focus-main-width) + var(--focus-gap) + var(--education-width)
+        );
       }
 
       * {
@@ -730,29 +745,18 @@
       }
 
       .milestone-ledger {
-        width: min(620px, 100%);
-        margin: 0 0 40px;
+        width: fit-content;
+        max-width: 100%;
+        margin: 0;
         padding: 0;
-        border-radius: 6px;
         background: transparent;
         font-family: var(--font-ui);
       }
 
-      .contribution-index-label {
-        margin: 0 0 8px;
-        color: var(--accent);
-        font-family: var(--font-serif);
-        font-size: 15.5px;
-        font-weight: 700;
-        letter-spacing: 0;
-        line-height: 1.38;
-        text-transform: none;
-      }
-
       .milestone-ledger .toc-list {
         display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 7px;
+        grid-template-columns: repeat(3, minmax(126px, max-content));
+        gap: 10px;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -760,23 +764,41 @@
 
       .milestone-ledger .toc-list > li {
         display: grid;
-        grid-template-columns: minmax(164px, 0.38fr) minmax(0, 1fr);
-        column-gap: 18px;
-        align-items: baseline;
+        align-content: start;
+        gap: 9px;
         min-width: 0;
         margin: 0;
+        padding: 10px 12px 10px;
+        border: 1px solid var(--line-soft);
+        border-top: 3px solid var(--accent-hairline);
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.82),
+          0 1px 0 rgba(36, 38, 41, 0.025);
+        transition:
+          border-color 0.2s ease,
+          color 0.2s ease,
+          transform 0.24s var(--ease-out);
+      }
+
+      .milestone-ledger .toc-list > li:hover,
+      .milestone-ledger .toc-list > li:focus-within {
+        border-color: var(--line);
+        border-top-color: var(--accent);
+        transform: translateY(-1px);
       }
 
       .milestone-ledger .toc-list > li > a {
         display: grid;
-        grid-template-columns: 34px minmax(0, 1fr);
-        column-gap: 10px;
-        align-items: baseline;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+        align-items: start;
         padding: 0;
-        color: var(--muted);
+        color: var(--text);
         font-size: 13px;
         font-weight: 600;
-        line-height: 1.35;
+        line-height: 1.38;
         text-decoration: none;
         transition:
           background-color 0.2s ease,
@@ -791,62 +813,62 @@
       }
 
       .milestone-ledger .toc-list > li > a:hover .contribution-title,
-      .milestone-ledger .toc-list > li > a:focus-visible .contribution-title {
+      .milestone-ledger .toc-list > li > a:focus-visible .contribution-title,
+      .milestone-ledger .toc-list > li > a:hover .contribution-detail,
+      .milestone-ledger .toc-list > li > a:focus-visible .contribution-detail {
         color: var(--accent);
       }
 
-      .milestone-ledger .contribution-number {
-        display: block;
-        color: var(--accent-hairline);
-        font-size: 12px;
-        font-weight: 700;
-        font-variant-numeric: tabular-nums;
-        line-height: 1.35;
-      }
-
       .contribution-copy {
-        display: block;
+        display: grid;
+        gap: 5px;
         min-width: 0;
       }
 
       .contribution-title {
         color: var(--text);
-        font-size: 13.5px;
+        font-size: 15.5px;
         font-weight: 700;
-        line-height: 1.3;
+        line-height: 1.25;
         transition: color 0.2s ease;
       }
 
       .contribution-detail {
-        display: none;
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.45;
+        transition: color 0.2s ease;
       }
 
       .milestone-ledger .toc-subindex {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0 12px;
-        align-items: baseline;
+        display: grid;
+        grid-template-columns: minmax(0, max-content);
+        gap: 4px;
+        align-items: start;
         min-width: 0;
         margin: 0;
-        padding: 0;
+        padding: 9px 0 0;
+        border-top: 1px solid var(--line);
         list-style: none;
         color: var(--muted);
       }
 
       .milestone-ledger .toc-subindex li {
-        display: inline-flex;
-        align-items: baseline;
+        display: block;
         margin: 0;
       }
 
       .milestone-ledger .toc-subindex a {
-        display: inline;
+        display: block;
+        max-width: 100%;
         overflow: hidden;
         padding: 0;
-        color: var(--muted);
-        font-size: 12px;
+        color: var(--accent);
+        font-size: 12.5px;
         font-weight: 600;
-        line-height: 1.45;
+        line-height: 1.4;
         text-align: left;
         text-decoration: none;
         text-overflow: ellipsis;
@@ -855,8 +877,12 @@
 
       .milestone-ledger .toc-subindex a:hover,
       .milestone-ledger .toc-subindex a:focus-visible {
-        color: var(--accent);
-        text-decoration: none;
+        color: var(--text);
+        text-decoration: underline;
+      }
+
+      .milestone-ledger .toc-subindex[aria-hidden="true"] {
+        min-height: 1px;
       }
 
       .heading-index a::after {
@@ -1183,9 +1209,10 @@
 
       .cv-abstract {
         display: grid;
-        grid-template-columns: minmax(0, 1.16fr) minmax(260px, 0.64fr);
-        gap: 34px;
+        grid-template-columns: var(--profile-photo-width) minmax(0, 1fr);
+        gap: var(--profile-gap);
         align-items: start;
+        width: min(100%, var(--overview-width));
         margin: 34px 0 0;
         padding-bottom: 18px;
         border-bottom: 0;
@@ -1205,7 +1232,74 @@
       }
 
       .cv-abstract .profile-summary p {
-        max-width: 70ch;
+        max-width: none;
+      }
+
+      .profile-photo {
+        margin: 0;
+        width: var(--profile-photo-width);
+        max-width: 100%;
+      }
+
+      .profile-photo img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 35 / 49;
+        object-fit: cover;
+        border: 1px solid var(--line-soft);
+        border-radius: 0;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.82),
+          0 1px 0 rgba(36, 38, 41, 0.025);
+      }
+
+      .focus-overview {
+        display: grid;
+        grid-template-columns: minmax(0, var(--focus-main-width)) var(--education-width);
+        gap: var(--focus-gap);
+        align-items: start;
+        width: min(100%, var(--overview-width));
+        max-width: 100%;
+        margin: var(--focus-row-top-space) 0 42px;
+      }
+
+      .focus-main {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding-left: var(--focus-leading-space);
+      }
+
+      .focus-label {
+        margin: 0 0 9px;
+        color: var(--accent);
+        font-family: var(--font-serif);
+        font-size: 19px;
+        font-weight: 700;
+        line-height: 1.24;
+      }
+
+      .focus-brief {
+        max-width: 100%;
+        margin: 0 0 16px;
+        color: var(--text);
+        font-family: var(--font-serif);
+        font-size: 16px;
+        line-height: 1.82;
+        text-wrap: pretty;
+      }
+
+      .focus-brief .research-list {
+        margin-top: 0;
+        padding-left: 1.25em;
+      }
+
+      .focus-brief .research-list li {
+        margin: 2px 0;
+        color: var(--text);
+        font-size: inherit;
+        line-height: inherit;
       }
 
       .profile-summary > div {
@@ -1240,7 +1334,9 @@
       }
 
       .abstract-education {
-        min-width: 0;
+        width: var(--education-width);
+        max-width: 100%;
+        min-width: 260px;
       }
 
       .abstract-education .timeline {
@@ -1945,25 +2041,45 @@
           margin-bottom: 38px;
         }
 
+        .focus-overview {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          width: 100%;
+          margin-top: 12px;
+          margin-bottom: 38px;
+        }
+
+        .focus-main {
+          width: 100%;
+          padding-left: 0;
+        }
+
+        .abstract-education {
+          width: 100%;
+          min-width: 0;
+        }
+
+        .focus-overview .milestone-ledger {
+          margin-bottom: 0;
+        }
+
         .milestone-ledger .toc-list {
-          gap: 8px;
+          grid-template-columns: 1fr;
+          gap: 10px;
         }
 
         .milestone-ledger .toc-list > li {
-          grid-template-columns: minmax(116px, 0.38fr) minmax(0, 1fr);
-          column-gap: 10px;
+          padding: 11px 12px 10px;
         }
 
         .milestone-ledger .toc-list > li > a {
-          grid-template-columns: 26px minmax(0, 1fr);
-          column-gap: 8px;
+          gap: 8px;
         }
 
         .contribution-title {
-          font-size: 12px;
+          font-size: 14px;
         }
 
-        .milestone-ledger .contribution-number,
         .milestone-ledger .toc-subindex a {
           font-size: 11.5px;
         }
@@ -1973,6 +2089,10 @@
           gap: 20px;
           margin: 28px 0 0;
           padding-bottom: 16px;
+        }
+
+        .profile-photo {
+          width: min(var(--profile-photo-width), 50vw);
         }
 
         section {
@@ -2048,11 +2168,13 @@
         .conference-card:hover,
         .software-card:hover,
         .award-card:hover,
+        .milestone-ledger .toc-list > li:hover,
         .item:focus-within,
         .paper-card:focus-within,
         .conference-card:focus-within,
         .software-card:focus-within,
         .award-card:focus-within,
+        .milestone-ledger .toc-list > li:focus-within,
         .contact:hover,
         .contact:focus-within {
           transform: none;
@@ -2222,6 +2344,14 @@
       </header>
 
       <section id="overview" class="cv-abstract">
+        <figure class="profile-photo">
+          <img
+            src="profile-photo.png"
+            alt="Ruohan Zhang profile photo"
+            decoding="async"
+          />
+        </figure>
+
         <div class="summary profile-summary" data-i18n-html="profileSummary">
           <p>
             大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡,
@@ -2230,16 +2360,86 @@
             师从王正汹教授和王丰教授,
             并与谢华生博士合作开展相关算法与代码开发工作.
           </p>
-          <div>
-            <strong>研究方向</strong>:
+        </div>
+      </section>
+
+      <div class="focus-overview">
+        <div class="focus-main">
+          <p class="focus-label" data-i18n="focusLabel">Research Focus</p>
+          <div class="focus-brief">
             <ul class="research-list">
-              <li>托卡马克等离子体的快速高保真集成建模</li>
-              <li>聚变等离子体平衡与输运耦合建模</li>
-              <li>计算物理和数值算法</li>
+              <li data-i18n="focusFastModeling">
+                托卡马克等离子体的快速高保真集成建模
+              </li>
+              <li data-i18n="focusEquilibriumTransport">
+                聚变等离子体的平衡与输运
+              </li>
+              <li data-i18n="focusNumericalAlgorithms">计算物理和数值算法</li>
             </ul>
           </div>
+          <nav
+            class="milestone-ledger"
+            aria-label="成果索引"
+            data-i18n-aria-label="tocAria"
+          >
+            <ol class="toc-list">
+              <li class="toc-item has-subindex">
+                <a class="contribution-link" href="#software">
+                  <span class="contribution-copy">
+                    <span class="contribution-title" data-i18n="navSoftware"
+                      >Software</span
+                    >
+                    <span
+                      class="contribution-detail"
+                      data-i18n="contributionSoftware"
+                      >1 repo</span
+                    >
+                  </span>
+                </a>
+                <ol
+                  class="toc-subindex"
+                  data-card-selector="#software .software-card"
+                ></ol>
+              </li>
+              <li class="toc-item has-subindex">
+                <a class="contribution-link" href="#publications">
+                  <span class="contribution-copy">
+                    <span class="contribution-title" data-i18n="navPublications"
+                      >Publications</span
+                    >
+                    <span
+                      class="contribution-detail"
+                      data-i18n="contributionPublications"
+                      >2 papers</span
+                    >
+                  </span>
+                </a>
+                <ol
+                  class="toc-subindex"
+                  data-card-selector="#publications .paper-card"
+                ></ol>
+              </li>
+              <li class="toc-item has-subindex">
+                <a class="contribution-link" href="#conferences">
+                  <span class="contribution-copy">
+                    <span class="contribution-title" data-i18n="navConferences"
+                      >Conferences</span
+                    >
+                    <span
+                      class="contribution-detail"
+                      data-i18n="contributionConferences"
+                      >4 presentations</span
+                    >
+                  </span>
+                </a>
+                <ol
+                  class="toc-subindex"
+                  data-card-selector="#conferences .conference-card"
+                ></ol>
+              </li>
+            </ol>
+          </nav>
         </div>
-
         <aside class="abstract-education">
           <div class="timeline">
             <div class="item">
@@ -2265,89 +2465,7 @@
             </div>
           </div>
         </aside>
-      </section>
-
-      <p class="contribution-index-label" data-i18n="contributionIndexLabel">
-        Selected Work:
-      </p>
-      <nav
-        class="milestone-ledger"
-        aria-label="成果索引"
-        data-i18n-aria-label="tocAria"
-      >
-        <ol class="toc-list">
-          <li class="toc-item has-subindex">
-            <a class="contribution-link" href="#software">
-              <span class="contribution-number">01</span>
-              <span class="contribution-copy">
-                <span class="contribution-title" data-i18n="navSoftware"
-                  >Software</span
-                >
-                <span
-                  class="contribution-detail"
-                  data-i18n="contributionSoftware"
-                  >VEQPy · open-source equilibrium solver</span
-                >
-              </span>
-            </a>
-            <ol
-              class="toc-subindex"
-              data-card-selector="#software .software-card"
-            ></ol>
-          </li>
-          <li class="toc-item has-subindex">
-            <a class="contribution-link" href="#publications">
-              <span class="contribution-number">02</span>
-              <span class="contribution-copy">
-                <span class="contribution-title" data-i18n="navPublications"
-                  >Publications</span
-                >
-                <span
-                  class="contribution-detail"
-                  data-i18n="contributionPublications"
-                  >2 papers · VEQ, CPP</span
-                >
-              </span>
-            </a>
-            <ol
-              class="toc-subindex"
-              data-card-selector="#publications .paper-card"
-            ></ol>
-          </li>
-          <li class="toc-item has-subindex">
-            <a class="contribution-link" href="#conferences">
-              <span class="contribution-number">03</span>
-              <span class="contribution-copy">
-                <span class="contribution-title" data-i18n="navConferences"
-                  >Conferences</span
-                >
-                <span
-                  class="contribution-detail"
-                  data-i18n="contributionConferences"
-                  >4 presentations · 2024–2026</span
-                >
-              </span>
-            </a>
-            <ol
-              class="toc-subindex"
-              data-card-selector="#conferences .conference-card"
-            ></ol>
-          </li>
-          <li>
-            <a class="contribution-link" href="#honors">
-              <span class="contribution-number">04</span>
-              <span class="contribution-copy">
-                <span class="contribution-title" data-i18n="navHonors"
-                  >Honors</span
-                >
-                <span class="contribution-detail" data-i18n="contributionHonors"
-                  >Awards · modeling, entrepreneurship</span
-                >
-              </span>
-            </a>
-          </li>
-        </ol>
-      </nav>
+      </div>
 
       <section id="software">
         <div class="section-head">
@@ -2375,7 +2493,7 @@
 
       <section id="honors">
         <div class="section-head">
-          <h2 data-i18n="sectionHonors">获得荣誉</h2>
+          <h2 data-i18n="sectionHonors">其他</h2>
         </div>
         <div class="award-list" data-render-list="honors"></div>
       </section>
