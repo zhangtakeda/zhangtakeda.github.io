@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="gray">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,11 +66,6 @@
             contactEmail: "邮箱",
             contactGithub: "GitHub",
             skipLink: "跳到正文",
-            themeAria: "页面主题",
-            themeSolarized: "Solarized",
-            themeLight: "Light",
-            themeGray: "Gray",
-            themeSage: "Sage",
             tocAria: "页面索引",
             navProfile: "个人简介",
             navEducation: "教育经历",
@@ -123,11 +118,6 @@
             contactEmail: "Email",
             contactGithub: "GitHub",
             skipLink: "Skip to content",
-            themeAria: "Page theme",
-            themeSolarized: "Solarized",
-            themeLight: "Light",
-            themeGray: "Gray",
-            themeSage: "Sage",
             tocAria: "Page navigation",
             navProfile: "Profile",
             navEducation: "Education",
@@ -172,7 +162,7 @@
           {
             id: "software-veqpy",
             indexLabel: "VEQPy",
-            label: "Maintained Package",
+            label: "Open Source Software",
             title: "VEQPy",
             metaHtml:
               "<strong>Role</strong>: Maintainer · <strong>License</strong>: BSD-3-Clause",
@@ -354,83 +344,6 @@
         --font-mono:
           "SFMono-Regular", "Cascadia Mono", "Roboto Mono", "Noto Sans Mono",
           monospace;
-        --text: #24211d;
-        --muted: #655f56;
-        --light: #918879;
-        --line: #ded5c7;
-        --line-soft: #eee8dc;
-        --accent: #2c4636;
-        --accent-soft: #f4f0e8;
-        --accent-hairline: #aa9366;
-        --paper: #fffaf1;
-        --bg: #eee6d8;
-        --surface: #fffdf8;
-        --media-bg: #ffffff;
-        --page-border: #ded8cc;
-        --nav-bg: rgba(255, 250, 241, 0.82);
-        --meta-text: #8d8375;
-        --summary-text: #38332d;
-        --lightbox-text: #f6efe2;
-        --shadow-soft: 0 18px 54px rgba(41, 35, 24, 0.11);
-        --shadow-hover: 0 22px 52px rgba(41, 35, 24, 0.15);
-        --shadow-card:
-          0 1px 0 rgba(255, 255, 255, 0.72), 0 18px 38px rgba(41, 35, 24, 0.055);
-        --focus-outline: rgba(44, 70, 54, 0.36);
-        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-        --page-x: 66px;
-      }
-
-      [data-theme="light"] {
-        --text: #242321;
-        --muted: #655f57;
-        --light: #999189;
-        --line: #ded9d2;
-        --line-soft: #efebe6;
-        --accent: #b45432;
-        --accent-soft: #fff1eb;
-        --accent-hairline: #d78362;
-        --paper: #ffffff;
-        --bg: #f7f5f1;
-        --surface: #ffffff;
-        --media-bg: #ffffff;
-        --page-border: #e4dfd7;
-        --nav-bg: rgba(255, 255, 255, 0.88);
-        --meta-text: #958d84;
-        --summary-text: #34312d;
-        --lightbox-text: #fff1eb;
-        --shadow-soft: 0 18px 50px rgba(90, 45, 28, 0.07);
-        --shadow-hover: 0 22px 48px rgba(90, 45, 28, 0.11);
-        --shadow-card:
-          0 1px 0 rgba(255, 255, 255, 0.86), 0 18px 38px rgba(90, 45, 28, 0.045);
-        --focus-outline: rgba(180, 84, 50, 0.32);
-      }
-
-      [data-theme="sage"] {
-        --text: #22291f;
-        --muted: #5d6657;
-        --light: #87907f;
-        --line: #d3ddc9;
-        --line-soft: #eaf0e4;
-        --accent: #3e5e3e;
-        --accent-soft: #f0f5eb;
-        --accent-hairline: #8fa36a;
-        --paper: #fbfdf6;
-        --bg: #e9f0df;
-        --surface: #fefff9;
-        --media-bg: #ffffff;
-        --page-border: #dbe5d2;
-        --nav-bg: rgba(251, 253, 246, 0.88);
-        --meta-text: #87907f;
-        --summary-text: #2d352a;
-        --lightbox-text: #f4faee;
-        --shadow-soft: 0 18px 50px rgba(51, 75, 44, 0.1);
-        --shadow-hover: 0 22px 48px rgba(51, 75, 44, 0.15);
-        --shadow-card:
-          0 1px 0 rgba(255, 255, 255, 0.76), 0 18px 38px rgba(51, 75, 44, 0.055);
-        --focus-outline: rgba(62, 94, 62, 0.32);
-      }
-
-      [data-theme="gray"] {
         --text: #252629;
         --muted: #62666b;
         --light: #8c9095;
@@ -453,6 +366,8 @@
         --shadow-card:
           0 1px 0 rgba(255, 255, 255, 0.78), 0 18px 38px rgba(36, 38, 41, 0.052);
         --focus-outline: rgba(63, 127, 153, 0.3);
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        --page-x: 66px;
       }
 
       * {
@@ -581,28 +496,11 @@
         font-weight: 600;
       }
 
-      .theme-switch {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 3px;
-        padding: 3px;
-        border: 1px solid var(--line-soft);
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.28);
-        color: var(--light);
-        font-family: var(--font-ui);
-        font-size: 12px;
-      }
-
-      .language-switch span,
-      .theme-switch span {
+      .language-switch span {
         display: none;
       }
 
-      .language-switch button,
-      .theme-switch button {
+      .language-switch button {
         min-height: 27px;
         padding: 2px 8px;
         border: 0;
@@ -617,8 +515,7 @@
           transform 0.2s var(--ease-out);
       }
 
-      .language-switch button[aria-pressed="true"],
-      .theme-switch button[aria-pressed="true"] {
+      .language-switch button[aria-pressed="true"] {
         background: var(--accent-soft);
         color: var(--accent);
         box-shadow: inset 0 0 0 1px rgba(170, 147, 102, 0.22);
@@ -626,9 +523,7 @@
       }
 
       .language-switch button:hover,
-      .language-switch button:focus-visible,
-      .theme-switch button:hover,
-      .theme-switch button:focus-visible {
+      .language-switch button:focus-visible {
         background: var(--surface);
         color: var(--accent);
         outline: 2px solid var(--focus-outline);
@@ -2008,10 +1903,6 @@
           justify-content: flex-start;
         }
 
-        .theme-switch {
-          justify-content: flex-start;
-        }
-
         header {
           grid-template-columns: 1fr;
           gap: 18px;
@@ -2252,48 +2143,6 @@
           <span aria-hidden="true">|</span>
           <button type="button" data-language-button="zh" aria-pressed="false">
             中文
-          </button>
-        </div>
-        <div
-          class="theme-switch"
-          role="group"
-          aria-label="页面主题"
-          data-i18n-aria-label="themeAria"
-        >
-          <button
-            type="button"
-            data-theme-button="gray"
-            aria-pressed="true"
-            data-i18n="themeGray"
-          >
-            Gray
-          </button>
-          <span aria-hidden="true">|</span>
-          <button
-            type="button"
-            data-theme-button="solarized"
-            aria-pressed="false"
-            data-i18n="themeSolarized"
-          >
-            Solarized
-          </button>
-          <span aria-hidden="true">|</span>
-          <button
-            type="button"
-            data-theme-button="light"
-            aria-pressed="false"
-            data-i18n="themeLight"
-          >
-            Light
-          </button>
-          <span aria-hidden="true">|</span>
-          <button
-            type="button"
-            data-theme-button="sage"
-            aria-pressed="false"
-            data-i18n="themeSage"
-          >
-            Sage
           </button>
         </div>
       </div>
@@ -2645,17 +2494,6 @@
       renderCvCards();
 
       const normalizeLanguage = (language) => (language === "zh" ? "zh" : "en");
-      const normalizeTheme = (theme) => {
-        const legacyMap = {
-          sun: "solarized",
-          white: "light",
-          black: "gray",
-        };
-        const normalized = legacyMap[theme] ?? theme;
-        return ["solarized", "light", "gray", "sage"].includes(normalized)
-          ? normalized
-          : "gray";
-      };
 
       const clamp = (value, min = 0, max = 1) =>
         Math.min(max, Math.max(min, value));
@@ -2663,39 +2501,9 @@
       let currentLanguage = normalizeLanguage(
         localStorage.getItem("cvLanguage"),
       );
-      let currentTheme = normalizeTheme(localStorage.getItem("cvTheme"));
 
       const textFor = (key) =>
         TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS.en[key] ?? key;
-
-      const updateThemeColorMeta = () => {
-        const background = getComputedStyle(document.documentElement)
-          .getPropertyValue("--bg")
-          .trim();
-        document
-          .querySelector('meta[name="theme-color"]')
-          ?.setAttribute("content", background || "#e7e7e6");
-      };
-
-      const applyTheme = (theme) => {
-        currentTheme = normalizeTheme(theme);
-        if (currentTheme === "solarized") {
-          document.documentElement.removeAttribute("data-theme");
-        } else {
-          document.documentElement.dataset.theme = currentTheme;
-        }
-        localStorage.setItem("cvTheme", currentTheme);
-
-        document.querySelectorAll("[data-theme-button]").forEach((button) => {
-          button.setAttribute(
-            "aria-pressed",
-            String(button.dataset.themeButton === currentTheme),
-          );
-        });
-
-        updateThemeColorMeta();
-        requestAnimationFrame(syncAllSummaryHeights);
-      };
 
       const alignTocSubindexes = () => {
         document.querySelectorAll(".toc-item.has-subindex").forEach((item) => {
@@ -2802,14 +2610,6 @@
               applyLanguage(button.dataset.languageButton);
             });
           });
-      };
-
-      const setupThemeSwitch = () => {
-        document.querySelectorAll("[data-theme-button]").forEach((button) => {
-          button.addEventListener("click", () => {
-            applyTheme(button.dataset.themeButton);
-          });
-        });
       };
 
       const updateScrollProgress = () => {
@@ -3075,7 +2875,6 @@
       };
 
       setupLanguageSwitch();
-      setupThemeSwitch();
       setupImageLightbox();
 
       const slugify = (text) =>
@@ -3326,7 +3125,6 @@
       });
 
       applyLanguage(currentLanguage);
-      applyTheme(currentTheme);
     </script>
   </body>
 </html>
