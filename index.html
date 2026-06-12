@@ -384,9 +384,9 @@
         --profile-photo-width: 43.75mm;
         --profile-gap: 46px;
         --focus-main-width: 520px;
-        --focus-gap: 28px;
-        --focus-leading-space: 14px;
-        --focus-row-top-space: 18px;
+        --focus-gap: 5px;
+        --overview-leading-offset: 20px;
+        --focus-row-top-space: 15px;
         --education-width: 280px;
         --overview-width: calc(
           var(--focus-main-width) + var(--focus-gap) + var(--education-width)
@@ -1212,8 +1212,11 @@
         grid-template-columns: var(--profile-photo-width) minmax(0, 1fr);
         gap: var(--profile-gap);
         align-items: start;
-        width: min(100%, var(--overview-width));
-        margin: 34px 0 0;
+        width: min(
+          calc(100% - var(--overview-leading-offset)),
+          var(--overview-width)
+        );
+        margin: 34px 0 0 var(--overview-leading-offset);
         padding-bottom: 18px;
         border-bottom: 0;
         scroll-margin-top: 24px;
@@ -1256,19 +1259,23 @@
 
       .focus-overview {
         display: grid;
-        grid-template-columns: minmax(0, var(--focus-main-width)) var(--education-width);
+        grid-template-columns: minmax(0, var(--focus-main-width)) var(
+            --education-width
+          );
         gap: var(--focus-gap);
         align-items: start;
-        width: min(100%, var(--overview-width));
+        width: min(
+          calc(100% - var(--overview-leading-offset)),
+          var(--overview-width)
+        );
         max-width: 100%;
-        margin: var(--focus-row-top-space) 0 42px;
+        margin: var(--focus-row-top-space) 0 42px var(--overview-leading-offset);
       }
 
       .focus-main {
         width: 100%;
         max-width: 100%;
         min-width: 0;
-        padding-left: var(--focus-leading-space);
       }
 
       .focus-label {
@@ -2045,13 +2052,11 @@
           grid-template-columns: 1fr;
           gap: 18px;
           width: 100%;
-          margin-top: 12px;
-          margin-bottom: 38px;
+          margin: 12px 0 38px;
         }
 
         .focus-main {
           width: 100%;
-          padding-left: 0;
         }
 
         .abstract-education {
