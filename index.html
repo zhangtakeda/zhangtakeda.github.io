@@ -72,6 +72,8 @@
             focusFastModeling: "托卡马克等离子体的快速高保真集成建模",
             focusEquilibriumTransport: "聚变等离子体的平衡与输运",
             focusNumericalAlgorithms: "计算物理和数值算法",
+            experienceLabel: "履历",
+            milestonesLabel: "Milestones",
             navProfile: "个人简介",
             navEducation: "教育经历",
             navSoftware: "软件",
@@ -131,6 +133,8 @@
               "Coupled modeling of fusion-plasma equilibrium and transport",
             focusNumericalAlgorithms:
               "Computational physics and numerical algorithms",
+            experienceLabel: "Experience",
+            milestonesLabel: "Milestones",
             navProfile: "Profile",
             navEducation: "Education",
             navSoftware: "Software",
@@ -733,7 +737,7 @@
       .milestone-ledger {
         width: fit-content;
         max-width: 100%;
-        margin: 0;
+        margin: 0 0 0 14px;
         padding: 0;
         background: transparent;
         font-family: var(--font-ui);
@@ -756,7 +760,7 @@
         margin: 0;
         padding: 10px 12px 10px;
         border: 1px solid var(--line-soft);
-        border-top: 3px solid var(--accent-hairline);
+        border-top: 3px solid var(--line);
         border-radius: 0;
         background: rgba(255, 255, 255, 0.72);
         box-shadow:
@@ -771,7 +775,7 @@
       .milestone-ledger .toc-list > li:hover,
       .milestone-ledger .toc-list > li:focus-within {
         border-color: var(--line);
-        border-top-color: var(--accent);
+        border-top-color: var(--light);
         transform: translateY(-1px);
       }
 
@@ -851,7 +855,7 @@
         max-width: 100%;
         overflow: hidden;
         padding: 0;
-        color: var(--accent);
+        color: var(--muted);
         font-size: 12.5px;
         font-weight: 600;
         line-height: 1.4;
@@ -1273,6 +1277,10 @@
         line-height: 1.24;
       }
 
+      .milestone-label {
+        margin-top: 22px;
+      }
+
       .focus-brief {
         max-width: 100%;
         margin: 0 0 16px;
@@ -1334,11 +1342,13 @@
 
       .abstract-education .timeline {
         margin-top: 0;
+        margin-left: 14px;
       }
 
       .abstract-education h3 {
-        color: var(--accent);
+        color: var(--text);
         font-size: 15px;
+        font-weight: 650;
       }
 
       .abstract-education .item-head {
@@ -2030,7 +2040,7 @@
         }
 
         .milestone-ledger {
-          width: 100%;
+          width: calc(100% - 14px);
           margin-bottom: 38px;
         }
 
@@ -2368,6 +2378,9 @@
               <li data-i18n="focusNumericalAlgorithms">计算物理和数值算法</li>
             </ul>
           </div>
+          <p class="focus-label milestone-label" data-i18n="milestonesLabel">
+            Milestones
+          </p>
           <nav
             class="milestone-ledger"
             aria-label="成果索引"
@@ -2432,6 +2445,9 @@
           </nav>
         </div>
         <aside class="abstract-education">
+          <p class="focus-label education-label" data-i18n="experienceLabel">
+            Experience
+          </p>
           <div class="timeline">
             <div class="item">
               <div class="item-head">
