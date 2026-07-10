@@ -59,7 +59,8 @@
             name: "张若涵",
             role: "博士研究生",
             affiliationLine:
-              '<span class="title-value">大连理工大学物理学院</span>',
+              '<span class="title-label">单位:</span><span class="title-value">大连理工大学物理学院</span>',
+            profilePhotoAlt: "占位头像：一只虎斑猫",
             contactAria: "联系方式",
             contactEmail: "邮箱",
             contactGithub: "GitHub",
@@ -119,7 +120,8 @@
             name: "Ruohan Zhang",
             role: "Ph.D. Student",
             affiliationLine:
-              '<span class="title-value">School of Physics, Dalian University of Technology</span>',
+              '<span class="title-label">Affiliation:</span><span class="title-value">School of Physics, Dalian University of Technology</span>',
+            profilePhotoAlt: "Placeholder profile image showing a tabby cat",
             contactAria: "Contact information",
             contactEmail: "Email",
             contactGithub: "GitHub",
@@ -468,7 +470,7 @@
         width: 100%;
         height: 3px;
         background: var(--accent);
-        box-shadow: 0 0 18px rgba(180, 154, 102, 0.38);
+        box-shadow: 0 0 18px rgba(63, 127, 153, 0.38);
         pointer-events: none;
         transform: scaleX(var(--scroll-progress, 0));
         transform-origin: left center;
@@ -535,7 +537,7 @@
       .language-switch button[aria-pressed="true"] {
         background: var(--accent-soft);
         color: var(--accent);
-        box-shadow: inset 0 0 0 1px rgba(170, 147, 102, 0.22);
+        box-shadow: inset 0 0 0 1px rgba(63, 127, 153, 0.22);
         text-decoration: none;
       }
 
@@ -622,6 +624,7 @@
       .title-value {
         color: var(--muted);
         min-width: 0;
+        overflow-wrap: anywhere;
       }
 
       .contact {
@@ -1087,7 +1090,7 @@
       .paper-card:focus-within,
       .conference-card:focus-within,
       .software-card:focus-within {
-        border-color: rgba(180, 154, 102, 0.78);
+        border-color: rgba(63, 127, 153, 0.62);
         box-shadow: var(--shadow-hover);
         transform: translateY(-2px);
       }
@@ -1174,7 +1177,7 @@
         width: 9px;
         background: var(--paper);
         border-color: var(--accent);
-        box-shadow: 0 0 0 4px rgba(180, 154, 102, 0.18);
+        box-shadow: 0 0 0 4px rgba(63, 127, 153, 0.18);
         transform: scale(1.08);
       }
 
@@ -1670,7 +1673,7 @@
       .software-card:focus-within .link-list a,
       .conference-card:hover .link-list a,
       .conference-card:focus-within .link-list a {
-        border-color: rgba(180, 154, 102, 0.74);
+        border-color: rgba(63, 127, 153, 0.58);
         box-shadow: 0 5px 12px rgba(41, 35, 24, 0.07);
       }
 
@@ -1691,8 +1694,8 @@
       }
 
       .media-grid:hover {
-        border-color: rgba(180, 154, 102, 0.62);
-        box-shadow: inset 0 0 0 1px rgba(180, 154, 102, 0.1);
+        border-color: rgba(63, 127, 153, 0.52);
+        box-shadow: inset 0 0 0 1px rgba(63, 127, 153, 0.1);
       }
 
       .media-row {
@@ -2362,7 +2365,8 @@
         <figure class="profile-photo">
           <img
             src="profile-photo.png"
-            alt="Ruohan Zhang profile photo"
+            alt="Placeholder profile image showing a tabby cat"
+            data-i18n-alt="profilePhotoAlt"
             decoding="async"
           />
         </figure>
@@ -2781,6 +2785,10 @@
 
         document.querySelectorAll("[data-i18n-html]").forEach((element) => {
           element.innerHTML = textFor(element.dataset.i18nHtml);
+        });
+
+        document.querySelectorAll("[data-i18n-alt]").forEach((element) => {
+          element.setAttribute("alt", textFor(element.dataset.i18nAlt));
         });
 
         document
