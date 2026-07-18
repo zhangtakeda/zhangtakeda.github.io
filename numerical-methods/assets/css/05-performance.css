@@ -1,0 +1,16 @@
+/* Rendering containment keeps the long reference responsive without removing content from the DOM. */
+@supports (content-visibility: auto) {
+  .topic {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 2300px;
+  }
+
+  .reference-list > li {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 54px;
+  }
+}
+
+html[data-part-page] .category-control [hidden] {
+  display: none;
+}

@@ -1,0 +1,250 @@
+{
+  "parts": [
+    {
+      "number": 1,
+      "id": "representation",
+      "title": "数值表示与基础算子",
+      "start": 1,
+      "end": 5
+    },
+    {
+      "number": 2,
+      "id": "algebra",
+      "title": "代数系统与优化",
+      "start": 6,
+      "end": 10
+    },
+    {
+      "number": 3,
+      "id": "field",
+      "title": "微分方程、几何与耦合",
+      "start": 11,
+      "end": 17
+    },
+    {
+      "number": 4,
+      "id": "trust",
+      "title": "误差、推断、降阶与实现",
+      "start": 18,
+      "end": 24
+    }
+  ],
+  "chapters": [
+    {
+      "number": 1,
+      "slug": "floating-point",
+      "title": "浮点数、条件数、稳定性与计算验证",
+      "keywords": "浮点数,条件数,后向误差,舍入,验证,制造解",
+      "part": 1,
+      "category": "representation",
+      "file": "01-floating-point.html"
+    },
+    {
+      "number": 2,
+      "slug": "interpolation-fitting",
+      "title": "插值、样条、逼近、回归与非线性拟合",
+      "keywords": "Lagrange,Chebyshev,样条,PCHIP,最小二乘,LM,正则化",
+      "part": 1,
+      "category": "representation",
+      "file": "02-interpolation-fitting.html"
+    },
+    {
+      "number": 3,
+      "slug": "differentiation-quadrature",
+      "title": "数值微分、求积与高维积分",
+      "keywords": "数值微分,Gaussian求积,自适应积分,振荡积分,稀疏网格,Monte Carlo",
+      "part": 1,
+      "category": "representation",
+      "file": "03-differentiation-quadrature.html"
+    },
+    {
+      "number": 4,
+      "slug": "fft-wavelets",
+      "title": "FFT、卷积、滤波、时频分析与小波",
+      "keywords": "FFT,卷积,采样,窗函数,STFT,小波,NUFFT,谱微分",
+      "part": 1,
+      "category": "representation",
+      "file": "04-fft-wavelets.html"
+    },
+    {
+      "number": 5,
+      "slug": "special-functions",
+      "title": "特殊函数、递推、连分式与渐近计算",
+      "keywords": "特殊函数,Bessel,Airy,Gamma,递推,连分式,渐近展开,缩放",
+      "part": 1,
+      "category": "representation",
+      "file": "05-special-functions.html"
+    },
+    {
+      "number": 6,
+      "slug": "matrix-factorization",
+      "title": "矩阵分解：LU、Cholesky、LDLᵀ、QR、SVD 与带状消元",
+      "keywords": "Bunch-Kaufman,Cholesky,Doolittle LU,Golub-Reinsch SVD,Householder QR,Thomas,稀疏分解",
+      "part": 2,
+      "category": "algebra",
+      "file": "06-matrix-factorization.html"
+    },
+    {
+      "number": 7,
+      "slug": "krylov-preconditioning",
+      "title": "Krylov、预条件、多重网格与 matrix-free",
+      "keywords": "CG,MINRES,GMRES,FGMRES,BiCGStab,Schur,AMG,matrix-free",
+      "part": 2,
+      "category": "algebra",
+      "file": "07-krylov-preconditioning.html"
+    },
+    {
+      "number": 8,
+      "slug": "nonlinear-solvers",
+      "title": "求根、非线性最小二乘、Newton–Krylov 与连续化",
+      "keywords": "Newton-Raphson,Newton-Krylov,Powell hybrid,Levenberg-Marquardt,Anderson,伪弧长",
+      "part": 2,
+      "category": "algebra",
+      "file": "08-nonlinear-solvers.html"
+    },
+    {
+      "number": 9,
+      "slug": "optimization",
+      "title": "数值优化：线搜索、信赖域、拟 Newton 与约束方法",
+      "keywords": "梯度下降,BFGS,L-BFGS,Newton,信赖域,SQP,内点,近端",
+      "part": 2,
+      "category": "algebra",
+      "file": "09-optimization.html"
+    },
+    {
+      "number": 10,
+      "slug": "eigenvalues-bifurcation",
+      "title": "特征值、矩阵函数、非正规性与数值分岔",
+      "keywords": "Arnoldi,Lanczos,shift-invert,广义特征值,伪谱,矩阵函数,分岔",
+      "part": 2,
+      "category": "algebra",
+      "file": "10-eigenvalues-bifurcation.html"
+    },
+    {
+      "number": 11,
+      "slug": "ode-dae",
+      "title": "ODE、DAE、边值问题、Runge–Kutta 与多时间尺度",
+      "keywords": "Euler,RK4,Butcher表,Dormand-Prince,BDF,SDIRK,DAE,IMEX,multirate",
+      "part": 3,
+      "category": "field",
+      "file": "11-ode-dae.html"
+    },
+    {
+      "number": 12,
+      "slug": "pde-discretization",
+      "title": "PDE 分类与 FDM、FVM、FEM、DG、谱元及无网格方法",
+      "keywords": "FDM,FVM,FEM,DG,谱方法,谱元,BEM,RBF,边界条件",
+      "part": 3,
+      "category": "field",
+      "file": "12-pde-discretization.html"
+    },
+    {
+      "number": 13,
+      "slug": "meshes-free-boundaries",
+      "title": "网格生成、曲线坐标、ALE、Level Set 与自由边界",
+      "keywords": "网格质量,Jacobian,ALE,Level Set,cut-cell,保守重映射,自由边界,X点",
+      "part": 3,
+      "category": "field",
+      "file": "13-meshes-free-boundaries.html"
+    },
+    {
+      "number": 14,
+      "slug": "integral-equations",
+      "title": "积分方程、边界元、Green 函数与快速多极方法",
+      "keywords": "积分方程,BEM,Green函数,奇异求积,FMM,treecode,H矩阵,QBX",
+      "part": 3,
+      "category": "field",
+      "file": "14-integral-equations.html"
+    },
+    {
+      "number": 15,
+      "slug": "conservation-geometry",
+      "title": "守恒、兼容离散、熵稳定与磁拓扑",
+      "keywords": "局部守恒,FEEC,mimetic,DG,SBP,熵稳定,辛积分,X点,磁拓扑",
+      "part": 3,
+      "category": "field",
+      "file": "15-conservation-geometry.html"
+    },
+    {
+      "number": 16,
+      "slug": "kinetic-methods",
+      "title": "PIC、Vlasov/Fokker–Planck、Semi-Lagrangian 与连续体 DG",
+      "keywords": "PIC,Boris,NGP,CIC,TSC,Vlasov,Fokker-Planck,semi-Lagrangian,DG",
+      "part": 3,
+      "category": "field",
+      "file": "16-kinetic-methods.html"
+    },
+    {
+      "number": 17,
+      "slug": "multiphysics-coupling",
+      "title": "多物理耦合、分区迭代、接口拟 Newton 与协同时间推进",
+      "keywords": "单体耦合,分区耦合,Aitken,Anderson,IQN,接口传输,多速率,集成模拟",
+      "part": 3,
+      "category": "field",
+      "file": "17-multiphysics-coupling.html"
+    },
+    {
+      "number": 18,
+      "slug": "error-estimation-verification",
+      "title": "后验误差、目标导向自适应与 V&V",
+      "keywords": "a posteriori,DWR,hp自适应,制造解,V&V,误差预算",
+      "part": 4,
+      "category": "trust",
+      "file": "18-error-estimation-verification.html"
+    },
+    {
+      "number": 19,
+      "slug": "adjoints-autodiff",
+      "title": "切线、伴随、自动微分与 PDE 约束优化",
+      "keywords": "切线,离散伴随,连续伴随,自动微分,checkpointing,HVP,PDE优化",
+      "part": 4,
+      "category": "trust",
+      "file": "19-adjoints-autodiff.html"
+    },
+    {
+      "number": 20,
+      "slug": "inverse-uq-stochastic",
+      "title": "反问题、数据同化、UQ、SDE 与随机事件模拟",
+      "keywords": "Tikhonov,Bayesian,EnKF,MCMC,MLMC,SDE,Euler-Maruyama,Gillespie",
+      "part": 4,
+      "category": "trust",
+      "file": "20-inverse-uq-stochastic.html"
+    },
+    {
+      "number": 21,
+      "slug": "model-reduction",
+      "title": "POD、Reduced Basis、DEIM、超降阶与多保真",
+      "keywords": "POD,reduced basis,Petrov-Galerkin,DEIM,hyper-reduction,multifidelity",
+      "part": 4,
+      "category": "trust",
+      "file": "21-model-reduction.html"
+    },
+    {
+      "number": 22,
+      "slug": "tensor-methods",
+      "title": "CP、Tucker、Tensor Train 与动态低秩",
+      "keywords": "CP,Tucker,TT,QTT,低秩求解,动态低秩,秩截断",
+      "part": 4,
+      "category": "trust",
+      "file": "22-tensor-methods.html"
+    },
+    {
+      "number": 23,
+      "slug": "scientific-machine-learning",
+      "title": "PINN、Neural Operator、可微物理与聚变代理",
+      "keywords": "PINN,DeepONet,FNO,neural operator,闭合代理,物理投影,OOD",
+      "part": 4,
+      "category": "trust",
+      "file": "23-scientific-machine-learning.html"
+    },
+    {
+      "number": 24,
+      "slug": "parallel-performance",
+      "title": "并行算法、GPU、Roofline、混合精度与可复现计算",
+      "keywords": "Roofline,强扩展,弱扩展,GPU,通信避免,混合精度,可复现性",
+      "part": 4,
+      "category": "trust",
+      "file": "24-parallel-performance.html"
+    }
+  ]
+}

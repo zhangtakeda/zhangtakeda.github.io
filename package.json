@@ -1,0 +1,12 @@
+{
+  "name": "zhangtakeda-github-io",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:numerical-methods",
+    "check": "npm run check:numerical-methods",
+    "import:numerical-methods": "node scripts/import-numerical-methods.mjs",
+    "build:numerical-methods": "node scripts/build-numerical-methods.mjs",
+    "check:numerical-methods": "node scripts/validate-numerical-methods.mjs"
+  }
+}
