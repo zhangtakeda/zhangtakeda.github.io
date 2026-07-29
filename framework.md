@@ -8,6 +8,8 @@ FusionPRIME 是面向聚变等离子体集成建模的反应式计算生态, 由
 - **Energeia:** Models, kernels and execution
 - **Theoria:** Visualization, interaction and exploration
 
+![alt text](image.png)
+
 ```bash
 pip install fusionprime
 ```
@@ -236,15 +238,3 @@ kernel 提供 Python/C++ 双后端:
 两种后端共享相同的 `setup / runtime / evaluate` 语义和结果接口.
 
 kernel 采用纯对象流, 不负责科学数据文件的读写, 也不保存 history. 仅 backend 必要的编译, 构建和加载过程可以访问文件系统.
-
-整体调用关系为:
-
-```text
-1. model 提供输入.
-2. module 整理 kernel 输入.
-3. kernel 执行 setup, runtime 和 evaluate.
-4. kernel 返回 result.
-5. module 更新当前 result 和输出 model.
-6. workflow 保存计算结果.
-7. Theoria 提供可视化与交互探索.
-```
