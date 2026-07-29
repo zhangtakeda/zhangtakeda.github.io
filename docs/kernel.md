@@ -1,4 +1,4 @@
-# FusionPRIME 的 Kernel 设计框架
+# FusionPRIME 的 Kernel 设计
 
 Kernel 是 FusionPRIME 的核心计算单元, 负责将物理问题的数学模型转化为可执行的数值计算过程. Kernel 的设计目标是高性能、简单控制逻辑. 其输入输出类型均为 frozen、slots dataclass, 且内部不存在自定义类型.
 
@@ -43,3 +43,8 @@ Kernel 都应该提供 Python/C++ 双后端:
 - **C++:** 面向固定拓扑和极限性能优化, 可以使用 `fastmath` 和 relaxed floating-point 规则.
 
 两种后端共享相同的 `setup / runtime / evaluate` 语义和结果接口.
+
+判断二者的计算一致性:
+
+1. 模块级别要求求解结果的相对误差低于 1e-6
+2. 单个数学函数的 relaxed floating-point 语义要求误差低于 1e-8

@@ -1,38 +1,5 @@
 # FusionPRIME
 
-**FusionPRIME: Fusion Plasma Reactive Integrated Modeling Ecosystem**
-
-FusionPRIME 是面向聚变等离子体集成建模的反应式计算生态, 由 Harmonia-Energeia 核心架构和 Theoria 可视化层组成.
-
-- **Harmonia:** Structure, contracts and orchestration
-- **Energeia:** Models, kernels and execution
-- **Theoria:** Visualization, interaction and exploration
-
-![alt text](image.png)
-
-```bash
-pip install fusionprime
-```
-
-```python
-import fusionprime
-
-from fusionprime import harmonia
-from fusionprime import energeia
-from fusionprime import theoria
-```
-
-核心包结构为:
-
-```text
-fusionprime/
-├── harmonia/
-├── energeia/
-└── theoria/
-```
-
-其中, Harmonia 与 Energeia 构成核心计算架构; Theoria 建立在二者之上, 用于模型, 结果和工作流的可视化与交互探索.
-
 ## 核心架构设计
 
 架构名字借用亚里士多德的一对概念, 对应结构定义与实际计算之间的分工:
