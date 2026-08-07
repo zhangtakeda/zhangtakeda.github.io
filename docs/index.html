@@ -1,0 +1,1744 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="FusionPRIME 面向聚变等离子体集成建模的架构介绍：不可变 State、Module、Workflow、History、OpenMDAO 执行与导数边界。"
+    />
+    <meta name="theme-color" content="#f5f6f7" />
+    <title>FusionPRIME 架构介绍</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --page: #f5f6f7;
+        --surface: #ffffff;
+        --surface-soft: #eef1f3;
+        --ink: #182027;
+        --muted: #5d6871;
+        --line: #d8dde1;
+        --line-strong: #aeb8bf;
+        --blue: #315f7b;
+        --blue-soft: #e2edf4;
+        --amber: #89591c;
+        --amber-soft: #f5ead9;
+        --green: #3f6651;
+        --green-soft: #e4eee8;
+        --rose: #825163;
+        --rose-soft: #f3e7ec;
+        --code: #12181d;
+        --code-ink: #e9eef2;
+        --shadow: 0 14px 42px rgb(33 44 52 / 8%);
+        --radius: 14px;
+        --content: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        font-size: 16px;
+        line-height: 1.68;
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: var(--blue);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+
+      code,
+      pre {
+        font-family:
+          "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      }
+
+      code {
+        padding: 0.12rem 0.34rem;
+        border-radius: 5px;
+        background: var(--surface-soft);
+        font-size: 0.9em;
+      }
+
+      pre {
+        margin: 0;
+        overflow-x: auto;
+        padding: 18px 20px;
+        border-radius: 10px;
+        background: var(--code);
+        color: var(--code-ink);
+        font-size: 0.87rem;
+        line-height: 1.62;
+      }
+
+      pre code {
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        font-size: inherit;
+      }
+
+      .skip-link {
+        position: fixed;
+        z-index: 100;
+        top: 10px;
+        left: 10px;
+        translate: 0 -160%;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: var(--ink);
+        color: var(--surface);
+      }
+
+      .skip-link:focus {
+        translate: 0;
+      }
+
+      .site-header {
+        border-bottom: 1px solid var(--line);
+        background: rgb(245 246 247 / 92%);
+        backdrop-filter: blur(12px);
+      }
+
+      .header-inner {
+        width: min(calc(100% - 40px), var(--content));
+        min-height: 64px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        color: var(--ink);
+        text-decoration: none;
+      }
+
+      .brand strong {
+        letter-spacing: 0.02em;
+      }
+
+      .brand span {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .header-links {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        white-space: nowrap;
+      }
+
+      .header-links a {
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      .header-links a:hover {
+        color: var(--ink);
+      }
+
+      .page-grid {
+        width: min(calc(100% - 40px), var(--content));
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 214px minmax(0, 1fr);
+        gap: 44px;
+        align-items: start;
+      }
+
+      .toc {
+        position: sticky;
+        top: 22px;
+        padding: 38px 0;
+      }
+
+      .toc-label {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .toc li + li {
+        margin-top: 3px;
+      }
+
+      .toc a {
+        display: block;
+        padding: 5px 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      .toc a:hover,
+      .toc a:focus-visible {
+        color: var(--ink);
+      }
+
+      .toc-note {
+        margin-top: 24px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      main {
+        min-width: 0;
+        padding: 58px 0 92px;
+      }
+
+      section {
+        scroll-margin-top: 28px;
+      }
+
+      section + section {
+        margin-top: 84px;
+      }
+
+      .hero {
+        padding: 8px 0 12px;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--blue);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-top: 0;
+        line-height: 1.22;
+        letter-spacing: -0.025em;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin-bottom: 20px;
+        font-size: clamp(2.55rem, 6vw, 5.2rem);
+        font-weight: 740;
+      }
+
+      h2 {
+        margin-bottom: 14px;
+        font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+      }
+
+      h3 {
+        margin-bottom: 8px;
+        font-size: 1.08rem;
+      }
+
+      p {
+        margin: 0 0 1rem;
+      }
+
+      .lede {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: clamp(1.06rem, 2vw, 1.28rem);
+      }
+
+      .hero-meta {
+        margin-top: 26px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding: 3px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .section-head {
+        max-width: 720px;
+        margin-bottom: 28px;
+      }
+
+      .section-head p {
+        color: var(--muted);
+      }
+
+      .surface {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .architecture {
+        padding: 22px;
+      }
+
+      .layer-row {
+        display: grid;
+        grid-template-columns: 116px minmax(0, 1fr);
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .layer-name {
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+      }
+
+      .layer-content {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .layer-content.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .node {
+        min-width: 0;
+        padding: 12px 13px;
+        border-radius: 8px;
+      }
+
+      .node strong,
+      .node span {
+        display: block;
+      }
+
+      .node span {
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .energeia .node {
+        background: var(--blue-soft);
+      }
+
+      .harmonia .node {
+        background: var(--amber-soft);
+      }
+
+      .theoria .node {
+        background: var(--green-soft);
+      }
+
+      .vertical-relation {
+        display: grid;
+        grid-template-columns: 116px minmax(0, 1fr);
+        gap: 16px;
+        min-height: 64px;
+      }
+
+      .vertical-relation div {
+        grid-column: 2;
+        justify-self: center;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .vertical-relation span {
+        display: block;
+      }
+
+      .openmdao {
+        grid-column: 2;
+        justify-self: center;
+        padding: 10px 18px;
+        border-radius: 8px;
+        background: var(--surface-soft);
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .architecture-note {
+        margin: 22px 0 0 132px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .scope-grid,
+      .principle-grid,
+      .split,
+      .ownership-grid,
+      .derivative-responsibilities,
+      .roadmap {
+        display: grid;
+        gap: 14px;
+      }
+
+      .scope-grid {
+        margin-top: 22px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .scope-block {
+        padding: 18px 20px;
+        border-top: 3px solid var(--line-strong);
+        background: var(--surface);
+      }
+
+      .scope-block.current {
+        border-color: var(--green);
+      }
+
+      .scope-block.later {
+        border-color: var(--rose);
+      }
+
+      .scope-block ul,
+      .plain-list {
+        margin: 10px 0 0;
+        padding-left: 1.25rem;
+      }
+
+      .scope-block li + li,
+      .plain-list li + li {
+        margin-top: 5px;
+      }
+
+      .split {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .plane {
+        padding: 20px;
+      }
+
+      .plane.draft {
+        border-top: 4px solid var(--amber);
+      }
+
+      .plane.published {
+        border-top: 4px solid var(--blue);
+      }
+
+      .plane p {
+        color: var(--muted);
+      }
+
+      .plane-objects {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 14px;
+      }
+
+      .plane-objects span {
+        padding: 5px 8px;
+        border-radius: 6px;
+        background: var(--surface-soft);
+        font-size: 0.83rem;
+        font-weight: 650;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 20px;
+        padding: 22px;
+      }
+
+      .flow-step {
+        position: relative;
+        min-width: 0;
+        padding: 14px;
+        border-radius: 8px;
+        background: var(--surface-soft);
+      }
+
+      .flow-step:nth-child(1),
+      .flow-step:nth-child(4) {
+        background: var(--rose-soft);
+      }
+
+      .flow-step:nth-child(2) {
+        background: var(--amber-soft);
+      }
+
+      .flow-step:nth-child(5) {
+        background: var(--green-soft);
+      }
+
+      .flow-step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        top: 50%;
+        right: -16px;
+        translate: 0 -50%;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .step-number {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      .flow-step strong,
+      .flow-step span:last-child {
+        display: block;
+      }
+
+      .flow-step span:last-child {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 0.81rem;
+      }
+
+      .ownership-grid {
+        margin-top: 16px;
+        grid-template-columns: 1.3fr 1fr;
+      }
+
+      .ownership-box {
+        padding: 17px 19px;
+        border-left: 3px solid var(--line-strong);
+        background: var(--surface);
+      }
+
+      .ownership-box.owns {
+        border-color: var(--blue);
+      }
+
+      .ownership-box p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .callout {
+        margin-top: 18px;
+        padding: 15px 18px;
+        border-left: 4px solid var(--blue);
+        background: var(--blue-soft);
+      }
+
+      .callout.warning {
+        border-color: var(--amber);
+        background: var(--amber-soft);
+      }
+
+      .callout p:last-child {
+        margin-bottom: 0;
+      }
+
+      .object-table,
+      .history-table,
+      .benchmark-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+      }
+
+      th,
+      td {
+        padding: 11px 12px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--muted);
+        font-size: 0.79rem;
+        letter-spacing: 0.03em;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .api-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .code-panel {
+        min-width: 0;
+      }
+
+      .code-label {
+        margin: 0 0 8px;
+        color: var(--muted);
+        font-size: 0.83rem;
+        font-weight: 700;
+      }
+
+      .principle-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .principle {
+        padding: 18px;
+        border-top: 3px solid var(--line-strong);
+        background: var(--surface);
+      }
+
+      .principle p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .module-chain {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 20px;
+        padding: 22px;
+      }
+
+      .module-chain .node {
+        position: relative;
+        background: var(--blue-soft);
+      }
+
+      .module-chain .node:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        top: 50%;
+        right: -16px;
+        translate: 0 -50%;
+        color: var(--muted);
+      }
+
+      .composition {
+        display: grid;
+        gap: 18px;
+      }
+
+      .outer-sequence {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .outer-sequence .node {
+        position: relative;
+        background: var(--surface-soft);
+      }
+
+      .outer-sequence .node:nth-child(2),
+      .outer-sequence .node:nth-child(3) {
+        background: var(--amber-soft);
+      }
+
+      .outer-sequence .node:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        top: 50%;
+        right: -16px;
+        translate: 0 -50%;
+        color: var(--muted);
+      }
+
+      .composition-detail {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .composition-card {
+        padding: 20px;
+      }
+
+      .bundle-diagram {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: 0.8fr 1.25fr 0.9fr;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .bundle-children {
+        display: grid;
+        gap: 8px;
+      }
+
+      .bundle-diagram .node,
+      .cycle-diagram .node {
+        background: var(--blue-soft);
+      }
+
+      .bundle-diagram .node:first-child,
+      .bundle-diagram .node:last-child {
+        background: var(--amber-soft);
+      }
+
+      .bundle-arrow {
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .cycle-diagram {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .cycle-arrows {
+        color: var(--muted);
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .cycle-result {
+        margin-top: 10px;
+        padding: 11px 13px;
+        border-radius: 8px;
+        background: var(--amber-soft);
+        font-size: 0.9rem;
+      }
+
+      .history-visual {
+        padding: 22px;
+      }
+
+      .version-columns {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .version-lane strong {
+        display: block;
+        margin-bottom: 9px;
+      }
+
+      .versions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .version {
+        padding: 7px 10px;
+        border-radius: 6px;
+        background: var(--rose-soft);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-weight: 700;
+      }
+
+      .history-meaning {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .history-meaning div {
+        padding: 14px 16px;
+        border-left: 3px solid var(--rose);
+        background: var(--rose-soft);
+      }
+
+      .history-meaning span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .derivative-flow {
+        display: grid;
+        grid-template-columns: 1fr auto 1.25fr auto 1fr;
+        gap: 12px;
+        align-items: stretch;
+        padding: 22px;
+      }
+
+      .derivative-flow .node {
+        background: var(--surface-soft);
+      }
+
+      .derivative-flow .node:first-child {
+        background: var(--amber-soft);
+      }
+
+      .derivative-flow .node:last-child {
+        background: var(--blue-soft);
+      }
+
+      .arrow-cell {
+        align-self: center;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .derivative-responsibilities {
+        margin-top: 16px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .derivative-responsibilities div {
+        padding: 16px;
+        border-top: 3px solid var(--line-strong);
+        background: var(--surface);
+      }
+
+      .derivative-responsibilities p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .equation {
+        margin-top: 16px;
+        padding: 16px 20px;
+        border-radius: 10px;
+        background: var(--code);
+        color: var(--code-ink);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        text-align: center;
+      }
+
+      .invariants {
+        margin: 0;
+        padding: 0;
+        counter-reset: invariant;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 22px;
+        list-style: none;
+      }
+
+      .invariants li {
+        position: relative;
+        min-height: 58px;
+        padding: 12px 12px 12px 48px;
+        border-bottom: 1px solid var(--line);
+        counter-increment: invariant;
+      }
+
+      .invariants li::before {
+        content: counter(invariant, decimal-leading-zero);
+        position: absolute;
+        top: 13px;
+        left: 8px;
+        color: var(--muted);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.77rem;
+      }
+
+      .benchmark-note {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .roadmap {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .roadmap-step {
+        padding: 16px;
+        border-top: 3px solid var(--blue);
+        background: var(--surface);
+      }
+
+      .roadmap-step span {
+        display: block;
+        margin-bottom: 7px;
+        color: var(--muted);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.75rem;
+      }
+
+      .roadmap-step p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .closing {
+        padding: 26px;
+        border-radius: var(--radius);
+        background: var(--ink);
+        color: #eef2f4;
+      }
+
+      .closing h2 {
+        margin-bottom: 10px;
+      }
+
+      .closing p {
+        max-width: 720px;
+        color: #bdc6cc;
+      }
+
+      .closing a {
+        color: #d8e8f2;
+      }
+
+      footer {
+        margin-top: 34px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (max-width: 1040px) {
+        .page-grid {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+
+        .toc {
+          position: static;
+          padding: 18px 0 0;
+        }
+
+        .toc-label,
+        .toc-note {
+          display: none;
+        }
+
+        .toc ol {
+          display: flex;
+          gap: 6px 16px;
+          overflow-x: auto;
+          padding-bottom: 8px;
+        }
+
+        .toc li {
+          flex: 0 0 auto;
+        }
+
+        main {
+          padding-top: 36px;
+        }
+
+        .roadmap {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 760px) {
+        .header-inner,
+        .page-grid {
+          width: min(calc(100% - 28px), var(--content));
+        }
+
+        .header-inner {
+          min-height: 58px;
+        }
+
+        .brand span,
+        .header-links a:first-child {
+          display: none;
+        }
+
+        section + section {
+          margin-top: 62px;
+        }
+
+        .architecture,
+        .flow,
+        .module-chain,
+        .history-visual,
+        .derivative-flow {
+          padding: 16px;
+        }
+
+        .layer-row,
+        .vertical-relation {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .vertical-relation div,
+        .openmdao {
+          grid-column: 1;
+        }
+
+        .architecture-note {
+          margin-left: 0;
+        }
+
+        .layer-content,
+        .module-chain,
+        .outer-sequence {
+          grid-template-columns: 1fr;
+        }
+
+        .layer-content.two,
+        .scope-grid,
+        .split,
+        .ownership-grid,
+        .api-grid,
+        .principle-grid,
+        .composition-detail,
+        .history-meaning,
+        .derivative-responsibilities,
+        .invariants {
+          grid-template-columns: 1fr;
+        }
+
+        .flow {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .flow-step:not(:last-child)::after,
+        .module-chain .node:not(:last-child)::after,
+        .outer-sequence .node:not(:last-child)::after {
+          content: "↓";
+          top: auto;
+          right: 50%;
+          bottom: -19px;
+          translate: 50% 0;
+        }
+
+        .bundle-diagram {
+          grid-template-columns: 1fr;
+        }
+
+        .bundle-arrow {
+          rotate: 90deg;
+        }
+
+        .version-columns {
+          grid-template-columns: 1fr;
+        }
+
+        .derivative-flow {
+          grid-template-columns: 1fr;
+        }
+
+        .arrow-cell {
+          justify-self: center;
+          rotate: 90deg;
+        }
+
+        .roadmap {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 430px) {
+        .header-links {
+          gap: 10px;
+        }
+
+        .header-links a:last-child {
+          display: none;
+        }
+
+        .layer-content.two {
+          grid-template-columns: 1fr;
+        }
+
+        .cycle-diagram {
+          grid-template-columns: 1fr;
+        }
+
+        .cycle-arrows {
+          rotate: 90deg;
+        }
+      }
+
+      @media print {
+        :root {
+          --page: #ffffff;
+          --shadow: none;
+        }
+
+        .site-header,
+        .toc {
+          display: none;
+        }
+
+        .page-grid {
+          display: block;
+          width: 100%;
+        }
+
+        main {
+          padding: 0;
+        }
+
+        section {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到正文</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="回到 FusionPRIME 页面顶部">
+          <strong>FusionPRIME</strong>
+          <span>Architecture Proposal</span>
+        </a>
+        <nav class="header-links" aria-label="页面链接">
+          <a href="../index.html">个人主页</a>
+          <a href="./README.md">完整 Markdown</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-grid" id="top">
+      <aside class="toc" aria-label="架构介绍目录">
+        <p class="toc-label">Contents</p>
+        <ol>
+          <li><a href="#overview">架构总览</a></li>
+          <li><a href="#execution">执行与发布</a></li>
+          <li><a href="#values">State 与执行值</a></li>
+          <li><a href="#energeia">Energeia</a></li>
+          <li><a href="#harmonia">Harmonia</a></li>
+          <li><a href="#history">History</a></li>
+          <li><a href="#derivatives">导数边界</a></li>
+          <li><a href="#invariants">架构不变量</a></li>
+          <li><a href="#roadmap">实现路线</a></li>
+        </ol>
+        <p class="toc-note">
+          实现前架构提案<br />
+          修订于 2026-08-04
+        </p>
+      </aside>
+
+      <main id="main-content">
+        <section class="hero" aria-labelledby="page-title">
+          <p class="eyebrow">Fusion Plasma Integrated Modeling</p>
+          <h1 id="page-title">让物理过程可组合、可微分、可追溯</h1>
+          <p class="lede">
+            FusionPRIME 是面向聚变等离子体集成建模的 Python 平台。它把
+            veqpy、vtspy、mcdpy 以及后续物理过程组织成边界明确的
+            <strong>State、Module、Workflow 与 History</strong>，并以 OpenMDAO
+            作为多模块执行和总导数底座。
+          </p>
+          <div class="hero-meta" aria-label="项目关键词">
+            <span class="tag">Immutable State</span>
+            <span class="tag">Composable Module</span>
+            <span class="tag">OpenMDAO-backed</span>
+            <span class="tag">Linear History</span>
+            <span class="tag">Pre-implementation proposal</span>
+          </div>
+        </section>
+
+        <section id="overview" aria-labelledby="overview-title">
+          <div class="section-head">
+            <p class="eyebrow">01 · Overview</p>
+            <h2 id="overview-title">三层领域职责，一套数值执行底座</h2>
+            <p>
+              领域对象从数值运行时中分离：Energeia 说物理语言，Harmonia
+              组织并验收过程，Theoria 面向用户呈现状态与流程。
+            </p>
+          </div>
+
+          <div class="architecture surface" role="img" aria-label="FusionPRIME 三层架构关系图">
+            <div class="layer-row theoria">
+              <div class="layer-name">Theoria</div>
+              <div class="layer-content two">
+                <div class="node">
+                  <strong>物化路线</strong>
+                  <span>State · History</span>
+                </div>
+                <div class="node">
+                  <strong>模块流程</strong>
+                  <span>Module · Workflow</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="vertical-relation" aria-hidden="true">
+              <div><span>呈现与交互</span><span>│</span></div>
+            </div>
+
+            <div class="layer-row harmonia">
+              <div class="layer-name">Harmonia</div>
+              <div class="layer-content">
+                <div class="node"><strong>Workflow</strong><span>线性外层序列</span></div>
+                <div class="node"><strong>Bundle</strong><span>同入口并行</span></div>
+                <div class="node"><strong>Cycle</strong><span>反馈自洽</span></div>
+                <div class="node"><strong>History</strong><span>线性事实日志</span></div>
+              </div>
+            </div>
+
+            <div class="vertical-relation" aria-hidden="true">
+              <div><span>编译为</span><span>↓</span></div>
+              <div class="openmdao">OpenMDAO · 执行、求解与总导数</div>
+            </div>
+
+            <div class="vertical-relation" aria-hidden="true">
+              <div><span>调用</span><span>↓</span></div>
+            </div>
+
+            <div class="layer-row energeia">
+              <div class="layer-name">Energeia</div>
+              <div class="layer-content">
+                <div class="node"><strong>State / Result</strong><span>不可变发布事实</span></div>
+                <div class="node"><strong>Module</strong><span>完整物理过程</span></div>
+                <div class="node"><strong>Adapter</strong><span>领域 ↔ 数值</span></div>
+                <div class="node"><strong>Kernel</strong><span>固定数值 ABI</span></div>
+              </div>
+            </div>
+
+            <p class="architecture-note">
+              OpenMDAO 不是第四个领域层。它是 Harmonia 唯一的多 Module
+              调度、非线性/线性求解和全局导数传播底座。
+            </p>
+          </div>
+
+          <div class="scope-grid">
+            <div class="scope-block current">
+              <h3>第一阶段明确支持</h3>
+              <ul>
+                <li>单机、单进程、共享内存</li>
+                <li><code>Module | Bundle | Cycle</code> 的线性 Workflow</li>
+                <li>setup 前固定拓扑和主要 shape</li>
+                <li>内存中的 append-only History</li>
+              </ul>
+            </div>
+            <div class="scope-block later">
+              <h3>第一阶段明确不做</h3>
+              <ul>
+                <li>分布式调度和运行时动态图</li>
+                <li>History branch / fork / checkout / restart</li>
+                <li>自研全局导数或 primal reactive scheduler</li>
+                <li>把任意 State 自动映射为 IMAS / OMAS</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="execution" aria-labelledby="execution-title">
+          <div class="section-head">
+            <p class="eyebrow">02 · Execution &amp; publication</p>
+            <h2 id="execution-title">草稿可以覆盖，发布事实永不改写</h2>
+            <p>
+              系统只保留两个生命周期平面。可变性被限制在单次求解中，跨调用
+              API 只暴露新建的不可变对象。
+            </p>
+          </div>
+
+          <div class="split">
+            <article class="plane draft surface">
+              <h3>执行草稿</h3>
+              <p>一次执行期间可覆盖，不具备历史身份。</p>
+              <div class="plane-objects">
+                <span>Worktree</span>
+                <span>Vector</span>
+                <span>LocalStateBuffer</span>
+                <span>KernelWorkspace</span>
+              </div>
+            </article>
+            <article class="plane published surface">
+              <h3>已发布事实</h3>
+              <p>验收后新建，发布后不可变，可由 History 追溯。</p>
+              <div class="plane-objects">
+                <span>State</span>
+                <span>Record</span>
+                <span>Result</span>
+                <span>Commit</span>
+              </div>
+            </article>
+          </div>
+
+          <h3 style="margin-top: 30px">Workflow 的一次成功运行</h3>
+          <div class="flow surface" role="img" aria-label="Workflow 从 History 载入、执行、验收、提交并更新缓存的五个步骤">
+            <div class="flow-step">
+              <span class="step-number">STEP 01</span>
+              <strong>History.current</strong>
+              <span>读取已接受的完整 StateMap</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-number">STEP 02</span>
+              <strong>Worktree · OpenMDAO</strong>
+              <span>装入、run、solver 与 probes</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-number">STEP 03</span>
+              <strong>验收与物化</strong>
+              <span>新建 State、Record 与 Result</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-number">STEP 04</span>
+              <strong>commit_batch</strong>
+              <span>History 先成为一致性权威</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-number">STEP 05</span>
+              <strong>更新最近槽</strong>
+              <span>运行对象复用同一 Result</span>
+            </div>
+          </div>
+
+          <div class="ownership-grid">
+            <div class="ownership-box owns">
+              <h3>最近 Result 属于运行对象</h3>
+              <p><code>module.result</code> · <code>bundle.result</code> · <code>cycle.result</code></p>
+            </div>
+            <div class="ownership-box">
+              <h3>不保存第二份缓存</h3>
+              <p><code>Node</code> · <code>NodeBinding</code> · <code>Workflow</code></p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>事务边界：</strong>
+            <p>
+              每个已接受的外层 Node 产生一个 Result 和 Commit。Cycle 内部迭代、
+              Bundle 子模块以及 FD/CS 探针只写草稿或父诊断，不发布独立事实。
+            </p>
+          </div>
+        </section>
+
+        <section id="values" aria-labelledby="values-title">
+          <div class="section-head">
+            <p class="eyebrow">03 · State &amp; values</p>
+            <h2 id="values-title">State 本身就是不可变 API 值</h2>
+            <p>
+              不再引入平行的 <code>StateSnapshot</code> 类型。所有公共 API
+              数据值使用 <code>frozen=True, slots=True</code> 的 dataclass，公开的嵌套容器和数组同样需要深度不可变。
+            </p>
+          </div>
+
+          <div class="api-grid">
+            <div class="code-panel">
+              <p class="code-label">State：数组不参与递归相等比较</p>
+              <pre><code>@dataclass(frozen=True, slots=True, eq=True)
+class EquilibriumState:
+    snapshot_id: SnapshotId
+    psi: FrozenArray = field(compare=False, hash=False)
+    pressure: FrozenArray = field(compare=False, hash=False)
+    schema_version: str = field(compare=False)</code></pre>
+            </div>
+            <div class="code-panel">
+              <p class="code-label">Result：事实身份与大型 payload 分离</p>
+              <pre><code>@dataclass(frozen=True, slots=True, eq=True)
+class Result:
+    result_id: ResultId
+    record: Record = field(compare=False, hash=False)
+    outputs: FrozenMap[StatePath, State] | None = field(
+        compare=False,
+        hash=False,
+    )</code></pre>
+            </div>
+          </div>
+
+          <div class="table-wrap surface" style="margin-top: 18px">
+            <table class="object-table">
+              <thead>
+                <tr>
+                  <th>对象</th>
+                  <th>语义</th>
+                  <th><code>eq=True</code> 的生产用途</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>StatePath</code> / <code>FieldPath</code> / config / <code>StateVector</code></td>
+                  <td>小型合同值</td>
+                  <td>精确相等、映射查找与编译缓存键</td>
+                </tr>
+                <tr>
+                  <td><code>State</code> / <code>Record</code> / <code>Result</code> / <code>Commit</code></td>
+                  <td>带稳定身份的已发布事实</td>
+                  <td>只比较稳定 ID；不递归比较数组或诊断 payload</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout warning">
+            <strong>三个概念必须分开：</strong>
+            <p>
+              数值近似相等需要显式字段、单位、容差与 NaN 规则；存储去重需要内容摘要；
+              Workflow 是否执行和 History 是否新增版本，都不由 <code>State.__eq__</code> 决定。
+            </p>
+          </div>
+        </section>
+
+        <section id="energeia" aria-labelledby="energeia-title">
+          <div class="section-head">
+            <p class="eyebrow">04 · Energeia</p>
+            <h2 id="energeia-title">一个物理过程，从领域对象降到数值 ABI</h2>
+            <p>
+              Module 是用户可独立配置、运行和诊断的完整物理过程。Adapter 是唯一翻译层，Kernel 只接受固定数值合同。
+            </p>
+          </div>
+
+          <div class="module-chain surface" role="img" aria-label="State、Module、Adapter 与 Kernel 的职责链">
+            <div class="node"><strong>State</strong><span>物理数据、单位、shape 与不变量</span></div>
+            <div class="node"><strong>Module</strong><span>策略、验收、fallback 与诊断解释</span></div>
+            <div class="node"><strong>Adapter</strong><span>单位、坐标、dtype、layout 与 push/pull</span></div>
+            <div class="node"><strong>Kernel</strong><span>固定数值 ABI、局部残差与导数</span></div>
+          </div>
+
+          <div class="principle-grid" style="margin-top: 16px">
+            <article class="principle">
+              <h3>Module 双入口</h3>
+              <p>
+                <code>evaluate()</code> 是唯一物理计算入口；独立 <code>solve()</code>
+                与 Workflow 复用相同验证、诊断和物化规则。
+              </p>
+            </article>
+            <article class="principle">
+              <h3>Adapter 唯一翻译</h3>
+              <p>
+                State API 与 Kernel ABI 之间的单位、布局和 tangent/cotangent 映射不分散到其他层。
+              </p>
+            </article>
+            <article class="principle">
+              <h3>Kernel 不感知领域</h3>
+              <p>
+                Kernel 不认识 State、Module、Workflow 或 History，只处理显式的数值输入、配置与 workspace。
+              </p>
+            </article>
+          </div>
+
+          <div class="table-wrap surface" style="margin-top: 18px">
+            <table class="object-table">
+              <thead>
+                <tr><th>Kernel API 值</th><th>内容</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>KernelTopology</code></td><td>静态规模、布局、索引、残差维度和实现族</td></tr>
+                <tr><td><code>KernelInstance</code></td><td>本次物理输入、边界、源项和显式初值</td></tr>
+                <tr><td><code>KernelConfig</code></td><td>非物理求解控制和已数值化模式</td></tr>
+                <tr><td><code>KernelResult</code></td><td>数值输出、状态码、收敛信息和小型诊断</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="margin-top: 30px">独立 Module 不需要 OpenMDAO</h3>
+          <pre><code>State inputs
+      ↓
+LocalStateBuffer
+      ↓
+evaluate → validate → materialize new State values → build Result
+      ↓
+module.result = Result</code></pre>
+        </section>
+
+        <section id="harmonia" aria-labelledby="harmonia-title">
+          <div class="section-head">
+            <p class="eyebrow">05 · Harmonia</p>
+            <h2 id="harmonia-title">外层保持线性，组合语义进入 Bundle 与 Cycle</h2>
+            <p>
+              Workflow 是领域编译器、OpenMDAO facade 和顶层验收边界。Node
+              只是 Module、Bundle 或 Cycle 在外层位置扮演的角色，不是新的用户对象。
+            </p>
+          </div>
+
+          <div class="composition">
+            <div>
+              <h3>Workflow · 线性外层序列</h3>
+              <div class="outer-sequence" role="img" aria-label="Module A、Bundle、Cycle、Module D 构成线性 Workflow">
+                <div class="node"><strong>Module A</strong><span>外层执行边界</span></div>
+                <div class="node"><strong>Bundle</strong><span>同入口并行</span></div>
+                <div class="node"><strong>Cycle</strong><span>反馈自洽</span></div>
+                <div class="node"><strong>Module D</strong><span>外层执行边界</span></div>
+              </div>
+            </div>
+
+            <div class="composition-detail">
+              <article class="composition-card surface">
+                <h3>Bundle · 相同入口 revision</h3>
+                <p>子 Module 彼此不可见输出，第一阶段要求 StatePath 写集互斥。</p>
+                <div class="bundle-diagram" role="img" aria-label="Bundle 子模块读取同一入口并产生不同 State 输出">
+                  <div class="node"><strong>入口 State</strong><span>同一版本</span></div>
+                  <div class="bundle-children">
+                    <div class="node"><strong>Module B</strong><span>写 State P</span></div>
+                    <div class="node"><strong>Module C</strong><span>写 State Q</span></div>
+                  </div>
+                  <div class="node"><strong>Bundle Result</strong><span>一个 Commit</span></div>
+                </div>
+              </article>
+
+              <article class="composition-card surface">
+                <h3>Cycle · 反馈自洽</h3>
+                <p>OpenMDAO nonlinear/linear solver 负责迭代与隐式导数。</p>
+                <div class="cycle-diagram" role="img" aria-label="Cycle 内 Module B 与 Module C 反馈迭代">
+                  <div class="node"><strong>Module B</strong><span>evaluate only</span></div>
+                  <div class="cycle-arrows">→<br />←</div>
+                  <div class="node"><strong>Module C</strong><span>evaluate only</span></div>
+                </div>
+                <div class="cycle-result">
+                  收敛边界 → <strong>一个 Cycle Result / Commit</strong><br />
+                  内部 Module、Bundle 与迭代均不单独发布
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="callout warning">
+            <strong>Bundle 不是通用控制流：</strong>
+            <p>
+              条件分支先保留在 Module 的显式配置和 fallback 中。未来若需要结构化分支，应单独设计组合子。
+            </p>
+          </div>
+
+          <div class="api-grid" style="margin-top: 28px">
+            <div class="code-panel">
+              <p class="code-label">组合示例</p>
+              <pre><code>workflow = Workflow(
+    VEQModule(...),
+    Bundle(
+        HeatingModule(...),
+        CurrentDriveModule(...),
+    ),
+    Cycle(
+        VTSModule(...),
+        VEQModule(...),
+        solver=Picard(...),
+    ),
+    MCDModule(...),
+)</code></pre>
+            </div>
+            <div class="code-panel">
+              <p class="code-label">Workflow 用户 API</p>
+              <pre><code>class Workflow:
+    def setup(self) -> None: ...
+    def create_history(self, initial) -> History: ...
+    def run(self, history: History) -> tuple[Commit, ...]: ...
+    def compute_totals(self, *, of, wrt, method=None): ...
+    def graph(self) -> ReadOnlyGraph: ...</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="history" aria-labelledby="history-title">
+          <div class="section-head">
+            <p class="eyebrow">06 · History</p>
+            <h2 id="history-title">线性 Commit 序列，加按 StatePath 分列的版本</h2>
+            <p>
+              History 不是树，也不是运行时。StateCatalog 固定槽位顺序；每个 Commit
+              通过不可变 StateVector 选择各版本列中的 State，从而表达提交后的完整状态。
+            </p>
+          </div>
+
+          <div class="history-visual surface">
+            <div class="table-wrap">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Commit</th>
+                    <th>执行事实</th>
+                    <th>StateVector <code>(E, P, Q)</code></th>
+                    <th>本次新增版本</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>C0</code></td><td>INIT</td><td><code>(0, 0, 0)</code></td><td><code>E0 · P0 · Q0</code></td></tr>
+                  <tr><td><code>C1</code></td><td>VEQ Result</td><td><code>(1, 0, 0)</code></td><td><code>E1</code></td></tr>
+                  <tr><td><code>C2</code></td><td>Bundle Result</td><td><code>(1, 1, 1)</code></td><td><code>P1 · Q1</code></td></tr>
+                  <tr><td><code>C3</code></td><td>Cycle Result</td><td><code>(2, 1, 1)</code></td><td><code>E2</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="version-columns" role="img" aria-label="StatePath E、P、Q 各自维护版本列">
+              <div class="version-lane">
+                <strong>StatePath E</strong>
+                <div class="versions"><span class="version">E0</span><span>→</span><span class="version">E1</span><span>→</span><span class="version">E2</span></div>
+              </div>
+              <div class="version-lane">
+                <strong>StatePath P</strong>
+                <div class="versions"><span class="version">P0</span><span>→</span><span class="version">P1</span></div>
+              </div>
+              <div class="version-lane">
+                <strong>StatePath Q</strong>
+                <div class="versions"><span class="version">Q0</span><span>→</span><span class="version">Q1</span></div>
+              </div>
+            </div>
+
+            <div class="history-meaning">
+              <div><strong>Commit → Result</strong><span>回答“这次执行发生了什么”</span></div>
+              <div><strong>StateVector → 版本列</strong><span>回答“提交后完整 State 是什么”</span></div>
+            </div>
+          </div>
+
+          <ul class="plain-list">
+            <li>成功 outputs 追加到对应版本列，未变化 State 沿用 HEAD 下标。</li>
+            <li>失败 Result 不追加 State，复用本次 run 起点的 StateVector。</li>
+            <li><code>commit_batch()</code> 在 staging 中完整推演后一次公开整个 batch。</li>
+            <li>Commit 不保存 parent；序列位置是唯一顺序权威。</li>
+          </ul>
+        </section>
+
+        <section id="derivatives" aria-labelledby="derivatives-title">
+          <div class="section-head">
+            <p class="eyebrow">07 · Derivatives</p>
+            <h2 id="derivatives-title">局部导数下沉到 Kernel，全局传播交给 OpenMDAO</h2>
+            <p>
+              导数热路径只在数值布局间传递 tangent/cotangent，不穿透 State、Result、Commit 的物化边界。
+            </p>
+          </div>
+
+          <div class="derivative-flow surface" role="img" aria-label="OpenMDAO linear Vector 经 Adapter 和 DerivativeBinding 映射到 KernelWorkspace">
+            <div class="node"><strong>OpenMDAO linear Vector</strong><span>全局方向与伴随量</span></div>
+            <div class="arrow-cell">→</div>
+            <div class="node"><strong>Adapter · DerivativeBinding</strong><span>slice · 单位 · layout · push/pull</span></div>
+            <div class="arrow-cell">→</div>
+            <div class="node"><strong>KernelWorkspace</strong><span>residual · Jacobian · JVP · VJP</span></div>
+          </div>
+
+          <div class="derivative-responsibilities">
+            <div><strong>Kernel</strong><p>单个物理过程的局部 residual、Jacobian、JVP、VJP 与可选线性求解。</p></div>
+            <div><strong>Adapter / Binding</strong><p>领域字段与固定数值 ABI 之间的布局、单位和方向映射。</p></div>
+            <div><strong>OpenMDAO</strong><p>跨 Module 链式传播、Bundle 独立块、Cycle 耦合系统、coloring 与 totals。</p></div>
+          </div>
+
+          <div class="equation" aria-label="Cycle 隐式灵敏度方程">
+            z = G(z, x) &nbsp; ⇒ &nbsp; (I − G<sub>z</sub>) dz = G<sub>x</sub> dx
+          </div>
+
+          <div class="callout">
+            <strong>导数探针不发布事实：</strong>
+            <p>
+              FD、CS、coloring、linearization 和 <code>compute_totals</code> 不构造 State、Record、Result、Commit 或 StateMap，
+              也不更新 History、最近结果槽和下一次 primal 的 warm start。
+            </p>
+          </div>
+        </section>
+
+        <section id="invariants" aria-labelledby="invariants-title">
+          <div class="section-head">
+            <p class="eyebrow">08 · Invariants</p>
+            <h2 id="invariants-title">实现可以变化，边界不能漂移</h2>
+            <p>下面是介绍页保留的核心不变量；完整清单和边界细节见 Markdown 原文。</p>
+          </div>
+
+          <ol class="invariants">
+            <li>Module 只通过声明端口访问 State，不依赖 OpenMDAO 或 History。</li>
+            <li>Adapter 是 State 与 Kernel ABI 的唯一翻译层。</li>
+            <li><code>evaluate()</code> 只修改执行草稿，不发布事实。</li>
+            <li>每次已接受的外层执行都新建 Result，不修改旧对象。</li>
+            <li>Bundle 和 Cycle 各只有一个外层 Result / Commit。</li>
+            <li>OpenMDAO 是唯一多 Module 执行、Cycle 求解和全局导数引擎。</li>
+            <li>History 只接收 Result，以线性 Commit 和版本列保存状态。</li>
+            <li>失败 run 不提交成功前缀，也不发布半成品 State。</li>
+            <li>所有公共 API 数据值必须是 frozen / slots dataclass。</li>
+            <li>Module / Bundle / Cycle 各持有一个最近 Result 槽；Node、Binding、Workflow 不复制。</li>
+          </ol>
+        </section>
+
+        <section id="roadmap" aria-labelledby="roadmap-title">
+          <div class="section-head">
+            <p class="eyebrow">09 · Evidence &amp; roadmap</p>
+            <h2 id="roadmap-title">先验证真实物理链，再决定存储优化</h2>
+            <p>
+              VEQ → MCD 原型显示，OpenMDAO 对完整物理 Module 的额外开销较小；真正需要测量的是版本常驻内存、workspace、物化和长期 History 成本。
+            </p>
+          </div>
+
+          <div class="table-wrap surface">
+            <table class="benchmark-table">
+              <thead><tr><th>路径</th><th>中位时间</th><th>相对直接调用</th></tr></thead>
+              <tbody>
+                <tr><td>直接 VEQ → MCD</td><td>19.360 ms</td><td>—</td></tr>
+                <tr><td>OpenMDAO，17 个字段变量</td><td>19.426 ms</td><td>+0.067 ms</td></tr>
+                <tr><td>OpenMDAO，打包 State</td><td>19.394 ms</td><td>+0.035 ms</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="benchmark-note">
+            基线：OpenMDAO 3.45.0；真实 VEQ → MCD 原型与直接调用逐元素一致。微型 Kernel 仍需单独评估 Component 粒度成本。
+          </p>
+
+          <div class="roadmap" style="margin-top: 26px">
+            <article class="roadmap-step"><span>01</span><strong>值对象与 History</strong><p>固定不可变合同、版本列、StateVector 与原子提交。</p></article>
+            <article class="roadmap-step"><span>02</span><strong>Module 双入口</strong><p>统一 evaluate / solve、绑定、字段 SSA 与物化清单。</p></article>
+            <article class="roadmap-step"><span>03</span><strong>真实物理链</strong><p>接入 VEQ、VTS、MCD，验证独立运行和 Workflow 一致。</p></article>
+            <article class="roadmap-step"><span>04</span><strong>组合与导数</strong><p>实现 Bundle、Cycle、solver、children 与 DerivativeBinding。</p></article>
+            <article class="roadmap-step"><span>05</span><strong>Kernel 纯化</strong><p>profiling 后再决定零拷贝、分块、持久化、共享内存和 MPI。</p></article>
+          </div>
+        </section>
+
+        <section class="closing" aria-labelledby="summary-title">
+          <p class="eyebrow" style="color: #9fc0d4">Summary</p>
+          <h2 id="summary-title">五条边界足以理解 FusionPRIME</h2>
+          <ol>
+            <li>State 是物理语言；Worktree 和 LocalStateBuffer 只是可覆盖草稿。</li>
+            <li>Module 定义过程，Adapter 翻译，Kernel 只做固定数值计算。</li>
+            <li>Workflow 线性组织外层 Node；Bundle 并行，Cycle 反馈自洽。</li>
+            <li>只有验收后的外层执行产生 Result；History 是一致性权威。</li>
+            <li>Kernel 负责局部导数，OpenMDAO 负责全局传播，导数探针不发布事实。</li>
+          </ol>
+          <p>
+            需要查看完整合同、失败语义和待原型验证问题时，请阅读
+            <a href="./README.md">架构设计 Markdown 原文</a>。
+          </p>
+        </section>
+
+        <footer>
+          FusionPRIME · Fusion Plasma Reactive Integrated Modeling Ecosystem · 架构提案修订于 2026-08-04
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>
