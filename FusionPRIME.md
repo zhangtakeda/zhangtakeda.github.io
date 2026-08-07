@@ -4,10 +4,10 @@
 
 **FusionPRIME**: Fusion Plasma Reactive Integrated Modeling Environment
 
-FusionPRIME 是面向聚变等离子体集成建模的反应式计算生态, 由 Harmonia-Energeia 核心架构和 Theoria 可视化层组成. 架构命名借用亚里士多德的一对概念, 对应结构定义与实际计算之间的分工:
+FusionPRIME 是面向聚变等离子体集成建模的反应式计算生态, 由 Energeia-Harmonia 核心架构和 Theoria 可视化层组成. 架构命名借用亚里士多德的一对概念, 对应结构定义与实际计算之间的分工:
 
-- **Harmonia (和谐关系):** 静态的结构与关系, 包括契约, 元模型和 Workflow. 它定义系统中合法的组件及其组合方式, 本身不实现具体的重型物理计算.
 - **Energeia (现实活动):** 从潜能到实现的动态过程, 即系统实际运行和产生结果的过程. 它包含 Module 的具体实现, 负责执行数值计算.
+- **Harmonia (和谐关系):** 静态的结构与关系, 包括契约, 元模型和 Workflow. 它定义系统中合法的组件及其组合方式, 本身不实现具体的重型物理计算.
 - **Theoria (理论和观察):** 延续这一命名体系, 表示对计算对象和结果的观察, 展示与理解.
 
 具体到代码上:
@@ -47,18 +47,21 @@ FusionPRIME 是面向聚变等离子体集成建模的反应式计算生态, 由
 **聚变模型中的物理量往往彼此依赖.** 例如平衡位形改变后, 磁面坐标, Jacobian, 体积和一维几何因子都应随之更新. 如果由开发者手动维护更新顺序和缓存:
 
 1. 容易留下**数值看似正常但已经过期**的派生量;
-2. 容易进行**大量多余的物理量计算**, 尤其体现在 IMAS 数据接口中;
-3. 或者**不方便将计算延迟到真正需要的时间段**, 例如可视化阶段而不是计算阶段.
+2. 容易进行**大量多余的物理量计算或更新**, 尤其体现在 IMAS 数据接口中;
+3. **无法将计算延迟到真正需要它的阶段**, 例如只在可视化时计算诊断量.
 
-FusionPRIME 将独立输入定义为 root property, 其余物理量则直接按公式写成派生 property. 例如, 关系 $y = x^2, z = y + 1$ 可以表达为:
+IMAS IDS 中往往存在大量相互关联但并非每次都需要的字段. 一个输入变化不应导致所有派生物理量都被重新计算, 面向 IMAS 的一次局部读取或字段映射也不需要先构造和填满所有可选派生字段. FusionPRIME 因此显式声明独立的 root property, 并从派生 property 的物理公式中建立依赖关系.
+
+例如, 关系 $y = x^2, z = y + 1, w = 2a$ 包含两条彼此独立的数据分支:
 
 ```python
 class Derived(Reactive):
-    root_properties = {"x"}
+    root_properties = {"x", "a"}
 
-    def __init__(self, x):
+    def __init__(self, x, a):
         super().__init__()
         self.x = x
+        self.a = a
 
     @property
     def y(self):
@@ -67,18 +70,23 @@ class Derived(Reactive):
     @property
     def z(self):
         return self.y + 1
+
+    @property
+    def w(self):
+        return 2 * self.a
 ```
 
-系统会从公式中建立 `x → y → z` 的依赖关系. 修改 `x` 时只记录变化, 不立即执行下游计算; 下次读取 `y` 或 `z` 时, 系统才会检查依赖并按需更新. **未改变的分支继续复用缓存, 未访问的派生量不产生计算成本.**
+系统会建立 `x → y → z` 和 `a → w` 两条依赖分支. 修改 `x` 时, 只有 `y` 和 `z` 失效, `w` 仍然有效; 如果从未访问 `w`, 则 `w` 从始至终都不会被计算. **未改变的分支继续复用缓存, 未访问的派生量不产生计算成本.**
 
 ```python
-derived = Derived(2) # x = 2
-print(derived.z) # 先自动进行 y 的计算, 再计算 z, 输出 5
-derived.x = 3 # 修改 x, y 和 z 只标记为过期
-print(derived.z) # 再次访问 z 时, 才进行计算 y = 9, 再计算 z = 10
+derived = Derived(x=2, a=10)
+print(derived.z)  # 只计算 y 和 z, 输出 5
+
+derived.x = 3  # y 和 z 失效, w 不受影响
+print(derived.z)  # 重新计算 y 和 z, 输出 10
 ```
 
-**这种设计让物理公式同时成为可执行的依赖声明, 从而保证对象内部的一致性, 并将更新范围限制在真正受影响的数据上.** 常规依赖由 AST (Abstract Syntax Tree) 自动识别, 无法静态分析的动态依赖也可以通过 `depends_on` 显式声明.
+**这种设计同时保证了更新的正确性, 计算范围的最小化和派生数据的延迟物化.** 常规依赖由 AST (Abstract Syntax Tree) 自动识别, 无法静态分析的动态依赖也可以通过 `depends_on` 显式声明.
 
 Reactive 用于物理对象和派生诊断. 而数值热循环、残差评估、时间推进和非线性迭代仍由编译内核和显式 workspace 执行, 因此反应式语义不会进入高频计算路径.
 
