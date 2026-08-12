@@ -13,22 +13,14 @@ FusionPRIME 是面向聚变等离子体集成建模的响应式计算生态, 由
 
 - State, Adapter, Record, Result, Kernel
 - Module, Bundle, Cycle, Workflow
-- StateMap, Commit, HEAD, History
+- Commit, Head, History
 
 `energeia` 是所有物理 Module 与 Harmonia 共同依赖的底层契约包. 它定义跨 Module 稳定的物理 State, 执行协议, 导数协议和公共数值原语, 但不包含具体物理求解器, 也不负责 Workflow 编排:
 
 ```text
 energeia/
-├── __init__.py
-├── __main__.py
 ├── contract/
-│   ├── adapter.py
-│   ├── derivative.py
-│   ├── module.py
-│   ├── record.py
-│   └── result.py
 ├── state/
-│   ├── __init__.py
 │   ├── current/
 │   ├── equilibrium/
 │   ├── kinetic/
@@ -41,40 +33,28 @@ energeia/
 
 ```text
 veqpy/
-├── __init__.py
-├── __main__.py
-├── module.py
 ├── adapter/
 ├── record/
-├── result/
 ├── kernel/
-│   ├── __init__.py
 │   ├── cxx_kernel/
 │   └── numba_kernel/
 └── view/
 ```
 
-```bash
-python -m veqpy --demo [optional numba/cxx]
-python -m veqpy --version
-python -m veqpy --check
-python -m veqpy --links
-```
-
-Module 的公开入口接收 Energeia State, 由自己的 Adapter 完成坐标, 网格, 单位与时间切片转换, 再调用内部 Kernel. `energeia` 定义 Record 与 Result 的公共协议, Module 定义与自身数值问题对应的具体不可变类型. Record 表示 Adapter 物化后的模块数值输入, Result 携带本次执行产生的 State 更新与诊断; 它们都不反向引用 Workflow, Commit 或 History:
+Module 的公开入口接收 Energeia State, 由自己的 Adapter 完成坐标, 网格, 单位与时间切片转换, 再调用内部 Kernel. `energeia` 定义 Record 与 Result 这两类公共不可变执行值. Record 保存一次 Module 具体求解过程的执行状态, 计时, 迭代计数, Kernel 与 fallback 路径, 错误摘要和 provenance; Module 内部的 `record` 将 Kernel 诊断解释为该公共 Record. Result 则将 Record 与本次执行实际产生的 State 组合为完整结果. Record 与 Result 都不反向引用 Workflow, Commit 或 History:
 
 ```text
-Energeia State
+State
     ↓
-Module-owned Adapter
+Adapter
     ↓
-Module-specific Record
+Module-specific Input
     ↓
 Kernel
     ↓
-Module-specific Result
+Module-specific Output
     ↓
-Energeia State updates
+Record + State
 ```
 
 每个 Module 还必须提供一致的命令行入口, 使其可以在不建立 Harmonia Workflow 的情况下独立检查和运行:
@@ -86,27 +66,18 @@ python -m veqpy --check
 python -m veqpy --links
 ```
 
-`energeia.view` 负责通用 State 的物理展示, Module 内部的 `view` 负责求解器与模块诊断, `harmonia.view` 则负责 Workflow, Commit 和 History 的跨节点展示.
+`energeia.view` 负责通用 State 的物理展示, Module 内部的 `view` 负责求解过程可视化, `harmonia.view` 则负责 Workflow, Commit 和 History 的跨节点展示.
 
-**Harmonia** 是将 Module 组合为 Workflow, 并管理 State 版本组合, Commit, HEAD 和 History 的上层包. Harmonia 使用 Energeia 定义的物理 State 和执行协议, 但不定义具体物理字段, 也不依赖任何特定 Module:
+**Harmonia** 是将 Module 组合为 Workflow, 并管理 State 版本组合, Commit, Head 和 History 的上层包. Harmonia 使用 Energeia 定义的物理 State 和执行协议, 但不定义具体物理字段, 也不依赖任何特定 Module:
 
 ```text
 harmonia/
-├── __init__.py
-├── __main__.py
-├── execution/
-│   └── openmdao/
 ├── history/
-│   ├── commit.py
-│   ├── history.py
-│   ├── state_map.py
-│   └── state_ref.py
 ├── view/
 └── workflow/
-    ├── bundle.py
-    ├── cycle.py
-    ├── module_node.py
-    └── workflow.py
+    ├── bundle/
+    ├── cycle/
+    └── module/
 ```
 
 实际依赖为:
@@ -139,14 +110,14 @@ harmonia          → energeia
     v
 [Modules]  VEQPy / MCDPy / VTSPy
     |
-    | Module -> Adapter -> Record -> Kernel -> Result
+    | Module -> Adapter -> Kernel -> Record / Result
     v
 [Energeia]  State / contracts / numerics
 ```
 
 ## IMAS
 
-**IMAS** (Integrated Modelling & Analysis Suite) 是 ITER 组织开发的聚变等离子体集成建模数据结构和接口标准, 核心由 Data Dictionary 和 Access Layer 组成. Data Dictionary 定义 IDS、字段、单位和坐标, Access Layer 提供对 IDS 的存储与访问接口. IDS 定义了聚变等离子体模拟中常用的物理量及其组织方式, API 定义了对 IDS 的访问方式.
+**IMAS** (Integrated Modelling & Analysis Suite) 是 ITER 组织开发的聚变等离子体集成建模数据结构和接口标准, 核心由 Data Dictionary 和 Access Layer 组成. Data Dictionary 定义 IDS, 字段, 单位和坐标, Access Layer 提供对 IDS 的存储与访问接口. IDS 定义了聚变等离子体模拟中常用的物理量及其组织方式, API 定义了对 IDS 的访问方式.
 
 - 网页: https://imas-python.readthedocs.io/en/stable/
 - 论文: https://doi.org/10.1088/0029-5515/55/12/123006
@@ -247,26 +218,26 @@ Module 对外提供的导数覆盖从输入 State 到输出 State 的完整映�
 
 ## 3. 基于 Commit 的 History 数据管理
 
-- Commit 记录完整的 State 版本组合, HEAD 指向 Workflow 当前的 StateMap
+- Commit 记录一个 Workflow 节点完成后完整的 State 版本组合, Head 指向当前 Commit
 - 每次提交只增加实际产生的 State, 未变化的 State 继续复用已有版本
 - 任意节点的完整物理状态都可以还原、比较和可视化
 
-**集成模拟的当前状态不是单个数据对象, 而是多个物理 State 版本的组合.** FusionPRIME 将每个物理 State 独立保存为版本序列, 并由 Commit 记录一个 Workflow 节点执行后的完整 State 版本组合.
+**集成模拟的当前状态不是单个数据对象, 而是多个物理 State 版本的组合.** FusionPRIME 将每个物理 State 独立保存为版本序列, 并由每个 Commit 记录一个 Workflow 节点执行后的完整 State 版本组合. Head 是 History 对当前 Commit 的引用, 不另外复制或持有一份状态集合.
 
 ```text
-StateMap: (Equilibrium, Core Profiles, Sources)
+History: (Equilibrium, Core Profiles, Sources)
 C0  INIT  (0, 0, 0)
 C1  VEQ   (1, 0, 0)
-C2  VTS   (1, 1, 1) ← HEAD
+C2  VTS   (1, 1, 1) ← Head
 ```
 
-一次 Commit 只增加本次实际产生的 State, 未变化的 State 继续复用已有版本. 因此, 每个节点都具有完整的 StateMap, 但无须复制或重建整个 State 集合. State 版本同时与产生它的 Module、Bundle 或 Cycle Result 建立明确关联.
+一次 Commit 只增加本次实际产生的 State, 未变化的 State 继续复用已有版本. 因此, 每个 Commit 都可以还原节点完成后的完整物理状态, 但无须复制或重建整个 State 集合. State 版本同时与产生它的 Module, Bundle 或 Cycle Result 建立明确关联.
 
-IMAS 已经按照 equilibrium, core profiles, sources 等物理概念划分 IDS, 也允许独立读写单个 IDS, 但没有统一管理各 IDS 的版本谱系, 也没有将不同 IDS 版本组成 Workflow HEAD 的 Commit 机制. FusionPRIME 的 History 保存计算结果, 也可以快速还原任意节点的完整物理状态, 追踪每个 State 版本的产生来源, 并基于紧凑的版本数据进行逐节点可视化和结果比较.
+IMAS 已经按照 equilibrium, core profiles, sources 等物理概念划分 IDS, 也允许独立读写单个 IDS, 但没有统一管理各 IDS 的版本谱系, 也没有由一个 Commit 统一记录当前完整 IDS 版本组合的机制. FusionPRIME 的 History 保存计算结果, 也可以快速还原任意节点的完整物理状态, 追踪每个 State 版本的产生来源, 并基于紧凑的版本数据进行逐节点可视化和结果比较.
 
 ## 4. 面向高性能计算的职责分离架构
 
-FusionPRIME 通过 State, Adapter, Record, Kernel 与 Result 分离物理状态, 模块数据转换, 数值输入, 高频计算和结果发布. Module 只读取和产生显式声明的 State, 不持有或修改整个 StateMap, 也不感知 Workflow, Commit 和 History. Harmonia 只根据 Module Result 发布新的 State 版本; Module 执行失败或 Cycle 未通过收敛与验收条件时, HEAD 保持不变.
+FusionPRIME 通过 State, Adapter, Kernel, Record 与 Result 分离物理状态, 模块数据转换, 高频计算, 求解过程记录和结果发布. Module 只读取和产生显式声明的 State, 不持有或修改 History 中的完整状态组合, 也不感知 Workflow, Commit 和 History. Harmonia 只根据通过验收的 Module Result 发布新的 State 版本; Module 执行失败或 Cycle 未通过收敛与验收条件时, 不发布半成品 State.
 
 Adapter 属于 Module, 因为只有 Module 知道自己 Kernel 所需的坐标, 网格, 边界与守恒语义. 不同 State 可以使用不同网格, 但每个剖面都必须携带明确的坐标和几何语义; Module 内部使用 `energeia.numerics` 提供的公共插值, 投影与守恒重映射原语, 并根据物理量选择正确的转换方式. 同一个已编译 Workflow 中允许各 State 使用不同网格, 但网格点数和坐标拓扑在运行期间保持不变; 改变拓扑时应重新编译 Workflow. 这样既保留了 Module 对任意合法网格的适配能力, 又避免不同 Module 重复实现不一致的数值操作.
 
