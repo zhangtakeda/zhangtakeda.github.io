@@ -11,7 +11,7 @@ FusionPRIME 是面向聚变等离子体集成建模的响应式计算生态, 由
 
 主要概念:
 
-- State, Adapter, Record, Result, Kernel
+- State, Adapter, Kernel, Record
 - Module, Bundle, Cycle, Workflow
 - Commit, Head, History
 
@@ -41,7 +41,7 @@ veqpy/
 └── view/
 ```
 
-Module 的公开入口接收 Energeia State, 由自己的 Adapter 完成坐标, 网格, 单位与时间切片转换, 再调用内部 Kernel. `energeia` 定义 Record 与 Result 这两类公共不可变执行值. Record 保存一次 Module 具体求解过程的执行状态, 计时, 迭代计数, Kernel 与 fallback 路径, 错误摘要和 provenance; Module 内部的 `record` 将 Kernel 诊断解释为该公共 Record. Result 则将 Record 与本次执行实际产生的 State 组合为完整结果. Record 与 Result 都不反向引用 Workflow, Commit 或 History:
+Module 的公开入口接收 Energeia State, 由自己的 Adapter 完成坐标, 网格, 单位与时间切片转换, 再调用内部 Kernel. `energeia` 定义公共不可变的 Record, 用于保存一次 Module 具体求解过程的执行状态, 计时, 迭代计数, Kernel 与 fallback 路径, 错误摘要, provenance 以及 State 物化所需的输出. Module 内部的 `record` 将 Kernel 输出与诊断解释为该公共 Record. 只有通过求解与物理验收的 Record 才会物化为 State; 失败的 Record 返回 `State=None`, 其初始猜测, 最后迭代值和残差等候选数据仍保留在 Record 中, 供诊断, 可视化或后续热启动使用. Record 不反向引用 Workflow, Commit 或 History:
 
 ```text
 State
@@ -54,7 +54,9 @@ Kernel
     ↓
 Module-specific Output
     ↓
-Record + State
+Record
+├── succeed → State
+└── failed  → None
 ```
 
 每个 Module 还必须提供一致的命令行入口, 使其可以在不建立 Harmonia Workflow 的情况下独立检查和运行:
@@ -110,7 +112,7 @@ harmonia          → energeia
     v
 [Modules]  VEQPy / MCDPy / VTSPy
     |
-    | Module -> Adapter -> Kernel -> Record / Result
+    | Module -> Adapter -> Kernel -> Record + State
     v
 [Energeia]  State / contracts / numerics
 ```
@@ -231,13 +233,13 @@ C1  VEQ   (1, 0, 0)
 C2  VTS   (1, 1, 1) ← Head
 ```
 
-一次 Commit 只增加本次实际产生的 State, 未变化的 State 继续复用已有版本. 因此, 每个 Commit 都可以还原节点完成后的完整物理状态, 但无须复制或重建整个 State 集合. State 版本同时与产生它的 Module, Bundle 或 Cycle Result 建立明确关联.
+一次 Commit 只增加本次实际产生的 State, 未变化的 State 继续复用已有版本. 因此, 每个 Commit 都可以还原节点完成后的完整物理状态, 但无须复制或重建整个 State 集合. State 版本与产生它的 Record 建立明确关联, 并可追溯至所属的 Module, Bundle 或 Cycle. 失败的 Record 可以作为执行轨迹保留, 但不物化 State, 也不创建 Commit; 只有新的 Commit 才会使 Head 向前移动.
 
 IMAS 已经按照 equilibrium, core profiles, sources 等物理概念划分 IDS, 也允许独立读写单个 IDS, 但没有统一管理各 IDS 的版本谱系, 也没有由一个 Commit 统一记录当前完整 IDS 版本组合的机制. FusionPRIME 的 History 保存计算结果, 也可以快速还原任意节点的完整物理状态, 追踪每个 State 版本的产生来源, 并基于紧凑的版本数据进行逐节点可视化和结果比较.
 
 ## 4. 面向高性能计算的职责分离架构
 
-FusionPRIME 通过 State, Adapter, Kernel, Record 与 Result 分离物理状态, 模块数据转换, 高频计算, 求解过程记录和结果发布. Module 只读取和产生显式声明的 State, 不持有或修改 History 中的完整状态组合, 也不感知 Workflow, Commit 和 History. Harmonia 只根据通过验收的 Module Result 发布新的 State 版本; Module 执行失败或 Cycle 未通过收敛与验收条件时, 不发布半成品 State.
+FusionPRIME 通过 State, Adapter, Kernel 与 Record 分离物理状态, 模块数据转换, 高频计算和求解过程记录. Module 只读取和产生显式声明的 State, 不持有或修改 History 中的完整状态组合, 也不感知 Workflow, Commit 和 History. Harmonia 只将通过验收的 Record 所物化的 State 发布为新版本并创建 Commit. Module 执行失败或 Cycle 未通过收敛与验收条件时, 只产生失败的 Record, 不物化半成品 State, 不创建 Commit, Head 也不移动.
 
 Adapter 属于 Module, 因为只有 Module 知道自己 Kernel 所需的坐标, 网格, 边界与守恒语义. 不同 State 可以使用不同网格, 但每个剖面都必须携带明确的坐标和几何语义; Module 内部使用 `energeia.numerics` 提供的公共插值, 投影与守恒重映射原语, 并根据物理量选择正确的转换方式. 同一个已编译 Workflow 中允许各 State 使用不同网格, 但网格点数和坐标拓扑在运行期间保持不变; 改变拓扑时应重新编译 Workflow. 这样既保留了 Module 对任意合法网格的适配能力, 又避免不同 Module 重复实现不一致的数值操作.
 
@@ -245,7 +247,7 @@ Reactive 只用于低频的物理对象与派生诊断, Adapter 只在 Module �
 
 ## 5. 从独立 Module 到集成 Workflow
 
-VEQ, MCD, VTS 等 Module 首先都是可以独立运行, 配置, 验证和诊断的完整物理过程. 用户可以直接调用 Module 的 Python API 或命令行入口, 不需要先建立 FusionPRIME Workflow. 同一个 Module 对独立调用和 Harmonia 提供相同的 State 输入, Result 输出与导数协议, 因此单模块验证与集成 Workflow 不会演化成两套实现.
+VEQ, MCD, VTS 等 Module 首先都是可以独立运行, 配置, 验证和诊断的完整物理过程. 用户可以直接调用 Module 的 Python API 或命令行入口, 不需要先建立 FusionPRIME Workflow. 同一个 Module 对独立调用和 Harmonia 提供相同的 State 输入, Record 与可选 State 输出以及导数协议, 因此单模块验证与集成 Workflow 不会演化成两套实现.
 
 ## 6. 用物理关系组织计算, 而不是手写 Driver
 
