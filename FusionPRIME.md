@@ -11,9 +11,17 @@ FusionPRIME 是面向聚变等离子体集成建模的响应式计算生态, 由
 
 主要概念:
 
-- State, Adapter, Kernel, Record
-- Module, Bundle, Cycle, Workflow
-- Commit, Head, History
+- **State:** 表示一类可在 Module 之间传递和版本化的物理状态, 同时携带网格, 时间等语义.
+- **Adapter:** 在具体 Module 内部, 将合法的 State 转换为其 Kernel 所需的网格和时间切片.
+- **Kernel:** Module 内部适合高频调用的数值计算核心, 不感知 State, 只进行纯粹的数值计算.
+- **Record:** Module 执行的不可变记录, 保存求解状态和诊断, 通过验收时可物化 State.
+- **Module:** 实现一个可独立运行的物理过程, 通过统一协议组织 Adapter, Kernel 和 Record.
+- **Bundle:** 共享输入但不存在直接反馈的 Module 或子流程组合, 可以并行执行.
+- **Cycle:** 包含跨物理反馈关系的耦合组合, 通过指定的非线性求解器获得自洽 State.
+- **Workflow:** 由 Module, Bundle 和 Cycle 组成的串行物理计算流程.
+- **Commit:** 记录一个 Workflow 节点通过验收后的完整 State 版本号的组合.
+- **Head:** History 对当前最新 Commit 的引用, 代表 Workflow 最近的完整物理状态.
+- **History:** 保存具体的 State 版本序列, Commit 谱系和对应的执行 Record, 用于回溯, 比较和可视化 Workflow 在各节点的物理状态与执行过程.
 
 `energeia` 是所有物理 Module 与 Harmonia 共同依赖的底层契约包. 它定义跨 Module 稳定的物理 State, 执行协议, 导数协议和公共数值原语, 但不包含具体物理求解器, 也不负责 Workflow 编排:
 
@@ -68,8 +76,6 @@ python -m veqpy --check
 python -m veqpy --links
 ```
 
-`energeia.view` 负责通用 State 的物理展示, Module 内部的 `view` 负责求解过程可视化, `harmonia.view` 则负责 Workflow, Commit 和 History 的跨节点展示.
-
 **Harmonia** 是将 Module 组合为 Workflow, 并管理 State 版本组合, Commit, Head 和 History 的上层包. Harmonia 使用 Energeia 定义的物理 State 和执行协议, 但不定义具体物理字段, 也不依赖任何特定 Module:
 
 ```text
@@ -90,6 +96,8 @@ harmonia          → energeia
 ```
 
 具体 Module 与 Harmonia 在 Python 包层面互为兄弟, 并共同依赖 `energeia`. 用户应用作为组合入口选择 Harmonia 与所需 Module; Harmonia 不直接导入任何具体 Module, Module 也不导入 Harmonia.
+
+`energeia.view` 负责通用 State 的物理展示, Module 内部的 `view` 负责求解过程可视化, `harmonia.view` 则负责 Workflow, Commit 和 History 的跨节点展示.
 
 ## OpenMDAO
 
