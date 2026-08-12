@@ -9,17 +9,23 @@ FusionPRIME 是面向聚变等离子体集成建模的响应式计算生态, 由
 - **Energeia (现实活动):** 表示可执行的物理过程. Energeia 计算域由公共 `energeia` 契约包和独立发行的物理 Module 共同组成; 前者定义 State, 执行与导数协议, 后者实现具体数值计算.
 - **Harmonia (和谐关系):** 负责将 Module 组织为 Workflow, 求解跨物理过程的反馈关系, 并管理 State 版本, Commit 和 History.
 
-主要概念:
+物理模块设计的相关概念:
 
 - **State:** 表示一类可在 Module 之间传递和版本化的物理状态, 同时携带网格, 时间等语义.
 - **Adapter:** 在具体 Module 内部, 将合法的 State 转换为其 Kernel 所需的网格和时间切片.
 - **Kernel:** Module 内部适合高频调用的数值计算核心, 不感知 State, 只进行纯粹的数值计算.
 - **Record:** Module 执行的不可变记录, 保存求解状态和诊断, 通过验收时可物化 State.
 - **Module:** 实现一个可独立运行的物理过程, 通过统一协议组织 Adapter, Kernel 和 Record.
-- **Bundle:** 共享输入但不存在直接反馈的 Module 或子流程组合, 可以并行执行.
+
+工作流的组织和节点:
+
+- **Bundle:** 共享输入但不存在相同输出的 Module 或子流程组合, 可以并行执行.
 - **Cycle:** 包含跨物理反馈关系的耦合组合, 通过指定的非线性求解器获得自洽 State.
 - **Workflow:** 由 Module, Bundle 和 Cycle 组成的串行物理计算流程.
-- **Commit:** 记录一个 Workflow 节点通过验收后的完整 State 版本号的组合.
+
+状态更新和历史记录:
+
+- **Commit:** 记录一个 Workflow 节点通过验收后的完整 State 版本号的组合. Module, Bundle, Cycle 只进行一次 Commit, Repeat, Workflow 进行多次 Commit.
 - **Head:** History 对当前最新 Commit 的引用, 代表 Workflow 最近的完整物理状态.
 - **History:** 保存具体的 State 版本序列, Commit 谱系和对应的执行 Record, 用于回溯, 比较和可视化 Workflow 在各节点的物理状态与执行过程.
 
@@ -80,12 +86,13 @@ python -m veqpy --links
 
 ```text
 harmonia/
+├── bundle/
+├── cycle/
 ├── history/
+├── module/
+├── repeat/
 ├── view/
 └── workflow/
-    ├── bundle/
-    ├── cycle/
-    └── module/
 ```
 
 实际依赖为:
