@@ -1,22 +1,100 @@
-<!-- 这个注释不要删除, 文档中尽可能使用中文叙述, 单段落不换行. 标点符号尽可能用英文的, 专有名词或不适合翻译的术语使用英文的 -->
+<!-- 文档中尽可能使用中文叙述, 单段落不换行. 标点符号尽可能用英文的, 专有名词或不适合翻译的术语使用英文的 -->
 
-# FusionPRIME 的架构设计
+# FusionPRIME 架构设计
 
 **FusionPRIME**: Fusion Plasma Reactive Integrated Modeling Environment
 
-FusionPRIME 是面向聚变等离子体集成建模的响应式计算生态, 由 Energeia-Harmonia 核心架构和 Theoria 可视化层组成. 架构命名借用亚里士多德的一对概念, 对应结构定义与实际计算之间的分工:
+FusionPRIME 是面向聚变等离子体集成建模的响应式计算生态, 由 Energeia-Harmonia 核心架构组成. 架构命名借用亚里士多德的一对概念, 对应结构定义与实际计算之间的分工:
 
-- **Energeia (现实活动):** 从潜能到实现的动态过程, 即系统实际运行和产生结果的过程. 它包含 Module 的具体实现, 负责执行数值计算.
-- **Harmonia (和谐关系):** 静态的结构与关系, 包括契约, 元模型和 Workflow. 它定义系统中合法的组件及其组合方式, 本身不实现具体的重型物理计算.
-- **Theoria (理论和观察):** 延续这一命名体系, 表示对计算对象和结果的观察, 展示与理解.
+- **Energeia (现实活动):** 表示可执行的物理过程。Energeia 计算域由公共 energeia 契约包和独立发行的物理 Module 共同组成；前者定义 State、执行与导数协议，后者实现具体数值计算。
+- **Harmonia (和谐关系):** 负责将 Module 组织为 Workflow，求解跨物理过程的反馈关系，并管理 State 版本、Commit 和 History。
 
-具体到代码上:
+主要概念:
 
-|              | 职责                         | 主要概念                                 |
-| ------------ | ---------------------------- | ---------------------------------------- |
-| **Energeia** | 定义物理数据和单个物理过程   | Module、Adapter、Kernel、State、Record   |
-| **Harmonia** | 连接、求解、验收、求导并记录 | Workflow、Bundle、Cycle、Commit、History |
-| **Theoria**  | 可视化与交互呈现             | --                                       |
+- Adapter、Kernel
+- State、Record
+- Bundle、Cycle、Module
+- Workflow、Commit、History
+
+**Energeia** 是所有物理 Module 与 Harmonia 共同依赖的底层契约包. 它定义跨 Module 稳定的物理 State、执行协议、导数协议和公共数值, 但不包含具体物理求解器, 也不负责 Workflow 编排:
+
+```text
+Energeia/
+├── __init__.py
+├── __main__.py
+├── contract/
+├── state/
+│   ├── __init__.py
+│   ├── current/
+│   ├── equilibrium/
+│   └── kinetic/
+├── numerics/
+└── view/
+```
+
+**Module** 都组织为一致的形式:
+
+```text
+veqpy/
+├── __init__.py
+├── __main__.py
+├── adapter/
+├── kernel/
+│   ├── __init__.py
+│   ├── cxx_kernel/
+│   └── numba_kernel/
+└── record/
+```
+
+```bash
+python -m veqpy --demo [optional numba/cxx]
+python -m veqpy --version
+python -m veqpy --check
+python -m veqpy --links
+```
+
+```text
+Energeia State
+    ↓
+Module-owned Adapter
+    ↓
+Module-specific Input
+    ↓
+Kernel
+    ↓
+Module-specific Output
+    ↓
+Energeia State + Module-owned Record
+```
+
+**Harmonia** 是将 Module 组合为 Workflow, 并管理 State 版本组合、Commit、HEAD 和 History 的上层包. Harmonia 使用 Energeia 定义的物理 State 和执行协议, 但不定义具体物理字段, 也不依赖任何特定 Module:
+
+```text
+Harmonia
+├── __init__.py
+├── __main__.py
+├── bundle/
+├── cycle/
+├── history/
+├── view/
+└── workflow/
+```
+
+实际依赖为:
+
+```text
+veqpy/mcdpy/vtspy → energeia
+harmonia          → energeia
+```
+
+用户调用:
+
+```python
+import harmonia
+import mcdpy
+import veqpy
+import vtspy
+```
 
 ## OpenMDAO
 
@@ -130,7 +208,7 @@ print(derived.w)  # 此时 w 才进行第一次计算, 输出 40
 
 Reactive 用于物理对象和派生诊断. 而数值热循环、残差评估、时间推进和非线性迭代仍由编译内核和显式 workspace 执行, 因此 Reactive 语义不会进入高频计算路径.
 
-## 2. 不受单一技术栈限制的可微 Workflow
+## 2. 异构可微 Workflow
 
 - 声明好的物理组合关系如何成为 Workflow
 - 从不同数值求解和导数形式的模块组合中获取总导数
@@ -161,6 +239,8 @@ C2  VTS   (1, 1, 1) ← HEAD
 IMAS 已经按照 equilibrium、core profiles、sources 等物理概念划分 IDS, 也允许独立读写单个 IDS, 但没有统一管理各 IDS 的版本谱系, 也没有将不同 IDS 版本组成 Workflow HEAD 的 Commit 机制. FusionPRIME 的 History 因而不仅保存计算结果, 还可以快速还原任意节点的完整物理状态, 追踪每个 State 版本的产生来源, 并基于紧凑的版本数据进行逐节点可视化和结果比较.
 
 ## 4. 面向高性能计算的职责分离架构
+
+> 可以提供一段 prompt 用于给指定模块的架构设计评分
 
 - FusionPRIME 可以在设计上更结构化的同时保持显著的性能优势
 - Module 从接口上就没有能力观察或修改职责范围之外的状态
