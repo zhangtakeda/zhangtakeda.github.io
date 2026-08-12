@@ -1,49 +1,57 @@
-<!-- 文档中尽可能使用中文叙述, 单段落不换行. 标点符号尽可能用英文的, 专有名词或不适合翻译的术语使用英文的 -->
+<!-- 这个注释不要删除, 文档中尽可能使用中文叙述, 单段落不换行. 标点符号尽可能用英文的, 专有名词或不适合翻译的术语使用英文的 -->
 
 # FusionPRIME 架构设计
 
 **FusionPRIME**: Fusion Plasma Reactive Integrated Modeling Environment
 
-FusionPRIME 是面向聚变等离子体集成建模的响应式计算生态, 由 Energeia-Harmonia 核心架构组成. 架构命名借用亚里士多德的一对概念, 对应结构定义与实际计算之间的分工:
+FusionPRIME 是面向聚变等离子体集成建模的响应式计算生态, 由 Energeia-Harmonia 核心架构组成. 架构命名借用亚里士多德的一对概念, 对应可执行的物理过程与这些过程之间的组合关系:
 
-- **Energeia (现实活动):** 表示可执行的物理过程。Energeia 计算域由公共 energeia 契约包和独立发行的物理 Module 共同组成；前者定义 State、执行与导数协议，后者实现具体数值计算。
-- **Harmonia (和谐关系):** 负责将 Module 组织为 Workflow，求解跨物理过程的反馈关系，并管理 State 版本、Commit 和 History。
+- **Energeia (现实活动):** 表示可执行的物理过程. Energeia 计算域由公共 `energeia` 契约包和独立发行的物理 Module 共同组成; 前者定义 State, 执行与导数协议, 后者实现具体数值计算.
+- **Harmonia (和谐关系):** 负责将 Module 组织为 Workflow, 求解跨物理过程的反馈关系, 并管理 State 版本, Commit 和 History.
 
 主要概念:
 
-- Adapter、Kernel
-- State、Record
-- Bundle、Cycle、Module
-- Workflow、Commit、History
+- State, Adapter, Record, Result, Kernel
+- Module, Bundle, Cycle, Workflow
+- StateMap, Commit, HEAD, History
 
-**Energeia** 是所有物理 Module 与 Harmonia 共同依赖的底层契约包. 它定义跨 Module 稳定的物理 State、执行协议、导数协议和公共数值, 但不包含具体物理求解器, 也不负责 Workflow 编排:
+`energeia` 是所有物理 Module 与 Harmonia 共同依赖的底层契约包. 它定义跨 Module 稳定的物理 State, 执行协议, 导数协议和公共数值原语, 但不包含具体物理求解器, 也不负责 Workflow 编排:
 
 ```text
-Energeia/
+energeia/
 ├── __init__.py
 ├── __main__.py
 ├── contract/
+│   ├── adapter.py
+│   ├── derivative.py
+│   ├── module.py
+│   ├── record.py
+│   └── result.py
 ├── state/
 │   ├── __init__.py
 │   ├── current/
 │   ├── equilibrium/
-│   └── kinetic/
+│   ├── kinetic/
+│   └── source/
 ├── numerics/
 └── view/
 ```
 
-**Module** 都组织为一致的形式:
+每个具体 Module 都作为独立 Python 包发行, 并组织为一致的形式:
 
 ```text
 veqpy/
 ├── __init__.py
 ├── __main__.py
+├── module.py
 ├── adapter/
+├── record/
+├── result/
 ├── kernel/
 │   ├── __init__.py
 │   ├── cxx_kernel/
 │   └── numba_kernel/
-└── record/
+└── view/
 ```
 
 ```bash
@@ -53,31 +61,52 @@ python -m veqpy --check
 python -m veqpy --links
 ```
 
+Module 的公开入口接收 Energeia State, 由自己的 Adapter 完成坐标, 网格, 单位与时间切片转换, 再调用内部 Kernel. `energeia` 定义 Record 与 Result 的公共协议, Module 定义与自身数值问题对应的具体不可变类型. Record 表示 Adapter 物化后的模块数值输入, Result 携带本次执行产生的 State 更新与诊断; 它们都不反向引用 Workflow, Commit 或 History:
+
 ```text
 Energeia State
     ↓
 Module-owned Adapter
     ↓
-Module-specific Input
+Module-specific Record
     ↓
 Kernel
     ↓
-Module-specific Output
+Module-specific Result
     ↓
-Energeia State + Module-owned Record
+Energeia State updates
 ```
 
-**Harmonia** 是将 Module 组合为 Workflow, 并管理 State 版本组合、Commit、HEAD 和 History 的上层包. Harmonia 使用 Energeia 定义的物理 State 和执行协议, 但不定义具体物理字段, 也不依赖任何特定 Module:
+每个 Module 还必须提供一致的命令行入口, 使其可以在不建立 Harmonia Workflow 的情况下独立检查和运行:
+
+```bash
+python -m veqpy --demo [numba|cxx]
+python -m veqpy --version
+python -m veqpy --check
+python -m veqpy --links
+```
+
+`energeia.view` 负责通用 State 的物理展示, Module 内部的 `view` 负责求解器与模块诊断, `harmonia.view` 则负责 Workflow, Commit 和 History 的跨节点展示.
+
+**Harmonia** 是将 Module 组合为 Workflow, 并管理 State 版本组合, Commit, HEAD 和 History 的上层包. Harmonia 使用 Energeia 定义的物理 State 和执行协议, 但不定义具体物理字段, 也不依赖任何特定 Module:
 
 ```text
-Harmonia
+harmonia/
 ├── __init__.py
 ├── __main__.py
-├── bundle/
-├── cycle/
+├── execution/
+│   └── openmdao/
 ├── history/
+│   ├── commit.py
+│   ├── history.py
+│   ├── state_map.py
+│   └── state_ref.py
 ├── view/
 └── workflow/
+    ├── bundle.py
+    ├── cycle.py
+    ├── module_node.py
+    └── workflow.py
 ```
 
 实际依赖为:
@@ -87,14 +116,7 @@ veqpy/mcdpy/vtspy → energeia
 harmonia          → energeia
 ```
 
-用户调用:
-
-```python
-import harmonia
-import mcdpy
-import veqpy
-import vtspy
-```
+具体 Module 与 Harmonia 在 Python 包层面互为兄弟, 并共同依赖 `energeia`. 用户应用作为组合入口选择 Harmonia 与所需 Module; Harmonia 不直接导入任何具体 Module, Module 也不导入 Harmonia.
 
 ## OpenMDAO
 
@@ -104,18 +126,22 @@ import vtspy
 - 论文: https://doi.org/10.1007/s00158-019-02211-z
 - 代码: https://github.com/OpenMDAO/OpenMDAO
 
-**FusionPRIME 将 OpenMDAO 作为 Harmonia 的执行和导数底座.** `Record`、`Result` 是 Energeia 定义、Harmonia 使用的不可变执行值；它们不得反向引用 `Workflow`、`History` 等对象。具体的关系如下图所示:
+**FusionPRIME 将 OpenMDAO 作为 Harmonia 的执行和总导数底座.** Harmonia 将 Workflow 编译为 OpenMDAO 计算图, 再通过 Energeia 的 Module 协议调用具体 Module. OpenMDAO 不拥有 State 版本, Commit 或 History, 具体 Module 也不感知 Workflow 的存在:
 
 ```text
-[Harmonia]  Workflow / Bundle / Cycle / History
+[Harmonia]  Workflow / Bundle / Cycle / Commit / History
     |
     | compiles to
+    v
+[OpenMDAO]  execution / total derivatives
     |
-[OpenMDAO]
+    | invokes through the Energeia Module protocol
+    v
+[Modules]  VEQPy / MCDPy / VTSPy
     |
-    | calls
-    |
-[Energeia]  State / Module / Adapter / Kernel
+    | Module -> Adapter -> Record -> Kernel -> Result
+    v
+[Energeia]  State / contracts / numerics
 ```
 
 ## IMAS
@@ -159,7 +185,7 @@ IMAS IDS 中往往存在大量相互关联但并非每次都需要的字段. 一
 
 FusionPRIME 通过显式依赖图和版本标记, 只在派生量首次被访问, 或其依赖变化后再次被访问时计算. FusionPRIME 因此显式声明独立的 root property, 并从派生 property 的物理公式中建立依赖关系.
 
-Reactive 对象内部的属性依赖必须构成 DAG (Directed Acyclic Graph). 跨物理过程的反馈闭环不表示为属性之间的循环依赖, 而由 Workflow 中的 Cycle 使用指定的非线性求解器求得自洽解.
+Reactive 对象内部的属性依赖必须构成 DAG (Directed Acyclic Graph). 跨物理过程的反馈关系不表示为属性之间的循环依赖, 而由 Workflow 中的 Cycle 使用指定的非线性求解器求得自洽解.
 
 例如, 关系 $y = x^2, z = ay, w = 2a$ 形成如下 DAG:
 
@@ -213,11 +239,11 @@ Reactive 用于物理对象和派生诊断. 而数值热循环、残差评估、
 - 声明好的物理组合关系如何成为 Workflow
 - 从不同数值求解和导数形式的模块组合中获取总导数
 
-FusionPRIME 可以计算完整 Workflow 的总导数, 从而分析任意输出对初始状态, 模型参数和控制量的敏感性, 并直接支持参数反演, 梯度优化和控制设计.
+FusionPRIME 可以计算完整 Workflow 中可微输出对初始状态, 模型参数和控制量的总导数, 并据此进行敏感性分析, 参数反演, 梯度优化和控制设计.
 
-可微分是 Module 对外提供的能力, 而不是对内部实现方式的限制. 这避免了要求所有 Module 使用相同的数值实现或局部导数生成方式, 使得不同模块可以使用不同的数值求解和导数计算技术栈, 例如 Numba、JAX、PyTorch 等等. 同时 Module 可以提供解析 Jacobian, JVP 或 VJP, 也可以在内部使用 AD, 隐式微分, complex step 或 finite difference. 因此, 同一个 Workflow 的微分形式可以组合多种数值近似和代码实现, 不要求所有模块和求解过程都改写为同一套 AD primitive.
+可微分是 Module 对外提供的能力, 而不是对内部实现方式的限制. 这避免了要求所有 Module 使用相同的数值实现或局部导数生成方式, 使得不同模块可以使用不同的数值求解和导数计算技术栈, 例如 Numba, JAX 或 PyTorch. Module 可以提供解析 Jacobian, JVP 或 VJP, 也可以在内部使用 AD, 隐式微分, complex step 或 finite difference. 因此, 同一个 Workflow 可以组合多种局部导数形式和代码实现, 不要求所有模块和求解过程都改写为同一套 AD primitive.
 
-导数能够自然地沿不同 Workflow 结构传播. 普通 Module 按数据流应用链式法则; Bundle 将输入扰动传播到各条独立分支, 并在反向传播时汇总来自各分支的梯度; Cycle 则在自洽解收敛后计算隐式导数, 而不需要反向展开求解器的迭代历史.
+Module 对外提供的导数覆盖从输入 State 到输出 State 的完整映射, 因此也包括 Adapter 内的坐标与网格转换, 而不只是 Kernel 内部数组之间的导数. Harmonia 将 Module 提供的 Jacobian, JVP 或 VJP 统一为 OpenMDAO 可使用的局部线性算子; 同时提供 JVP 与 VJP 时, Workflow 可以根据设计变量与响应的维度选择 forward 或 reverse 总导数模式. 导数沿不同 Workflow 结构传播: 普通 Module 按数据流应用链式法则; Bundle 将输入扰动传播到各条独立分支, 并在反向传播时汇总来自各分支的梯度; Cycle 在自洽解收敛后求解耦合线性系统以获得隐式导数, 不需要反向展开非线性迭代历史. 如果完整的输入到输出路径包含未提供导数, 离散切换或不光滑操作, Workflow 则应显式使用数值近似或声明该路径不可微.
 
 ## 3. 基于 Commit 的 History 数据管理
 
@@ -236,34 +262,34 @@ C2  VTS   (1, 1, 1) ← HEAD
 
 一次 Commit 只增加本次实际产生的 State, 未变化的 State 继续复用已有版本. 因此, 每个节点都具有完整的 StateMap, 但无须复制或重建整个 State 集合. State 版本同时与产生它的 Module、Bundle 或 Cycle Result 建立明确关联.
 
-IMAS 已经按照 equilibrium、core profiles、sources 等物理概念划分 IDS, 也允许独立读写单个 IDS, 但没有统一管理各 IDS 的版本谱系, 也没有将不同 IDS 版本组成 Workflow HEAD 的 Commit 机制. FusionPRIME 的 History 因而不仅保存计算结果, 还可以快速还原任意节点的完整物理状态, 追踪每个 State 版本的产生来源, 并基于紧凑的版本数据进行逐节点可视化和结果比较.
+IMAS 已经按照 equilibrium, core profiles, sources 等物理概念划分 IDS, 也允许独立读写单个 IDS, 但没有统一管理各 IDS 的版本谱系, 也没有将不同 IDS 版本组成 Workflow HEAD 的 Commit 机制. FusionPRIME 的 History 保存计算结果, 也可以快速还原任意节点的完整物理状态, 追踪每个 State 版本的产生来源, 并基于紧凑的版本数据进行逐节点可视化和结果比较.
 
 ## 4. 面向高性能计算的职责分离架构
 
-> 可以提供一段 prompt 用于给指定模块的架构设计评分
+FusionPRIME 通过 State, Adapter, Record, Kernel 与 Result 分离物理状态, 模块数据转换, 数值输入, 高频计算和结果发布. Module 只读取和产生显式声明的 State, 不持有或修改整个 StateMap, 也不感知 Workflow, Commit 和 History. Harmonia 只根据 Module Result 发布新的 State 版本; Module 执行失败或 Cycle 未通过收敛与验收条件时, HEAD 保持不变.
 
-- FusionPRIME 可以在设计上更结构化的同时保持显著的性能优势
-- Module 从接口上就没有能力观察或修改职责范围之外的状态
-- 在物理状态封装、模块接口约束以及计算与结果发布的分离上更彻底
+Adapter 属于 Module, 因为只有 Module 知道自己 Kernel 所需的坐标, 网格, 边界与守恒语义. 不同 State 可以使用不同网格, 但每个剖面都必须携带明确的坐标和几何语义; Module 内部使用 `energeia.numerics` 提供的公共插值, 投影与守恒重映射原语, 并根据物理量选择正确的转换方式. 同一个已编译 Workflow 中允许各 State 使用不同网格, 但网格点数和坐标拓扑在运行期间保持不变; 改变拓扑时应重新编译 Workflow. 这样既保留了 Module 对任意合法网格的适配能力, 又避免不同 Module 重复实现不一致的数值操作.
 
-例如 FusionPRIME 中, 每个 Module 只读取和写入显式声明的物理字段, 不直接持有并任意修改整棵全局数据, 即 Module 不会感知到 Workflow 和 History.
+Reactive 只用于低频的物理对象与派生诊断, Adapter 只在 Module 边界执行必要的数据转换, Kernel 则通过编译内核, 预分配 workspace 和热启动求解保持高频残差评估的低开销. 架构边界因此不会被带入数值热循环.
 
 ## 5. 从独立 Module 到集成 Workflow
 
-VEQ、MCD、VTS 等 Module 首先都是可以独立运行、配置、验证和诊断的完整物理过程. 用户不需要先建立整个 FusionPRIME Workflow, 才能使用其中一个求解器或 API.
+VEQ, MCD, VTS 等 Module 首先都是可以独立运行, 配置, 验证和诊断的完整物理过程. 用户可以直接调用 Module 的 Python API 或命令行入口, 不需要先建立 FusionPRIME Workflow. 同一个 Module 对独立调用和 Harmonia 提供相同的 State 输入, Result 输出与导数协议, 因此单模块验证与集成 Workflow 不会演化成两套实现.
 
-## 6. 用物理关系组织计算，而不是手写 Driver
+## 6. 用物理关系组织计算, 而不是手写 Driver
+
+Module 表示一个物理过程, Bundle 表示共享输入但可以独立执行的并行分支, Cycle 则表示需要联立求解的物理反馈关系. 用户只声明物理过程的组合与 Cycle 的求解和验收条件, Harmonia 负责数据传递, 执行顺序, 并行调度, 反馈迭代, 总导数和 History 记录. 因此, 更换 Module, 重组 Bundle 或改变 Cycle 求解器不需要重写一个命令式 Driver.
 
 ```python
 Workflow(
-    VEQ(...),
+    VEQ(),
     Bundle(
-        FusionHeating(...),
-        MCD(...),
+        FusionHeating(),
+        MCD(),
     ),
     Cycle(
-        VTS(...),
-        VEQ(...),
+        VTS(),
+        VEQ(),
         solver=Picard(atol=1e-6),
     ),
 )
