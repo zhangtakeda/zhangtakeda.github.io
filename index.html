@@ -23,32 +23,15 @@
     />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23252629'/%3E%3Cpath d='M12 45h40' stroke='%237da9b8' stroke-width='3'/%3E%3Ctext x='50%25' y='48%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='25' font-weight='700' fill='%23f7f7f6'%3ERZ%3C/text%3E%3C/svg%3E"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%2324292f%22%20d%3D%22M12%20.297c-6.63%200-12%205.373-12%2012%200%205.303%203.438%209.8%208.205%2011.385.6.113.82-.258.82-.577%200-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.335-1.756-1.335-1.756-1.087-.744.084-.729.084-.729%201.205.084%201.838%201.237%201.838%201.237%201.07%201.835%202.809%201.305%203.495.998.108-.776.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93%200-1.31.465-2.38%201.235-3.22-.135-.303-.54-1.523.105-3.176%200%200%201.005-.322%203.3%201.23a11.5%2011.5%200%200%201%203-.405c1.02.005%202.045.138%203%20.405%202.28-1.552%203.285-1.23%203.285-1.23.645%201.653.24%202.873.12%203.176.765.84%201.23%201.91%201.23%203.22%200%204.61-2.805%205.625-5.475%205.92.42.36.81%201.096.81%202.22%200%201.606-.015%202.896-.015%203.286%200%20.315.21.69.825.57C20.565%2022.092%2024%2017.592%2024%2012.297c0-6.627-5.373-12-12-12%22%2F%3E%3C%2Fsvg%3E"
     />
-    <script>
-      window.MathJax = {
-        tex: {
-          inlineMath: [
-            ["$", "$"],
-            ["\\(", "\\)"],
-          ],
-        },
-        options: {
-          skipHtmlTags: [
-            "script",
-            "noscript",
-            "style",
-            "textarea",
-            "pre",
-            "code",
-          ],
-        },
-      };
-    </script>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
-    ></script>
+    <link
+      rel="preload"
+      as="image"
+      href="profile-photo.png"
+      fetchpriority="high"
+    />
     <script>
       const CV_DATA = {
         translations: {
@@ -68,7 +51,7 @@
             tocAria: "成果索引",
             contributionSoftware: "1 个代码仓库",
             contributionPublications: "2 篇论文",
-            contributionConferences: "4 项会议报告",
+            contributionConferences: "5 项会议报告",
             focusLabel: "Research Focus",
             focusFastModeling: "托卡马克等离子体的快速高保真集成建模",
             focusEquilibriumTransport: "聚变等离子体的平衡与输运",
@@ -261,7 +244,7 @@
             links: [
               {
                 href: "https://doi.org/10.1088/2058-6272/ad225b",
-                label: "PST",
+                label: "Plasma Sci. Technol.",
               },
             ],
           },
@@ -2145,6 +2128,534 @@
         }
       }
 
+      /* Runtime and motion refinements */
+      html {
+        scrollbar-gutter: auto;
+      }
+
+      @media (min-width: 761px) {
+        html {
+          scrollbar-gutter: stable;
+        }
+      }
+
+      body::before {
+        content: none;
+      }
+
+      button,
+      a,
+      [role="button"] {
+        touch-action: manipulation;
+      }
+
+      .scroll-progress {
+        contain: strict;
+        transform: scale3d(0, 1, 1);
+        will-change: transform;
+      }
+
+      .page {
+        animation: page-clarity 0.48s var(--ease-out) both;
+      }
+
+      a {
+        transition:
+          color 0.18s ease,
+          background-color 0.18s ease,
+          border-color 0.18s ease,
+          transform 0.18s var(--ease-out);
+      }
+
+      .section-head.reveal-target,
+      .software-card.reveal-target,
+      .paper-card.reveal-target,
+      .conference-card.reveal-target {
+        backface-visibility: hidden;
+        transition:
+          opacity 0.46s var(--ease-out),
+          transform 0.46s var(--ease-out),
+          border-color 0.2s ease;
+        transition-delay: var(--reveal-delay, 0ms);
+        will-change: opacity, transform;
+      }
+
+      .section-head.reveal-target:not(.is-visible),
+      .software-card.reveal-target:not(.is-visible),
+      .paper-card.reveal-target:not(.is-visible),
+      .conference-card.reveal-target:not(.is-visible) {
+        opacity: 0;
+        transform: translate3d(0, 12px, 0);
+      }
+
+      .section-head.reveal-target.is-visible,
+      .software-card.reveal-target.is-visible,
+      .paper-card.reveal-target.is-visible,
+      .conference-card.reveal-target.is-visible {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+
+      .paper-card,
+      .conference-card,
+      .software-card {
+        backface-visibility: hidden;
+        transform: translate3d(0, 0, 0);
+        transition:
+          border-color 0.2s ease,
+          transform 0.3s var(--ease-out);
+      }
+
+      .paper-card::before,
+      .conference-card::before,
+      .software-card::before {
+        width: 2px;
+        transform: scaleY(0.55);
+        transform-origin: center;
+        transition:
+          background-color 0.2s ease,
+          transform 0.3s var(--ease-out);
+      }
+
+      .paper-card::after,
+      .conference-card::after,
+      .software-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow: var(--shadow-hover);
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.997);
+        transition:
+          opacity 0.3s var(--ease-out),
+          transform 0.3s var(--ease-out);
+      }
+
+      .paper-card:hover,
+      .conference-card:hover,
+      .software-card:hover,
+      .paper-card:focus-within,
+      .conference-card:focus-within,
+      .software-card:focus-within {
+        border-color: rgba(63, 127, 153, 0.62);
+        box-shadow: var(--shadow-card);
+        transform: translate3d(0, -2px, 0);
+      }
+
+      .paper-card:hover::before,
+      .conference-card:hover::before,
+      .software-card:hover::before,
+      .paper-card:focus-within::before,
+      .conference-card:focus-within::before,
+      .software-card:focus-within::before {
+        width: 2px;
+        background: var(--accent);
+        transform: scaleY(1);
+      }
+
+      .paper-card:hover::after,
+      .conference-card:hover::after,
+      .software-card:hover::after,
+      .paper-card:focus-within::after,
+      .conference-card:focus-within::after,
+      .software-card:focus-within::after {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .timeline .item:hover,
+      .timeline .item:focus-within {
+        transform: none;
+      }
+
+      .link-list a:hover,
+      .link-list a:focus-visible,
+      .paper-card:hover .link-list a,
+      .paper-card:focus-within .link-list a,
+      .software-card:hover .link-list a,
+      .software-card:focus-within .link-list a,
+      .conference-card:hover .link-list a,
+      .conference-card:focus-within .link-list a {
+        box-shadow: none;
+      }
+
+      .venue.is-collapsible {
+        transition: color 0.2s ease;
+      }
+
+      .venue.is-collapsed {
+        overflow: visible;
+      }
+
+      .venue.is-summary-animating {
+        overflow: hidden;
+        will-change: auto;
+      }
+
+      .venue.is-summary-fading {
+        opacity: 1;
+        transform: none;
+      }
+
+      .media-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+        gap: 1px;
+        padding: 1px;
+        overflow: hidden;
+        contain: layout paint;
+        background: var(--line-soft);
+        box-shadow: none;
+        transition: border-color 0.2s ease;
+      }
+
+      .media-grid:hover {
+        box-shadow: none;
+      }
+
+      .media-grid > figure {
+        display: grid;
+        grid-template-rows: auto auto;
+        align-content: start;
+        gap: 8px;
+        min-width: 0;
+        margin: 0;
+        padding: 12px;
+        border: 0;
+        background: var(--media-bg);
+        transform: none;
+      }
+
+      .media-grid > figure + figure {
+        margin-top: 0;
+        border-left: 0;
+      }
+
+      .media-grid img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        object-fit: contain;
+        contain: paint;
+        box-shadow: none;
+        transform: translate3d(0, 0, 0);
+        transition:
+          border-color 0.18s ease,
+          transform 0.24s var(--ease-out);
+      }
+
+      .media-grid img:hover,
+      .media-grid img:focus-visible {
+        box-shadow: none;
+        transform: translate3d(0, -2px, 0);
+      }
+
+      .media-grid figcaption {
+        margin-top: 0;
+        transform: none;
+      }
+
+      .media-grid > figure:hover figcaption,
+      .media-grid > figure:focus-within figcaption {
+        transform: none;
+      }
+
+      .image-lightbox {
+        overscroll-behavior: contain;
+        backdrop-filter: none;
+      }
+
+      @keyframes page-clarity {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes progress-grow {
+        from {
+          transform: scale3d(0, 1, 1);
+        }
+        to {
+          transform: scale3d(1, 1, 1);
+        }
+      }
+
+      @supports (animation-timeline: scroll()) {
+        .scroll-progress {
+          animation: progress-grow linear both;
+          animation-timeline: scroll(root block);
+        }
+      }
+
+      @media (hover: none) {
+        .paper-card:hover,
+        .conference-card:hover,
+        .software-card:hover,
+        .milestone-ledger .toc-list > li:hover,
+        .contact:hover,
+        .media-grid img:hover {
+          transform: none;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .media-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .media-grid > figure,
+        .media-grid > figure + figure {
+          width: auto;
+          margin-top: 0;
+          padding: 10px;
+          border-left: 0;
+        }
+      }
+
+      /* Merged visual polish: static paint details only; runtime/motion rules stay performance-first. */
+      :root {
+        --accent-deep: #326b82;
+        --accent-wash: rgba(63, 127, 153, 0.075);
+        --shadow-soft:
+          0 1px 0 rgba(255, 255, 255, 0.82), 0 24px 64px rgba(36, 38, 41, 0.075);
+        --shadow-hover:
+          0 1px 0 rgba(255, 255, 255, 0.88), 0 17px 36px rgba(36, 38, 41, 0.105);
+        --shadow-card:
+          0 1px 0 rgba(255, 255, 255, 0.86), 0 10px 28px rgba(36, 38, 41, 0.048);
+      }
+
+      ::selection {
+        background: rgba(63, 127, 153, 0.2);
+        color: var(--text);
+      }
+
+      body {
+        background:
+          radial-gradient(
+            circle at 50% -12%,
+            rgba(255, 255, 255, 0.7),
+            transparent 34rem
+          ),
+          linear-gradient(115deg, rgba(255, 255, 255, 0.28), transparent 36%),
+          repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.12) 0,
+            rgba(255, 255, 255, 0.12) 1px,
+            transparent 1px,
+            transparent 56px
+          ),
+          var(--bg);
+      }
+
+      .scroll-progress {
+        background: linear-gradient(
+          90deg,
+          var(--accent-deep),
+          var(--accent),
+          #79a8b9
+        );
+        box-shadow: 0 1px 10px rgba(63, 127, 153, 0.3);
+      }
+
+      .page {
+        background:
+          radial-gradient(
+            circle at 92% 0%,
+            rgba(125, 169, 184, 0.075),
+            transparent 310px
+          ),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 300px),
+          var(--paper);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        pointer-events: none;
+      }
+
+      .language-switch {
+        background: rgba(255, 255, 255, 0.48);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      }
+
+      .language-switch button {
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.34);
+      }
+
+      header::after,
+      section:not(.cv-abstract)::before {
+        background: linear-gradient(
+          90deg,
+          var(--accent-deep),
+          var(--accent) 38%,
+          rgba(125, 169, 184, 0.2) 84%,
+          transparent
+        );
+      }
+
+      .contact-value a {
+        width: fit-content;
+        max-width: 100%;
+        background-image: linear-gradient(
+          var(--accent-hairline),
+          var(--accent-hairline)
+        );
+        background-position: 0 100%;
+        background-repeat: no-repeat;
+        background-size: 0 1px;
+        transition:
+          color 0.18s ease,
+          background-size 0.24s var(--ease-out);
+      }
+
+      .contact-value a:hover,
+      .contact-value a:focus-visible {
+        color: var(--accent-deep);
+        background-size: 100% 1px;
+        text-decoration: none;
+      }
+
+      .milestone-ledger .toc-list > li {
+        border-top-width: 2px;
+        border-radius: 5px;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.88), transparent 76%),
+          rgba(255, 255, 255, 0.62);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.9),
+          0 7px 18px rgba(36, 38, 41, 0.035);
+      }
+
+      .milestone-ledger .toc-list > li:hover,
+      .milestone-ledger .toc-list > li:focus-within {
+        border-color: rgba(63, 127, 153, 0.28);
+        border-top-color: var(--accent-hairline);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.94),
+          0 10px 24px rgba(36, 38, 41, 0.055);
+      }
+
+      h2::before {
+        opacity: 0.92;
+      }
+
+      .item,
+      .paper-card,
+      .conference-card,
+      .software-card {
+        border-radius: 8px;
+      }
+
+      .paper-card,
+      .conference-card,
+      .software-card {
+        background:
+          radial-gradient(
+            circle at 94% 5%,
+            rgba(125, 169, 184, 0.055),
+            transparent 33%
+          ),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.52), transparent 160px),
+          var(--surface);
+      }
+
+      .paper-card::after,
+      .conference-card::after,
+      .software-card::after {
+        box-shadow: var(--shadow-hover);
+      }
+
+      .paper-card:target,
+      .conference-card:target,
+      .software-card:target {
+        border-color: var(--accent-hairline);
+        box-shadow:
+          0 0 0 3px rgba(63, 127, 153, 0.09),
+          var(--shadow-card);
+      }
+
+      .link-list a {
+        border-radius: 5px;
+      }
+
+      .media-grid {
+        border-color: rgba(63, 127, 153, 0.12);
+        border-radius: 8px;
+        background: rgba(125, 169, 184, 0.14);
+      }
+
+      .media-grid > figure {
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.84), transparent 160px),
+          var(--media-bg);
+      }
+
+      .media-grid img {
+        border-radius: 6px;
+      }
+
+      .image-lightbox {
+        background: rgba(24, 27, 30, 0.9);
+      }
+
+      .image-lightbox-close {
+        border-color: rgba(237, 247, 250, 0.45);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .image-lightbox.is-closing {
+        pointer-events: none;
+        animation: lightbox-fade-out 0.16s ease both;
+      }
+
+      .image-lightbox.is-closing .image-lightbox-img {
+        animation: lightbox-zoom-out 0.16s ease both;
+      }
+
+      @keyframes lightbox-fade-out {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      @keyframes lightbox-zoom-out {
+        from {
+          opacity: 1;
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: translate3d(0, 4px, 0) scale(0.992);
+        }
+      }
+
+      @media (hover: hover) {
+        .paper-card:hover,
+        .conference-card:hover,
+        .software-card:hover {
+          border-color: rgba(63, 127, 153, 0.48);
+        }
+      }
+
+      @media (max-width: 760px) {
+        .page::before {
+          display: none;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -2173,6 +2684,17 @@
       }
 
       @media print {
+        .page,
+        header > * {
+          animation: none !important;
+        }
+
+        .reveal-target {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+
         body::before,
         .scroll-progress,
         .skip-link {
@@ -2271,6 +2793,7 @@
             src="profile-photo.png"
             alt="Placeholder profile image showing a tabby cat"
             data-i18n-alt="profilePhotoAlt"
+            fetchpriority="high"
             decoding="async"
           />
         </figure>
@@ -2354,7 +2877,7 @@
                     <span
                       class="contribution-detail"
                       data-i18n="contributionConferences"
-                      >4 presentations</span
+                      >5 presentations</span
                     >
                   </span>
                 </a>
@@ -2423,7 +2946,6 @@
       </section>
     </main>
     <script>
-      const MAX_MEDIA_ROW_WIDTH = 15000;
       const prefersReducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       );
@@ -2503,6 +3025,9 @@
                 attributes: {
                   src: image.src,
                   alt: image.alt,
+                  width: 1200,
+                  height: 900,
+                  fetchpriority: "low",
                   loading: "lazy",
                   decoding: "async",
                 },
@@ -2619,9 +3144,24 @@
       const clamp = (value, min = 0, max = 1) =>
         Math.min(max, Math.max(min, value));
 
-      let currentLanguage = normalizeLanguage(
-        localStorage.getItem("cvLanguage"),
-      );
+      const safeStorage = {
+        get(key) {
+          try {
+            return window.localStorage.getItem(key);
+          } catch {
+            return null;
+          }
+        },
+        set(key, value) {
+          try {
+            window.localStorage.setItem(key, value);
+          } catch {
+            // Storage can be unavailable in privacy-restricted embeds.
+          }
+        },
+      };
+
+      let currentLanguage = normalizeLanguage(safeStorage.get("cvLanguage"));
 
       const textFor = (key) =>
         TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS.en[key] ?? key;
@@ -2632,7 +3172,6 @@
             toggle.getAttribute("aria-expanded") === "true"
               ? textFor("showLess")
               : textFor("showMore");
-          syncSummaryHeight(toggle.closest(".venue.is-collapsible"));
         });
       };
 
@@ -2661,7 +3200,7 @@
         document
           .querySelector('meta[property="og:description"]')
           ?.setAttribute("content", textFor("documentDescription"));
-        localStorage.setItem("cvLanguage", currentLanguage);
+        safeStorage.set("cvLanguage", currentLanguage);
 
         document.querySelectorAll("[data-i18n]").forEach((element) => {
           element.textContent = textFor(element.dataset.i18n);
@@ -2703,6 +3242,7 @@
 
         updateSummaryToggleLabels();
         updateImageButtonLabels();
+        void typesetMath(document.body);
       };
 
       const setupLanguageSwitch = () => {
@@ -2715,69 +3255,114 @@
           });
       };
 
-      const updateScrollProgress = () => {
-        const scrollable =
-          document.documentElement.scrollHeight - window.innerHeight;
-        const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
-        document.documentElement.style.setProperty(
-          "--scroll-progress",
-          String(clamp(progress)),
-        );
-      };
-
       const setupScrollProgress = () => {
+        if (CSS.supports?.("animation-timeline: scroll()")) return;
+
+        const progressBar = document.querySelector(".scroll-progress");
+        if (!progressBar) return;
+
         let ticking = false;
+        let maxScroll = 1;
+
+        const measure = () => {
+          maxScroll = Math.max(
+            1,
+            document.documentElement.scrollHeight - window.innerHeight,
+          );
+        };
+
+        const update = () => {
+          const progress = clamp(window.scrollY / maxScroll);
+          progressBar.style.transform = `scale3d(${progress}, 1, 1)`;
+        };
+
         const requestUpdate = () => {
           if (ticking) return;
           ticking = true;
           requestAnimationFrame(() => {
-            updateScrollProgress();
+            update();
             ticking = false;
           });
         };
 
-        updateScrollProgress();
+        const remeasure = () => {
+          measure();
+          requestUpdate();
+        };
+
+        remeasure();
         window.addEventListener("scroll", requestUpdate, { passive: true });
-        window.addEventListener("resize", requestUpdate);
+        window.addEventListener("resize", remeasure, { passive: true });
+        window.visualViewport?.addEventListener("resize", remeasure, {
+          passive: true,
+        });
+
+        if ("ResizeObserver" in window) {
+          new ResizeObserver(remeasure).observe(document.body);
+        }
       };
 
       const setupRevealEffects = () => {
         const targets = [];
-        const addRevealTarget = (target, delay = 0) => {
-          if (!target || targets.includes(target)) return;
-          target.classList.add("reveal-target");
-          target.style.setProperty("--reveal-delay", `${delay}ms`);
-          targets.push(target);
-        };
 
-        document.querySelectorAll("section").forEach((section) => {
-          addRevealTarget(section, 0);
+        document
+          .querySelectorAll("section:not(.cv-abstract)")
+          .forEach((section) => {
+            const head = section.querySelector(":scope > .section-head");
+            if (head) {
+              head.classList.add("reveal-target");
+              head.style.setProperty("--reveal-delay", "0ms");
+              targets.push(head);
+            }
 
-          const head = section.querySelector(":scope > .section-head");
-          addRevealTarget(head, 40);
-
-          const directBlocks = section.querySelectorAll(
-            ":scope > .profile-summary, :scope > .abstract-education, :scope > .timeline, :scope > .software-list, :scope > .paper-grid, :scope > .conference-grid",
-          );
-
-          directBlocks.forEach((block, blockIndex) => {
-            addRevealTarget(block, 90 + blockIndex * 35);
-
-            block
+            section
               .querySelectorAll(
-                ":scope > .item, :scope > .software-card, :scope > .paper-card, :scope > .conference-card",
+                ":scope .software-card, :scope .paper-card, :scope .conference-card",
               )
-              .forEach((item, itemIndex) => {
-                addRevealTarget(item, 135 + itemIndex * 55);
+              .forEach((card, index) => {
+                card.classList.add("reveal-target");
+                card.style.setProperty(
+                  "--reveal-delay",
+                  `${Math.min(index * 45, 135)}ms`,
+                );
+                targets.push(card);
               });
           });
-        });
+
+        const finishReveal = (target) => {
+          target.classList.remove("reveal-target", "is-visible");
+          target.style.removeProperty("--reveal-delay");
+        };
+
+        const reveal = (target) => {
+          const delay =
+            Number.parseInt(
+              target.style.getPropertyValue("--reveal-delay"),
+              10,
+            ) || 0;
+          let settled = false;
+
+          const finish = () => {
+            if (settled) return;
+            settled = true;
+            target.removeEventListener("transitionend", onEnd);
+            finishReveal(target);
+          };
+
+          const onEnd = (event) => {
+            if (event.propertyName === "transform") finish();
+          };
+
+          target.classList.add("is-visible");
+          target.addEventListener("transitionend", onEnd);
+          window.setTimeout(finish, delay + 620);
+        };
 
         if (
           prefersReducedMotion.matches ||
           !("IntersectionObserver" in window)
         ) {
-          targets.forEach((target) => target.classList.add("is-visible"));
+          targets.forEach(finishReveal);
           return;
         }
 
@@ -2785,77 +3370,18 @@
           (entries) => {
             entries.forEach((entry) => {
               if (!entry.isIntersecting) return;
-              entry.target.classList.add("is-visible");
               observer.unobserve(entry.target);
+              reveal(entry.target);
             });
           },
           {
-            rootMargin: "0px 0px -8% 0px",
-            threshold: 0.08,
+            rootMargin: "0px 0px 10% 0px",
+            threshold: 0.06,
           },
         );
 
         targets.forEach((target) => observer.observe(target));
       };
-
-      const whenImageReady = (img) =>
-        img.complete && img.naturalWidth
-          ? Promise.resolve(img)
-          : new Promise((resolve) => {
-              img.addEventListener("load", () => resolve(img), { once: true });
-              img.addEventListener("error", () => resolve(img), { once: true });
-            });
-
-      const layoutMediaGrid = async (grid) => {
-        const figures = Array.from(grid.querySelectorAll("figure"));
-        await Promise.all(
-          figures.map((figure) => whenImageReady(figure.querySelector("img"))),
-        );
-
-        figures.forEach((figure) => {
-          const img = figure.querySelector("img");
-          const width = img?.naturalWidth || 1;
-          figure.dataset.mediaWidth = String(width);
-          figure.style.setProperty("--media-grow", String(width));
-        });
-
-        grid.replaceChildren();
-        const rows = [];
-        let row = document.createElement("div");
-        row.className = "media-row";
-        let rowWidth = 0;
-
-        const appendRow = () => {
-          rows.push({ element: row, width: rowWidth });
-        };
-
-        figures.forEach((figure) => {
-          const width = Number(figure.dataset.mediaWidth || 1);
-          if (row.children.length && rowWidth + width > MAX_MEDIA_ROW_WIDTH) {
-            appendRow();
-            row = document.createElement("div");
-            row.className = "media-row";
-            rowWidth = 0;
-          }
-          row.appendChild(figure);
-          rowWidth += width;
-        });
-
-        if (row.children.length) appendRow();
-
-        const widestRowWidth = Math.max(...rows.map(({ width }) => width), 1);
-
-        rows.forEach(({ element, width }) => {
-          element.style.setProperty("--media-row-width", String(width));
-          element.style.setProperty(
-            "--media-scale-width",
-            String(widestRowWidth),
-          );
-          grid.appendChild(element);
-        });
-      };
-
-      document.querySelectorAll(".media-grid").forEach(layoutMediaGrid);
 
       const setupImageLightbox = () => {
         const lightbox = document.createElement("div");
@@ -2880,15 +3406,36 @@
         lightbox.append(image, caption, closeButton);
         document.body.appendChild(lightbox);
 
-        const closeLightbox = () => {
+        let triggerThumbnail = null;
+        let closeTimer = 0;
+
+        const finishCloseLightbox = () => {
+          window.clearTimeout(closeTimer);
+          lightbox.classList.remove("is-closing");
           lightbox.hidden = true;
           document.body.classList.remove("is-lightbox-open");
           image.removeAttribute("src");
           image.removeAttribute("alt");
           caption.textContent = "";
+          triggerThumbnail?.focus({ preventScroll: true });
+          triggerThumbnail = null;
+        };
+
+        const closeLightbox = () => {
+          if (lightbox.hidden || lightbox.classList.contains("is-closing"))
+            return;
+          if (prefersReducedMotion.matches) {
+            finishCloseLightbox();
+            return;
+          }
+          lightbox.classList.add("is-closing");
+          closeTimer = window.setTimeout(finishCloseLightbox, 180);
         };
 
         const openLightbox = (thumbnail) => {
+          window.clearTimeout(closeTimer);
+          lightbox.classList.remove("is-closing");
+          triggerThumbnail = thumbnail;
           const figureCaption = thumbnail
             .closest("figure")
             ?.querySelector("figcaption")
@@ -2908,7 +3455,16 @@
           if (event.target === lightbox) closeLightbox();
         });
         document.addEventListener("keydown", (event) => {
-          if (!lightbox.hidden && event.key === "Escape") closeLightbox();
+          if (lightbox.hidden || lightbox.classList.contains("is-closing"))
+            return;
+          if (event.key === "Escape") {
+            closeLightbox();
+            return;
+          }
+          if (event.key === "Tab") {
+            event.preventDefault();
+            closeButton.focus();
+          }
         });
 
         document.querySelectorAll(".media-grid img").forEach((thumbnail) => {
@@ -3037,43 +3593,81 @@
         return nextSpace === -1 ? cutAt : nextSpace;
       };
 
+      const INLINE_MATH_PATTERN =
+        /(?:\$(?!\s)(?:\\.|[^$\\])+\$|\\\((?:\\.|[^\\)])+\\\))/u;
+      const MATHJAX_SOURCE =
+        "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js";
+      const MATH_SKIP_SELECTOR = "script, noscript, style, textarea, pre, code";
+      let mathJaxLoadPromise = null;
+
+      const containsInlineMath = (element) => {
+        if (!element || element.matches?.(MATH_SKIP_SELECTOR)) return false;
+
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+
+        while (walker.nextNode()) {
+          const textNode = walker.currentNode;
+          if (textNode.parentElement?.closest(MATH_SKIP_SELECTOR)) continue;
+          if (INLINE_MATH_PATTERN.test(textNode.nodeValue || "")) return true;
+        }
+
+        return false;
+      };
+
+      const loadMathJax = () => {
+        if (window.MathJax?.typesetPromise)
+          return Promise.resolve(window.MathJax);
+        if (mathJaxLoadPromise) return mathJaxLoadPromise;
+
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ["$", "$"],
+              ["\\(", "\\)"],
+            ],
+          },
+          options: {
+            skipHtmlTags: [
+              "script",
+              "noscript",
+              "style",
+              "textarea",
+              "pre",
+              "code",
+            ],
+          },
+          startup: { typeset: false },
+        };
+
+        mathJaxLoadPromise = new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = MATHJAX_SOURCE;
+          script.async = true;
+          script.addEventListener("load", () => resolve(window.MathJax), {
+            once: true,
+          });
+          script.addEventListener(
+            "error",
+            () => reject(new Error("Unable to load MathJax.")),
+            { once: true },
+          );
+          document.head.appendChild(script);
+        });
+
+        return mathJaxLoadPromise;
+      };
+
       const typesetMath = (element) => {
-        if (window.MathJax?.typesetPromise) {
-          return window.MathJax.typesetPromise([element]).catch((error) => {
+        if (!containsInlineMath(element)) return Promise.resolve();
+
+        return loadMathJax()
+          .then(() => {
+            window.MathJax.typesetClear?.([element]);
+            return window.MathJax.typesetPromise([element]);
+          })
+          .catch((error) => {
             console.warn("MathJax typesetting failed:", error);
           });
-        }
-        return Promise.resolve();
-      };
-
-      const nextFrame = () =>
-        new Promise((resolve) => requestAnimationFrame(resolve));
-
-      const measureNaturalSummaryHeight = (summary) => {
-        const previousHeight = summary.style.height;
-        summary.style.height = "auto";
-        const height = Math.ceil(summary.getBoundingClientRect().height);
-        summary.style.height = previousHeight;
-        return height;
-      };
-
-      const syncSummaryHeight = (summary) => {
-        if (
-          !summary ||
-          !summary.classList.contains("is-collapsible") ||
-          summary.classList.contains("is-summary-animating") ||
-          !summary.style.height
-        ) {
-          return;
-        }
-
-        summary.style.height = `${measureNaturalSummaryHeight(summary)}px`;
-      };
-
-      const syncAllSummaryHeights = () => {
-        document
-          .querySelectorAll(".venue.is-collapsible")
-          .forEach(syncSummaryHeight);
       };
 
       const animateSummaryRender = async (summary, render) => {
@@ -3082,42 +3676,48 @@
         const toggle = summary.querySelector(".venue-toggle");
         if (toggle) toggle.disabled = true;
 
-        if (prefersReducedMotion.matches) {
+        if (prefersReducedMotion.matches || !("animate" in summary)) {
           await render();
+          summary.style.height = "";
           if (toggle) toggle.disabled = false;
           return;
         }
 
-        const startHeight = summary.getBoundingClientRect().height;
+        const startHeight = Math.ceil(summary.getBoundingClientRect().height);
         summary.style.height = `${startHeight}px`;
-        summary.classList.add("is-summary-animating", "is-summary-fading");
+        summary.classList.add("is-summary-animating");
 
-        await nextFrame();
         await render();
+        const targetHeight = Math.ceil(summary.scrollHeight);
+        const animation = summary.animate(
+          [
+            {
+              height: `${startHeight}px`,
+              opacity: 0.72,
+              transform: "translate3d(0, 1px, 0)",
+            },
+            {
+              height: `${targetHeight}px`,
+              opacity: 1,
+              transform: "translate3d(0, 0, 0)",
+            },
+          ],
+          {
+            duration: startHeight === targetHeight ? 180 : 320,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            fill: "none",
+          },
+        );
 
-        const targetHeight = measureNaturalSummaryHeight(summary);
-        summary.style.height = `${startHeight}px`;
-        summary.offsetHeight;
-        summary.style.height = `${targetHeight}px`;
-        await nextFrame();
-        summary.classList.remove("is-summary-fading");
+        try {
+          await animation.finished;
+        } catch {
+          // A rapid second interaction can cancel an in-flight animation.
+        }
 
-        let cleanedUp = false;
-        const cleanup = () => {
-          if (cleanedUp) return;
-          cleanedUp = true;
-          summary.classList.remove("is-summary-animating");
-          summary.style.height = `${targetHeight}px`;
-          if (toggle) toggle.disabled = false;
-          summary.removeEventListener("transitionend", handleTransitionEnd);
-        };
-
-        const handleTransitionEnd = (event) => {
-          if (event.propertyName === "height") cleanup();
-        };
-
-        summary.addEventListener("transitionend", handleTransitionEnd);
-        window.setTimeout(cleanup, 460);
+        summary.classList.remove("is-summary-animating");
+        summary.style.height = "";
+        if (toggle) toggle.disabled = false;
       };
 
       const collapseSummary = (summary) => {
@@ -3170,10 +3770,6 @@
           ".paper-card .summary-text, .conference-card .summary-text",
         )
         .forEach(collapseSummary);
-
-      window.addEventListener("resize", () => {
-        requestAnimationFrame(syncAllSummaryHeights);
-      });
 
       applyLanguage(currentLanguage);
     </script>
