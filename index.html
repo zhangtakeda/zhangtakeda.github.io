@@ -85,7 +85,6 @@
             sectionSoftware: "软件",
             sectionPublications: "论文发表",
             sectionConferences: "会议报告",
-            sectionHonors: "其他",
             pubIndexAria: "论文发表索引",
             confIndexAria: "会议报告索引",
             pubSubindexAria: "论文发表子索引",
@@ -129,7 +128,7 @@
             tocAria: "Contribution index",
             contributionSoftware: "1 repository",
             contributionPublications: "2 papers",
-            contributionConferences: "4 presentations",
+            contributionConferences: "5 presentations",
             focusLabel: "Research Focus",
             focusFastModeling:
               "Fast, high-fidelity integrated modeling for tokamak plasmas",
@@ -149,7 +148,6 @@
             sectionSoftware: "Software",
             sectionPublications: "Publications",
             sectionConferences: "Conferences",
-            sectionHonors: "Other",
             pubIndexAria: "Publication index",
             confIndexAria: "Conference presentation index",
             pubSubindexAria: "Publication subindex",
@@ -270,6 +268,19 @@
         ],
         conferences: [
           {
+            id: "conference-2026-kunming-veq",
+            indexLabel: "2026.08",
+            label: "Invited Presentation",
+            title: "快速高保真的参数化平衡求解器",
+            authorsHtml:
+              "<strong>张若涵</strong>, 谢华生*, 李跃岩, 孟炜棋, 王丰, 王正汹*",
+            meta: "第十二届全国青年计算物理学术会议通知 | 2026.08 | 云南昆明",
+            summary:
+              "托卡马克等离子体输运、稳定性、加热与电流驱动等计算中, 需要反复求解轴对称磁流体 (MHD) 平衡. 针对已知最外闭合磁面和一维剖面信息的固定边界场景, 本工作提出快速参数化Grad-Shafranov求解器Veloce EQuilibrium (VEQ). 不同于在矩形网格上离散极向磁通, VEQ直接用MXH-type角向谐波和shifted-Chebyshev径向展开表示嵌套磁面, 使待求系数构成连续磁面几何的有限维表示. 平衡方程由Grad-Shafranov变分残差在磁面位移诱导的通量扰动上投影得到, 主动一维剖面变量通过径向矩方程闭合. 该框架将压力与环向场源、极向磁通梯度、积分环向电流、电流密度和安全因子等六类输入统一到同一非线性残差装配形式, 适用于集成建模和重构数据后处理. 数值验证表明, 六种输入路径可在相容剖面下恢复同一参考平衡; 对Solovev、CHEASE和EFIT数据构造的实际位形, Pareto扫描显示VEQ可在1e-3量级的归一化形状误差下实现亚毫秒至毫秒级求解. 强形式Grad-Shafranov残差诊断显示, 增加谱自由度主要降低等离子体内部残差, 而强成形算例的较大残差仍局域于边界附近. 一维热输运敏感性测试表明, 降阶平衡几何引起的温度剖面误差低于1%. 结果说明, VEQ可为快速集成建模提供紧凑高效的连续磁面平衡求解方案, 并通过强形式残差识别需要边界修正或更高保真求解的情形.",
+            linksAriaLabel: "论文链接",
+            links: [{ href: "2026.08-invited.pdf", label: "PDF" }],
+          },
+          {
             id: "conference-2026-dalian-veq",
             indexLabel: "2026.04",
             label: "Oral Presentation",
@@ -280,7 +291,7 @@
             summary:
               "在托卡马克集成模拟及等离子体实时控制中, 快速且高精度的Grad-Shafranov方程求解是不可或缺的基础环节. 然而, 面对多约束输入, 反复迭代与参数扫描等场景, 传统的三矩平衡程序 (如METIS和ASTRA) 在计算速度, 收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性. 为此, 本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为VEQ (Veloce/Variational EQuilibrium) 项目的固定边界求解组件, 可实现系统程序 (system code) 级别的快速求解. 该程序参考MXH-Cheb[1]参数化方法, 采用Chebyshev和Fourier多项式对磁面几何进行参数化展开, 能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上, veqpy 提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略, 以“数据-算子-求解器”为抽象架构实现了多种算子, 支持包括环向电流密度, 平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入, 实现了对多种物理约束 (等离子体总电流, 环向比压) 的稳健收敛. 此外, 模块内置的冷/热启动基准算例涵盖整个算子族, 为代码的回归测试与在物理上的一致性验证提供了完整支撑. 基准测试表明, 与高保真平衡程序相比, veqpy 计算的磁面几何参数与物理场量计算误差可被严格控制在1 mm以内 , 同时能够在CPU上于1~100 ms量级实现单线程平衡求解. 本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效, 可靠替代方案.",
             linksAriaLabel: "论文链接",
-            links: [{ href: "2026.04-oral.pdf", label: "Oral" }],
+            links: [{ href: "2026.04-oral.pdf", label: "PDF" }],
           },
           {
             id: "conference-2025-shenzhen-otc-heq",
@@ -292,7 +303,7 @@
             summary:
               "集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具, 绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流. 国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱, 严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python 环境的集成模拟平台, 已经实现基础的输运和平衡模块, 并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC 可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核, 能在毫秒量级内高效求解非线性对流-扩散方程组, 同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了 Green 函数生成机制来提升计算效率, 避免了可能的奇异值问题, 并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S 方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合, 支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务. 未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.",
             linksAriaLabel: "论文链接",
-            links: [{ href: "2025.11-poster.pdf", label: "Poster" }],
+            links: [{ href: "2025.11-poster.pdf", label: "PDF" }],
           },
           {
             id: "conference-2025-hangzhou-otc-heq",
@@ -304,7 +315,7 @@
             summary:
               "集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具, 绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流. 国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱, 严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python 环境的集成模拟平台, 已经实现基础的输运和平衡模块, 并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC 可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核, 能在毫秒量级内高效求解非线性对流-扩散方程组, 同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了 Green 函数生成机制来提升计算效率, 避免了可能的奇异值数值问题, 并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S 方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合, 支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务. 未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.",
             linksAriaLabel: "论文链接",
-            links: [{ href: "2025.05-poster.pdf", label: "Poster" }],
+            links: [{ href: "2025.05-poster.pdf", label: "PDF" }],
           },
           {
             id: "conference-2024-otc",
@@ -316,26 +327,7 @@
             summary:
               "输运模块是托卡马克集成模拟计算中最基本的部分之一, 对国内目前开展的集成模拟平台的建设工作至关重要. 最近, 我们团队开发了面向托卡马克集成模拟的一维输运计算模块 OTC (One-dimensional Transport Computing module for integrated tokamak modeling), 并完成了基本的验证工作. OTC 目前能够同时计算新经典输运 (neoclassical transport) 中多个剖面的演化, 包括各种主要离子和杂质离子的密度, 电子和离子的温度以及电流密度. OTC 基于 C++ 编写以实现高效率计算, 并使用了适合求解任意多个变量的对流-扩散方程组的通用求解器, 因此可以无限制地添加各种离子和杂质, 设计上也可以进行其他输运模型的计算. 该模块内置了用户自定义的权重, 可以通过接口在程序外部进行控制, 便于对输运系数或物理过程进行修正. 未来, 我们计划将其打包并在 Python 环境中实现调用, 从而与集成模拟平台上的加热与电流驱动模块, 平衡模块等模块进行工作流整合, 最后发展为完整的软件. 同时纳入更多物理过程, 并利用 ONETWO 等常用输运模块对 OTC 进行验证, 最终可能还会集成其他湍流输运模型 (如 TGLF), 以扩展其功能和应用范围.",
             linksAriaLabel: "论文链接",
-            links: [{ href: "2024.08-poster.pdf", label: "Poster" }],
-          },
-        ],
-        honors: [
-          {
-            title: "Competition Awards",
-            items: [
-              "2025年“华为杯”第二十二届中国研究生数学建模: 国家三等奖",
-              "2024年“挑战杯”第十四届中国大学生创业计划竞赛: 国赛铜奖, 省赛金奖",
-            ],
-          },
-          {
-            title: "Academic Awards",
-            items: [
-              "2025年大连理工大学新奥成才奖学金: 博士奖学金 B 类",
-              "2024年大连理工大学新奥成才奖学金: 硕士一等奖学金",
-              "2024年大连理工大学菲沃泰奖学金",
-              "2024年大连理工大学优秀研究生",
-              "2023年大连理工大学新奥成才奖学金: 硕士一等奖学金",
-            ],
+            links: [{ href: "2024.08-poster.pdf", label: "PDF" }],
           },
         ],
       };
@@ -708,8 +700,7 @@
       .timeline.reveal-target,
       .software-list.reveal-target,
       .paper-grid.reveal-target,
-      .conference-grid.reveal-target,
-      .award-list.reveal-target {
+      .conference-grid.reveal-target {
         transition:
           opacity 0.58s var(--ease-out),
           transform 0.58s var(--ease-out);
@@ -723,8 +714,7 @@
       .timeline.reveal-target:not(.is-visible),
       .software-list.reveal-target:not(.is-visible),
       .paper-grid.reveal-target:not(.is-visible),
-      .conference-grid.reveal-target:not(.is-visible),
-      .award-list.reveal-target:not(.is-visible) {
+      .conference-grid.reveal-target:not(.is-visible) {
         opacity: 0;
         transform: translateY(18px);
       }
@@ -736,8 +726,7 @@
       .timeline.reveal-target.is-visible,
       .software-list.reveal-target.is-visible,
       .paper-grid.reveal-target.is-visible,
-      .conference-grid.reveal-target.is-visible,
-      .award-list.reveal-target.is-visible {
+      .conference-grid.reveal-target.is-visible {
         opacity: 1;
       }
 
@@ -947,8 +936,7 @@
 
       .paper-card,
       .conference-card,
-      .software-card,
-      .award-card {
+      .software-card {
         scroll-margin-top: 84px;
       }
 
@@ -1434,7 +1422,6 @@
       .paper-card.reveal-target,
       .software-card.reveal-target,
       .conference-card.reveal-target,
-      .award-card.reveal-target,
       .item.reveal-target {
         transition:
           opacity 0.5s var(--ease-out),
@@ -1446,7 +1433,6 @@
       .paper-card.reveal-target:not(.is-visible),
       .software-card.reveal-target:not(.is-visible),
       .conference-card.reveal-target:not(.is-visible),
-      .award-card.reveal-target:not(.is-visible),
       .item.reveal-target:not(.is-visible) {
         opacity: 0;
         transform: translateY(14px);
@@ -1455,7 +1441,6 @@
       .paper-card.reveal-target.is-visible,
       .software-card.reveal-target.is-visible,
       .conference-card.reveal-target.is-visible,
-      .award-card.reveal-target.is-visible,
       .item.reveal-target.is-visible {
         opacity: 1;
         transition-delay: var(--reveal-delay, 0ms);
@@ -1864,76 +1849,6 @@
         transform: translateY(-1px);
       }
 
-      .award-list {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0;
-        border-top: 0;
-        border-bottom: 1px solid var(--line-soft);
-      }
-
-      .award-card {
-        display: grid;
-        grid-template-columns: minmax(150px, 0.32fr) minmax(0, 1fr);
-        gap: 22px;
-        align-items: start;
-        padding: 14px 0;
-        background: transparent;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-      }
-
-      .award-card + .award-card {
-        border-top: 1px solid var(--line-soft);
-      }
-
-      .award-title {
-        margin: 0;
-        padding: 1px 0 0;
-        border-bottom: 0;
-      }
-
-      .award-title h3 {
-        color: var(--meta-text);
-        font-family: var(--font-ui);
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        line-height: 1.45;
-        text-transform: uppercase;
-      }
-
-      .award-items {
-        display: grid;
-        gap: 6px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .award-items li {
-        margin: 0;
-        padding-left: 0;
-        color: var(--muted);
-        font-family: var(--font-ui);
-        font-size: 13px;
-        line-height: 1.58;
-      }
-
-      .award-items li::before {
-        display: none;
-      }
-
-      .award-card.reveal-target {
-        transition: opacity 0.4s ease;
-      }
-
-      .award-card.reveal-target:not(.is-visible),
-      .award-card.reveal-target.is-visible {
-        transform: none;
-      }
-
       .tag-list {
         display: flex;
         flex-wrap: wrap;
@@ -2176,22 +2091,15 @@
           height: auto;
         }
 
-        .award-card {
-          grid-template-columns: 1fr;
-          gap: 5px;
-        }
-
         .item:hover,
         .paper-card:hover,
         .conference-card:hover,
         .software-card:hover,
-        .award-card:hover,
         .milestone-ledger .toc-list > li:hover,
         .item:focus-within,
         .paper-card:focus-within,
         .conference-card:focus-within,
         .software-card:focus-within,
-        .award-card:focus-within,
         .milestone-ledger .toc-list > li:focus-within,
         .contact:hover,
         .contact:focus-within {
@@ -2255,11 +2163,9 @@
         .software-list.reveal-target,
         .paper-grid.reveal-target,
         .conference-grid.reveal-target,
-        .award-list.reveal-target,
         .paper-card.reveal-target,
         .software-card.reveal-target,
         .conference-card.reveal-target,
-        .award-card.reveal-target,
         .item.reveal-target {
           opacity: 1;
           transform: none;
@@ -2289,7 +2195,6 @@
         .paper-card,
         .conference-card,
         .software-card,
-        .award-card,
         .summary,
         .contact {
           background: #ffffff;
@@ -2302,8 +2207,7 @@
         section,
         .paper-card,
         .conference-card,
-        .software-card,
-        .award-card {
+        .software-card {
           break-inside: avoid;
         }
       }
@@ -2340,10 +2244,10 @@
           <div class="contact-row">
             <span class="contact-label" data-i18n="contactEmail">Email</span>
             <span class="contact-value">
+              <a href="mailto:zhangtakeda@gmail.com">zhangtakeda@gmail.com</a>
               <a href="mailto:rhzhang@mail.dlut.edu.cn"
                 >rhzhang@mail.dlut.edu.cn</a
               >
-              <a href="mailto:zhangtakeda@gmail.com">zhangtakeda@gmail.com</a>
             </span>
           </div>
 
@@ -2517,13 +2421,6 @@
         </div>
         <div class="conference-grid" data-render-list="conferences"></div>
       </section>
-
-      <section id="honors">
-        <div class="section-head">
-          <h2 data-i18n="sectionHonors">其他</h2>
-        </div>
-        <div class="award-list" data-render-list="honors"></div>
-      </section>
     </main>
     <script>
       const MAX_MEDIA_ROW_WIDTH = 15000;
@@ -2692,18 +2589,6 @@
         );
       };
 
-      const renderAwardCard = (group) =>
-        createElement("article", { className: "award-card" }, [
-          createElement("div", { className: "award-title" }, [
-            createElement("h3", { text: group.title }),
-          ]),
-          createElement(
-            "ul",
-            { className: "award-items" },
-            group.items.map((item) => createElement("li", { text: item })),
-          ),
-        ]);
-
       const renderCollection = (key, items, renderItem) => {
         if (!Array.isArray(items)) {
           throw new TypeError(`CV data for "${key}" must be an array.`);
@@ -2725,7 +2610,6 @@
         renderCollection("conferences", CV_DATA.conferences, (item) =>
           renderResearchCard(item, "conference"),
         );
-        renderCollection("honors", CV_DATA.honors, renderAwardCard);
       };
 
       renderCvCards();
@@ -2873,7 +2757,7 @@
           addRevealTarget(head, 40);
 
           const directBlocks = section.querySelectorAll(
-            ":scope > .profile-summary, :scope > .abstract-education, :scope > .timeline, :scope > .software-list, :scope > .paper-grid, :scope > .conference-grid, :scope > .award-list",
+            ":scope > .profile-summary, :scope > .abstract-education, :scope > .timeline, :scope > .software-list, :scope > .paper-grid, :scope > .conference-grid",
           );
 
           directBlocks.forEach((block, blockIndex) => {
@@ -2881,7 +2765,7 @@
 
             block
               .querySelectorAll(
-                ":scope > .item, :scope > .software-card, :scope > .paper-card, :scope > .conference-card, :scope > .award-card",
+                ":scope > .item, :scope > .software-card, :scope > .paper-card, :scope > .conference-card",
               )
               .forEach((item, itemIndex) => {
                 addRevealTarget(item, 135 + itemIndex * 55);
@@ -3103,7 +2987,7 @@
       const SUMMARY_PREVIEW_CHARS = 200;
       const WIDE_CHARACTER_PATTERN =
         /[\u1100-\u115f\u2e80-\u303f\u3040-\u30ff\u3100-\u312f\u31a0-\u31bf\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff00-\uffef]/u;
-      const WIDE_TEXT_BREAK_PATTERN = /[\s,.;:!?，。；：！？、）)]/u;
+      const WIDE_TEXT_BREAK_PATTERN = /[\s,.;:!?, . ；：！？、）)]/u;
 
       const measurePreviewLength = (text) =>
         Array.from(text).reduce(
