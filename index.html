@@ -278,7 +278,7 @@
               "<strong>张若涵</strong>, 谢华生*, 李跃岩, 孟炜棋, 王丰, 王正汹*",
             meta: "第十二届全国青年计算物理学术会议通知 | 2026.08 | 云南昆明",
             summary:
-              "托卡马克等离子体输运、稳定性、加热与电流驱动等计算中, 需要反复求解轴对称磁流体 (MHD) 平衡. 针对已知最外闭合磁面和一维剖面信息的固定边界场景, 本工作提出快速参数化Grad-Shafranov求解器Veloce EQuilibrium (VEQ). 不同于在矩形网格上离散极向磁通, VEQ直接用MXH-type角向谐波和shifted-Chebyshev径向展开表示嵌套磁面, 使待求系数构成连续磁面几何的有限维表示. 平衡方程由Grad-Shafranov变分残差在磁面位移诱导的通量扰动上投影得到, 主动一维剖面变量通过径向矩方程闭合. 该框架将压力与环向场源、极向磁通梯度、积分环向电流、电流密度和安全因子等六类输入统一到同一非线性残差装配形式, 适用于集成建模和重构数据后处理. 数值验证表明, 六种输入路径可在相容剖面下恢复同一参考平衡; 对Solovev、CHEASE和EFIT数据构造的实际位形, Pareto扫描显示VEQ可在1e-3量级的归一化形状误差下实现亚毫秒至毫秒级求解. 强形式Grad-Shafranov残差诊断显示, 增加谱自由度主要降低等离子体内部残差, 而强成形算例的较大残差仍局域于边界附近. 一维热输运敏感性测试表明, 降阶平衡几何引起的温度剖面误差低于1%. 结果说明, VEQ可为快速集成建模提供紧凑高效的连续磁面平衡求解方案, 并通过强形式残差识别需要边界修正或更高保真求解的情形.",
+              "托卡马克等离子体输运、稳定性、加热与电流驱动等计算中, 需要反复求解轴对称磁流体 (MHD) 平衡. 针对已知最外闭合磁面和一维剖面信息的固定边界场景, 本工作提出快速参数化 Grad-Shafranov 求解器 Veloce EQuilibrium (VEQ). 不同于在矩形网格上离散极向磁通, VEQ 直接用 MXH-type 角向谐波和 shifted-Chebyshev 径向展开表示嵌套磁面, 使待求系数构成连续磁面几何的有限维表示. 平衡方程由 Grad-Shafranov 变分残差在磁面位移诱导的通量扰动上投影得到, 主动一维剖面变量通过径向矩方程闭合. 该框架将压力与环向场源、极向磁通梯度、积分环向电流、电流密度和安全因子等六类输入统一到同一非线性残差装配形式, 适用于集成建模和重构数据后处理. 数值验证表明, 六种输入路径可在相容剖面下恢复同一参考平衡; 对 Solovev、CHEASE 和 EFIT 数据构造的实际位形, Pareto 扫描显示 VEQ 可在 1e-3 量级的归一化形状误差下实现亚毫秒至毫秒级求解. 强形式 Grad-Shafranov 残差诊断显示, 增加谱自由度主要降低等离子体内部残差, 而强成形算例的较大残差仍局域于边界附近. 一维热输运敏感性测试表明, 降阶平衡几何引起的温度剖面误差低于 1%. 结果说明, VEQ 可为快速集成建模提供紧凑高效的连续磁面平衡求解方案, 并通过强形式残差识别需要边界修正或更高保真求解的情形.",
             linksAriaLabel: "论文链接",
             links: [{ href: "2026.08-invited.pdf", label: "PDF" }],
           },
@@ -291,7 +291,7 @@
               "<strong>张若涵</strong>, 李跃岩, 谢华生*, 王丰, 王正汹*",
             meta: "第十四届全国磁约束聚变理论与模拟会议 | 2026.04 | 辽宁大连",
             summary:
-              "在托卡马克集成模拟及等离子体实时控制中, 快速且高精度的Grad-Shafranov方程求解是不可或缺的基础环节. 然而, 面对多约束输入, 反复迭代与参数扫描等场景, 传统的三矩平衡程序 (如METIS和ASTRA) 在计算速度, 收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性. 为此, 本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为VEQ (Veloce/Variational EQuilibrium) 项目的固定边界求解组件, 可实现系统程序 (system code) 级别的快速求解. 该程序参考MXH-Cheb[1]参数化方法, 采用Chebyshev和Fourier多项式对磁面几何进行参数化展开, 能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上, veqpy 提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略, 以“数据-算子-求解器”为抽象架构实现了多种算子, 支持包括环向电流密度, 平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入, 实现了对多种物理约束 (等离子体总电流, 环向比压) 的稳健收敛. 此外, 模块内置的冷/热启动基准算例涵盖整个算子族, 为代码的回归测试与在物理上的一致性验证提供了完整支撑. 基准测试表明, 与高保真平衡程序相比, veqpy 计算的磁面几何参数与物理场量计算误差可被严格控制在1 mm以内 , 同时能够在CPU上于1~100 ms量级实现单线程平衡求解. 本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效, 可靠替代方案.",
+              "在托卡马克集成模拟及等离子体实时控制中, 快速且高精度的 Grad-Shafranov 方程求解是不可或缺的基础环节. 然而, 面对多约束输入, 反复迭代与参数扫描等场景, 传统的三矩平衡程序 (如 METIS 和 ASTRA) 在计算速度, 收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性. 为此, 本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为 VEQ (Veloce/Variational EQuilibrium) 项目的固定边界求解组件, 可实现系统程序 (system code) 级别的快速求解. 该程序参考 MXH-Cheb[1] 参数化方法, 采用 Chebyshev 和 Fourier 多项式对磁面几何进行参数化展开, 能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上, veqpy 提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略, 以“数据-算子-求解器”为抽象架构实现了多种算子, 支持包括环向电流密度, 平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入, 实现了对多种物理约束 (等离子体总电流, 环向比压) 的稳健收敛. 此外, 模块内置的冷/热启动基准算例涵盖整个算子族, 为代码的回归测试与在物理上的一致性验证提供了完整支撑. 基准测试表明, 与高保真平衡程序相比, veqpy 计算的磁面几何参数与物理场量计算误差可被严格控制在 1 mm 以内, 同时能够在 CPU 上于 1~100 ms 量级实现单线程平衡求解. 本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效, 可靠替代方案.",
             linksAriaLabel: "论文链接",
             links: [{ href: "2026.04-oral.pdf", label: "PDF" }],
           },
@@ -336,15 +336,16 @@
     </script>
     <style>
       :root {
-        --font-serif:
-          "Iowan Old Style", "Palatino Linotype", "Noto Serif SC", "Songti SC",
-          "SimSun", Georgia, serif;
+        --font-serif: "Times New Roman", Times, serif;
         --font-ui:
-          "Aptos", "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
-          sans-serif;
+          "Helvetica Neue", "Aptos", "Segoe UI", "Noto Sans SC", "PingFang SC",
+          "Microsoft YaHei", sans-serif;
         --font-mono:
           "SFMono-Regular", "Cascadia Mono", "Roboto Mono", "Noto Sans Mono",
           monospace;
+        --serif-body-size: 17px;
+        --serif-heading-size: 16px;
+        --serif-meta-size: 14px;
         --text: #252629;
         --muted: #62666b;
         --light: #8c9095;
@@ -353,21 +354,23 @@
         --accent: #3f7f99;
         --accent-soft: #eef6f8;
         --accent-hairline: #7da9b8;
-        --section-rule: var(--accent);
-        --section-rule-height: 2px;
+        --rule-major-color: var(--accent);
+        --rule-major-width: 2px;
+        --rule-minor-color: #dbe5e8;
+        --rule-minor-width: 1px;
         --paper: #f7f7f6;
         --bg: #e7e7e6;
         --surface: #fbfbfa;
+        --card-bg: #ffffff;
         --media-bg: #ffffff;
         --page-border: #dddddc;
-        --nav-bg: rgba(247, 247, 246, 0.9);
+        --nav-bg: var(--paper);
         --meta-text: #888c91;
         --summary-text: #333539;
         --lightbox-text: #edf7fa;
-        --shadow-soft: 0 18px 50px rgba(36, 38, 41, 0.08);
-        --shadow-hover: 0 22px 48px rgba(36, 38, 41, 0.13);
-        --shadow-card:
-          0 1px 0 rgba(255, 255, 255, 0.78), 0 18px 38px rgba(36, 38, 41, 0.052);
+        --shadow-soft: 0 2px 8px rgba(36, 38, 41, 0.055);
+        --shadow-hover: 0 10px 24px rgba(36, 38, 41, 0.1);
+        --shadow-card: 0 5px 14px rgba(36, 38, 41, 0.07);
         --focus-outline: rgba(63, 127, 153, 0.3);
         --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
         --page-x: 66px;
@@ -398,16 +401,7 @@
         padding: 0;
         min-height: 100dvh;
         counter-reset: cv-section;
-        background:
-          linear-gradient(115deg, rgba(255, 255, 255, 0.3), transparent 36%),
-          repeating-linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.14) 0,
-            rgba(255, 255, 255, 0.14) 1px,
-            transparent 1px,
-            transparent 56px
-          ),
-          var(--bg);
+        background: var(--bg);
         color: var(--text);
         font-family: var(--font-serif);
         font-variant-numeric: lining-nums;
@@ -422,16 +416,8 @@
         inset: 0;
         z-index: 0;
         pointer-events: none;
-        background:
-          repeating-linear-gradient(
-            0deg,
-            rgba(36, 38, 41, 0.028) 0,
-            rgba(36, 38, 41, 0.028) 1px,
-            transparent 1px,
-            transparent 4px
-          ),
-          linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 48%);
-        opacity: 0.5;
+        background: none;
+        opacity: 0;
       }
 
       .skip-link {
@@ -477,9 +463,7 @@
         max-width: 1040px;
         margin: 34px auto;
         padding: 62px var(--page-x) 68px;
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.46), transparent 280px),
-          var(--paper);
+        background: var(--paper);
         border: 1px solid var(--page-border);
         border-radius: 8px;
         box-shadow: var(--shadow-soft);
@@ -502,7 +486,7 @@
         padding: 3px;
         border: 1px solid var(--line-soft);
         border-radius: 6px;
-        background: rgba(255, 255, 255, 0.34);
+        background: var(--surface);
         color: var(--light);
         font-family: var(--font-ui);
         font-size: 13px;
@@ -531,7 +515,7 @@
       .language-switch button[aria-pressed="true"] {
         background: var(--accent-soft);
         color: var(--accent);
-        box-shadow: inset 0 0 0 1px rgba(63, 127, 153, 0.22);
+        box-shadow: none;
         text-decoration: none;
       }
 
@@ -562,8 +546,8 @@
         right: 0;
         bottom: 0;
         left: 0;
-        height: var(--section-rule-height);
-        background: var(--section-rule);
+        height: var(--rule-major-width);
+        background: var(--rule-major-color);
       }
 
       header > * {
@@ -760,10 +744,8 @@
         border: 1px solid var(--line-soft);
         border-top: 3px solid var(--line);
         border-radius: 0;
-        background: rgba(255, 255, 255, 0.72);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.82),
-          0 1px 0 rgba(36, 38, 41, 0.025);
+        background: var(--media-bg);
+        box-shadow: none;
         transition:
           border-color 0.2s ease,
           color 0.2s ease,
@@ -838,7 +820,7 @@
         min-width: 0;
         margin: 0;
         padding: 9px 0 0;
-        border-top: 1px solid var(--line);
+        border-top: var(--rule-minor-width) solid var(--rule-minor-color);
         list-style: none;
         color: var(--muted);
       }
@@ -953,15 +935,15 @@
         top: 0;
         right: 0;
         left: 0;
-        height: var(--section-rule-height);
-        background: var(--section-rule);
+        height: var(--rule-major-width);
+        background: var(--rule-major-color);
       }
 
       .section-head {
         display: block;
         margin-bottom: 24px;
         padding-bottom: 13px;
-        border-bottom: 1px solid var(--line-soft);
+        border-bottom: var(--rule-minor-width) solid var(--rule-minor-color);
       }
 
       h2 {
@@ -1044,9 +1026,7 @@
       .conference-card,
       .software-card {
         position: relative;
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 160px),
-          var(--surface);
+        background: var(--card-bg);
         border: 1px solid var(--line-soft);
         border-radius: 6px;
         box-shadow: var(--shadow-card);
@@ -1205,7 +1185,7 @@
         );
         margin: 34px 0 0 var(--overview-leading-offset);
         padding-bottom: 18px;
-        border-bottom: 1px solid var(--line);
+        border-bottom: var(--rule-minor-width) solid var(--rule-minor-color);
         scroll-margin-top: 24px;
       }
 
@@ -1216,13 +1196,14 @@
 
       .profile-summary p {
         max-width: 68ch;
-        font-size: 16px;
-        line-height: 1.82;
+        font-size: var(--serif-body-size);
+        line-height: 1.78;
         text-wrap: pretty;
       }
 
       .cv-abstract .profile-summary p {
         max-width: none;
+        font-family: var(--font-serif);
       }
 
       .profile-photo {
@@ -1238,10 +1219,8 @@
         object-fit: cover;
         border: 1px solid var(--line-soft);
         border-radius: 0;
-        background: rgba(255, 255, 255, 0.72);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.82),
-          0 1px 0 rgba(36, 38, 41, 0.025);
+        background: var(--media-bg);
+        box-shadow: none;
       }
 
       .focus-overview {
@@ -1283,8 +1262,8 @@
         margin: 0 0 16px;
         color: var(--text);
         font-family: var(--font-serif);
-        font-size: 16px;
-        line-height: 1.82;
+        font-size: var(--serif-body-size);
+        line-height: 1.78;
         text-wrap: pretty;
       }
 
@@ -1304,9 +1283,7 @@
         padding: 14px 16px 15px;
         border: 1px solid var(--line-soft);
         border-radius: 6px;
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.46), transparent),
-          var(--surface);
+        background: var(--surface);
         box-shadow: var(--shadow-card);
       }
 
@@ -1354,7 +1331,8 @@
 
       .abstract-education h3 {
         color: var(--text);
-        font-size: 15px;
+        font-family: var(--font-serif);
+        font-size: var(--serif-heading-size);
         font-weight: 650;
       }
 
@@ -1369,7 +1347,7 @@
         margin-top: 2px;
         color: var(--muted);
         font-family: var(--font-ui);
-        font-size: 13px;
+        font-size: 14px;
         font-variant-numeric: tabular-nums;
         line-height: 1.45;
       }
@@ -1381,7 +1359,8 @@
       .abstract-education .time {
         display: block;
         margin-top: 1px;
-        font-size: 13px;
+        font-family: var(--font-ui);
+        font-size: 14px;
         white-space: normal;
       }
 
@@ -1471,9 +1450,7 @@
       .conference-title {
         margin: 0 0 9px;
         color: var(--text);
-        font-family:
-          "Helvetica Neue", "PingFang SC", "Noto Sans SC", "Microsoft YaHei",
-          sans-serif;
+        font-family: var(--font-ui);
         font-size: 18px;
         font-weight: 600;
         line-height: 1.5;
@@ -1530,9 +1507,9 @@
       }
 
       .software-summary {
-        margin-top: 9px;
-        padding-top: 9px;
-        border-top: 2px solid rgba(63, 127, 153, 0.14);
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: var(--rule-minor-width) solid var(--rule-minor-color);
         color: var(--summary-text);
         font-family: var(--font-ui);
         font-size: 14px;
@@ -1545,21 +1522,21 @@
         font-size: 13px;
         letter-spacing: 0.015em;
         line-height: 1.62;
-        margin: 8px 0 0;
-        padding: 8px 0 9px;
-        border-top: 1px solid var(--line-soft);
+        margin: 10px 0 0;
+        padding: 10px 0;
+        border-top: var(--rule-minor-width) solid var(--rule-minor-color);
       }
 
       .paper-card .venue {
-        margin-top: 11px;
+        margin-top: 10px;
         padding-top: 10px;
-        border-top: 2px solid rgba(63, 127, 153, 0.14);
+        border-top: var(--rule-minor-width) solid var(--rule-minor-color);
       }
 
       .conference-card .venue {
         margin-top: 0;
         padding-top: 10px;
-        border-top: 2px solid rgba(63, 127, 153, 0.14);
+        border-top: var(--rule-minor-width) solid var(--rule-minor-color);
       }
 
       .summary-text {
@@ -1631,16 +1608,16 @@
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
-        margin-top: 11px;
+        margin-top: 10px;
         padding-top: 10px;
-        border-top: 1px solid var(--line-soft);
+        border-top: var(--rule-minor-width) solid var(--rule-minor-color);
         font-family: var(--font-ui);
       }
 
       .link-list a {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
+        gap: 5px;
         min-height: 24px;
         padding: 1px 8px;
         border: 1px solid var(--line);
@@ -1651,6 +1628,34 @@
         font-weight: 600;
         letter-spacing: 0.04em;
         line-height: 1.4;
+      }
+
+      .link-icon {
+        display: inline-grid;
+        place-items: center;
+        width: 14px;
+        height: 14px;
+        flex: 0 0 14px;
+        color: currentColor;
+      }
+
+      .link-icon svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .link-icon-stroke svg {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .link-icon-fill svg,
+      .link-icon-github svg {
+        fill: currentColor;
       }
 
       .link-list a::after {
@@ -1697,10 +1702,8 @@
         padding: 14px;
         border: 1px solid var(--line-soft);
         border-radius: 6px;
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.68), transparent),
-          var(--media-bg);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        background: var(--media-bg);
+        box-shadow: none;
         transition:
           border-color 0.2s ease,
           box-shadow 0.2s ease;
@@ -1771,22 +1774,20 @@
         width: 100%;
         max-width: 100%;
         height: auto;
-        border: 1px solid var(--line-soft);
+        border: 0;
         border-radius: 5px;
         background: var(--media-bg);
         cursor: zoom-in;
         transition:
-          border-color 0.18s ease,
-          box-shadow 0.18s ease,
-          transform 0.18s ease;
+          box-shadow 0.24s var(--ease-out),
+          transform 0.24s var(--ease-out);
       }
 
       .media-grid img:hover,
       .media-grid img:focus-visible {
-        border-color: var(--accent-hairline);
-        box-shadow: 0 10px 22px rgba(48, 42, 32, 0.16);
+        box-shadow: 0 10px 24px rgba(36, 38, 41, 0.18);
         outline: none;
-        transform: scale(0.997);
+        transform: translate3d(0, -3px, 0) scale(1.004);
       }
 
       body.is-lightbox-open {
@@ -1806,7 +1807,7 @@
         align-items: center;
         justify-items: center;
         padding: 34px 26px 26px;
-        background: rgba(30, 27, 22, 0.86);
+        background: #181b1e;
         backdrop-filter: blur(2px);
         animation: lightbox-fade 0.2s ease both;
       }
@@ -1836,14 +1837,15 @@
         right: 18px;
         width: 38px;
         height: 38px;
-        border: 1px solid rgba(246, 239, 226, 0.55);
+        border: 1px solid #788187;
         border-radius: 999px;
-        background: rgba(255, 250, 241, 0.12);
+        background: #2d3337;
         color: var(--lightbox-text);
         cursor: pointer;
-        font:
-          26px/1 "Times New Roman",
-          serif;
+        font-family: var(--font-ui);
+        font-size: 26px;
+        font-weight: 400;
+        line-height: 1;
         transition:
           background-color 0.18s ease,
           transform 0.18s var(--ease-out);
@@ -1851,7 +1853,7 @@
 
       .image-lightbox-close:hover,
       .image-lightbox-close:focus-visible {
-        background: rgba(255, 250, 241, 0.22);
+        background: #3a4247;
         outline: none;
         transform: rotate(90deg);
       }
@@ -2336,7 +2338,8 @@
 
       .venue.is-summary-animating {
         overflow: hidden;
-        will-change: auto;
+        overflow-anchor: none;
+        will-change: height, opacity, transform;
       }
 
       .venue.is-summary-fading {
@@ -2345,14 +2348,15 @@
       }
 
       .media-grid {
+        --media-gap: 12px;
         display: flex;
         flex-direction: row;
         align-items: stretch;
-        gap: 1px;
-        padding: 1px;
+        gap: var(--media-gap);
+        padding: var(--media-gap);
         overflow: hidden;
         contain: layout paint;
-        background: var(--line-soft);
+        background: var(--media-bg);
         box-shadow: none;
         transition: border-color 0.2s ease;
       }
@@ -2369,9 +2373,9 @@
         gap: 8px;
         min-width: 0;
         margin: 0;
-        padding: 12px;
+        padding: 0;
         border: 0;
-        background: var(--media-bg);
+        background: transparent;
         transform: none;
       }
 
@@ -2380,15 +2384,10 @@
         border-left: 0;
       }
 
-      /* Keep the first/last preview centered inside their own cells.
-         These explicit overrides are needed because the earlier
-         :first-child/:last-child rules have higher selector specificity. */
-      .media-grid > figure:first-child {
-        padding-left: 12px;
-      }
-
+      .media-grid > figure:first-child,
       .media-grid > figure:last-child {
-        padding-right: 12px;
+        padding-left: 0;
+        padding-right: 0;
       }
 
       .media-grid img {
@@ -2399,19 +2398,17 @@
         contain: paint;
         justify-self: center;
         margin-inline: auto;
-        border-color: transparent;
         box-shadow: none;
         transform: translate3d(0, 0, 0);
         transition:
-          border-color 0.18s ease,
+          box-shadow 0.24s var(--ease-out),
           transform 0.24s var(--ease-out);
       }
 
       .media-grid img:hover,
       .media-grid img:focus-visible {
-        border-color: var(--accent-hairline);
-        box-shadow: none;
-        transform: translate3d(0, -2px, 0);
+        box-shadow: 0 10px 24px rgba(36, 38, 41, 0.18);
+        transform: translate3d(0, -3px, 0) scale(1.004);
       }
 
       .media-grid figcaption {
@@ -2460,13 +2457,30 @@
         .software-card:hover,
         .milestone-ledger .toc-list > li:hover,
         .contact:hover,
-        .media-grid img:hover {
+        .media-grid img:hover,
+        .venue-toggle:hover {
+          box-shadow: none;
           transform: none;
         }
       }
 
       @media (max-width: 760px) {
+        .section-head.reveal-target,
+        .software-card.reveal-target,
+        .paper-card.reveal-target,
+        .conference-card.reveal-target {
+          transition-duration: 0.36s, 0.36s, 0.2s;
+        }
+
+        .section-head.reveal-target:not(.is-visible),
+        .software-card.reveal-target:not(.is-visible),
+        .paper-card.reveal-target:not(.is-visible),
+        .conference-card.reveal-target:not(.is-visible) {
+          transform: translate3d(0, 8px, 0);
+        }
+
         .media-grid {
+          --media-gap: 10px;
           flex-direction: column;
         }
 
@@ -2475,7 +2489,7 @@
           width: 100%;
           flex: 0 0 auto;
           margin-top: 0;
-          padding: 10px;
+          padding: 0;
           border-left: 0;
         }
       }
@@ -2483,134 +2497,71 @@
       /* Merged visual polish: static paint details only; runtime/motion rules stay performance-first. */
       :root {
         --accent-deep: #326b82;
-        --accent-wash: rgba(63, 127, 153, 0.075);
-        --shadow-soft:
-          0 1px 0 rgba(255, 255, 255, 0.82), 0 24px 64px rgba(36, 38, 41, 0.075);
-        --shadow-hover:
-          0 1px 0 rgba(255, 255, 255, 0.88), 0 17px 36px rgba(36, 38, 41, 0.105);
-        --shadow-card:
-          0 1px 0 rgba(255, 255, 255, 0.86), 0 10px 28px rgba(36, 38, 41, 0.048);
+        --accent-wash: var(--accent-soft);
+        --shadow-soft: 0 2px 8px rgba(36, 38, 41, 0.055);
+        --shadow-hover: 0 10px 24px rgba(36, 38, 41, 0.1);
+        --shadow-card: 0 5px 14px rgba(36, 38, 41, 0.07);
       }
 
       ::selection {
-        background: rgba(63, 127, 153, 0.2);
+        background: var(--accent-soft);
         color: var(--text);
       }
 
       body {
-        background:
-          radial-gradient(
-            circle at 50% -12%,
-            rgba(255, 255, 255, 0.7),
-            transparent 34rem
-          ),
-          linear-gradient(115deg, rgba(255, 255, 255, 0.28), transparent 36%),
-          repeating-linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.12) 0,
-            rgba(255, 255, 255, 0.12) 1px,
-            transparent 1px,
-            transparent 56px
-          ),
-          var(--bg);
+        background: var(--bg);
       }
 
       .scroll-progress {
-        background: linear-gradient(
-          90deg,
-          var(--accent-deep),
-          var(--accent),
-          #79a8b9
-        );
-        box-shadow: 0 1px 10px rgba(63, 127, 153, 0.3);
+        background: var(--accent);
+        box-shadow: none;
       }
 
       .page {
-        background:
-          radial-gradient(
-            circle at 92% 0%,
-            rgba(125, 169, 184, 0.075),
-            transparent 310px
-          ),
-          linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 300px),
-          var(--paper);
+        background: var(--paper);
         box-shadow: var(--shadow-soft);
       }
 
       .page::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-        pointer-events: none;
+        content: none;
       }
 
       .language-switch {
-        background: rgba(255, 255, 255, 0.48);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+        background: var(--surface);
+        box-shadow: none;
       }
 
       .language-switch button {
         border-radius: 5px;
-        background: rgba(255, 255, 255, 0.34);
-      }
-
-      header::after,
-      section:not(.cv-abstract)::before {
-        background: linear-gradient(
-          90deg,
-          var(--accent-deep),
-          var(--accent) 38%,
-          rgba(125, 169, 184, 0.2) 84%,
-          transparent
-        );
-      }
-
-      section:not(.cv-abstract)::before {
-        background: var(--section-rule);
+        background: transparent;
       }
 
       .contact-value a {
         width: fit-content;
         max-width: 100%;
-        background-image: linear-gradient(
-          var(--accent-hairline),
-          var(--accent-hairline)
-        );
-        background-position: 0 100%;
-        background-repeat: no-repeat;
-        background-size: 0 1px;
-        transition:
-          color 0.18s ease,
-          background-size 0.24s var(--ease-out);
+        background-image: none;
+        transition: color 0.18s ease;
       }
 
       .contact-value a:hover,
       .contact-value a:focus-visible {
         color: var(--accent-deep);
-        background-size: 100% 1px;
-        text-decoration: none;
+        text-decoration: underline;
+        text-decoration-color: var(--accent-hairline);
       }
 
       .milestone-ledger .toc-list > li {
         border-top-width: 2px;
         border-radius: 5px;
-        background:
-          linear-gradient(145deg, rgba(255, 255, 255, 0.88), transparent 76%),
-          rgba(255, 255, 255, 0.62);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.9),
-          0 7px 18px rgba(36, 38, 41, 0.035);
+        background: var(--card-bg);
+        box-shadow: var(--shadow-card);
       }
 
       .milestone-ledger .toc-list > li:hover,
       .milestone-ledger .toc-list > li:focus-within {
-        border-color: rgba(63, 127, 153, 0.28);
+        border-color: var(--accent-hairline);
         border-top-color: var(--accent-hairline);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.94),
-          0 10px 24px rgba(36, 38, 41, 0.055);
+        box-shadow: var(--shadow-hover);
       }
 
       h2::before {
@@ -2627,14 +2578,7 @@
       .paper-card,
       .conference-card,
       .software-card {
-        background:
-          radial-gradient(
-            circle at 94% 5%,
-            rgba(125, 169, 184, 0.055),
-            transparent 33%
-          ),
-          linear-gradient(180deg, rgba(255, 255, 255, 0.52), transparent 160px),
-          var(--surface);
+        background: var(--card-bg);
       }
 
       .paper-card::after,
@@ -2647,9 +2591,7 @@
       .conference-card:target,
       .software-card:target {
         border-color: var(--accent-hairline);
-        box-shadow:
-          0 0 0 3px rgba(63, 127, 153, 0.09),
-          var(--shadow-card);
+        box-shadow: var(--shadow-card);
       }
 
       .link-list a {
@@ -2657,15 +2599,19 @@
       }
 
       .media-grid {
-        border-color: rgba(63, 127, 153, 0.12);
-        border-radius: 8px;
-        background: rgba(125, 169, 184, 0.14);
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .media-grid:hover {
+        border-color: transparent;
+        box-shadow: none;
       }
 
       .media-grid > figure {
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.84), transparent 160px),
-          var(--media-bg);
+        background: transparent;
       }
 
       .media-grid img {
@@ -2673,12 +2619,12 @@
       }
 
       .image-lightbox {
-        background: rgba(24, 27, 30, 0.9);
+        background: #181b1e;
       }
 
       .image-lightbox-close {
-        border-color: rgba(237, 247, 250, 0.45);
-        background: rgba(255, 255, 255, 0.08);
+        border-color: #788187;
+        background: #2d3337;
       }
 
       .image-lightbox.is-closing {
@@ -2714,7 +2660,7 @@
         .paper-card:hover,
         .conference-card:hover,
         .software-card:hover {
-          border-color: rgba(63, 127, 153, 0.48);
+          border-color: var(--accent-hairline);
         }
       }
 
@@ -2970,7 +2916,6 @@
                 <h3 data-i18n="phdTitle">博士研究生</h3>
                 <div class="education-subtitles">
                   <span data-i18n="phdInstitution">大连理工大学</span>
-                  <span data-i18n="phdMajor">等离子体物理</span>
                   <span data-i18n-html="phdDate">2023.09 &ndash; 至今</span>
                 </div>
               </div>
@@ -2981,7 +2926,6 @@
                 <h3 data-i18n="bachelorTitle">理学学士</h3>
                 <div class="education-subtitles">
                   <span data-i18n="bachelorInstitution">大连理工大学</span>
-                  <span data-i18n="bachelorMajor">应用物理学</span>
                   <span data-i18n-html="bachelorDate"
                     >2019.09 &ndash; 2023.06</span
                   >
@@ -3078,6 +3022,47 @@
         );
       };
 
+      const LINK_ICON_SVG = {
+        github: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3C5.4.3 0 5.7 0 12.3c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 24 12.3C24 5.7 18.6.3 12 .3z"/></svg>`,
+        pypi: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.2 12 3l8 4.2-8 4.3-8-4.3Z"/><path d="M4 7.2v9.3L12 21v-9.5M20 7.2v9.3L12 21"/></svg>`,
+        arxiv: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 4.2h4.1l4.35 4.35v2.55H8.55L3 5.55Zm18 0h-4.1l-4.35 4.35v2.55h2.9L21 5.55Zm0 15.6h-4.1l-4.35-4.35V12.9h2.9L21 18.45Zm-18 0h4.1l4.35-4.35V12.9H8.55L3 18.45Z"/></svg>`,
+        journal: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.5c3.4-.8 6.1-.2 8.5 1.5v12c-2.4-1.7-5.1-2.2-8.5-1.5zM20.5 5.5c-3.4-.8-6.1-.2-8.5 1.5v12c2.4-1.7 5.1-2.2 8.5-1.5z"/></svg>`,
+        pdf: `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="currentColor"/><g transform="translate(5.1 5.1) scale(.68)"><path d="M31.464 20.49c-.948-1.01-2.885-1.594-5.63-1.594-1.469 0-3.167.146-5.016.49a26.7 26.7 0 0 1-3.073-3.625c-.708-.984-1.328-2.026-1.896-3.052 1.083-3.385 1.609-6.146 1.609-8.135 0-2.229-.807-4.552-3.12-4.552-.714 0-1.422.432-1.802 1.068-1.042 1.875-.573 5.99 1.224 10.052a96 96 0 0 1-2.266 6.141 73 73 0 0 1-2.568 5.458C3.723 24.856.353 27.319.041 29.257c-.141.729.099 1.396.609 1.932.177.146.844.724 1.974.724 3.453 0 7.089-5.703 8.943-9.146 1.417-.479 2.839-.917 4.255-1.354a47 47 0 0 1 4.542-1.016c3.646 3.339 6.859 3.865 8.474 3.865 1.99 0 2.698-.823 2.938-1.495.375-.87.094-1.828-.333-2.323l.026.052zm-1.844 1.406c-.141.724-.854 1.208-1.849 1.208-.281 0-.521-.052-.807-.094-1.813-.438-3.51-1.359-5.203-2.813a24 24 0 0 1 3.974-.333c.984 0 1.839.047 2.411.193.656.141 1.698.583 1.464 1.844h.026zM19.589 19.62a69 69 0 0 0-3.927.922 54 54 0 0 0-3.359 1.031 57 57 0 0 0 1.609-3.474c.573-1.359 1.042-2.76 1.516-4.063.464.818.984 1.641 1.505 2.375.854 1.161 1.745 2.266 2.641 3.229v-.026zM13.385 1.641a1.04 1.04 0 0 1 .906-.583c.995 0 1.182 1.156 1.182 2.083 0 1.557-.474 3.922-1.281 6.62-1.417-3.76-1.51-6.906-.802-8.12zM8.182 24.172c-2.411 4.057-4.729 6.573-6.151 6.573-.276 0-.516-.099-.703-.24-.286-.292-.427-.63-.333-1.016.286-1.453 2.984-3.484 7.193-5.318z" fill="#fff"/></g></svg>`,
+      };
+
+      const linkIconKind = (link) => {
+        const label = String(link.label || "").toLowerCase();
+        const href = String(link.href || "").toLowerCase();
+        if (href.includes("github.com") || label.includes("github"))
+          return "github";
+        if (href.includes("pypi.org") || label.includes("pypi")) return "pypi";
+        if (href.includes("arxiv.org") || label.includes("arxiv"))
+          return "arxiv";
+        if (href.endsWith(".pdf") || label === "pdf") return "pdf";
+        if (
+          label.includes("plasma sci") ||
+          href.includes("doi.org/10.1088/2058-6272")
+        )
+          return "journal";
+        return null;
+      };
+
+      const renderLinkIcon = (link) => {
+        const kind = linkIconKind(link);
+        if (!kind) return null;
+        const iconMode =
+          kind === "github"
+            ? "link-icon-fill"
+            : kind === "arxiv" || kind === "pdf"
+              ? "link-icon-brand"
+              : "link-icon-stroke";
+        return createElement("span", {
+          className: `link-icon link-icon-${kind} ${iconMode}`,
+          html: LINK_ICON_SVG[kind],
+          attributes: { "aria-hidden": "true" },
+        });
+      };
+
       const renderLinkList = (item) => {
         if (!item.links?.length) return null;
         return createElement(
@@ -3087,14 +3072,20 @@
             attributes: { "aria-label": item.linksAriaLabel },
           },
           item.links.map((link) =>
-            createElement("a", {
-              text: link.label,
-              attributes: {
-                href: link.href,
-                target: "_blank",
-                rel: "noopener noreferrer",
+            createElement(
+              "a",
+              {
+                attributes: {
+                  href: link.href,
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                },
               },
-            }),
+              [
+                renderLinkIcon(link),
+                createElement("span", { text: link.label }),
+              ],
+            ),
           ),
         );
       };
@@ -3785,6 +3776,10 @@
           });
       };
 
+      const compactSummaryMotion = window.matchMedia(
+        "(max-width: 760px), (pointer: coarse)",
+      );
+
       const animateSummaryRender = async (summary, render) => {
         if (summary.classList.contains("is-summary-animating")) return;
 
@@ -3799,40 +3794,63 @@
         }
 
         const startHeight = Math.ceil(summary.getBoundingClientRect().height);
+        const wasCollapsed = summary.classList.contains("is-collapsed");
         summary.style.height = `${startHeight}px`;
         summary.classList.add("is-summary-animating");
 
-        await render();
-        const targetHeight = Math.ceil(summary.scrollHeight);
-        const animation = summary.animate(
-          [
-            {
-              height: `${startHeight}px`,
-              opacity: 0.72,
-              transform: "translate3d(0, 1px, 0)",
-            },
-            {
-              height: `${targetHeight}px`,
-              opacity: 1,
-              transform: "translate3d(0, 0, 0)",
-            },
-          ],
-          {
-            duration: startHeight === targetHeight ? 180 : 320,
-            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-            fill: "none",
-          },
-        );
-
+        let animation = null;
         try {
+          await render();
+
+          // Measure the post-render natural height. Using scrollHeight while the
+          // expanded height is still locked makes a collapsing summary report
+          // the old height, which causes the final "Show less" snap.
+          summary.style.height = "auto";
+          const targetHeight = Math.ceil(
+            summary.getBoundingClientRect().height,
+          );
+          summary.style.height = `${startHeight}px`;
+
+          // Flush the restored start geometry so WAAPI always interpolates from
+          // a real start box to the measured natural end box in both directions.
+          summary.getBoundingClientRect();
+
+          const distance = Math.abs(targetHeight - startHeight);
+          const maxDuration = compactSummaryMotion.matches ? 300 : 380;
+          const duration = Math.round(
+            clamp(220 + distance * 0.28, 220, maxDuration),
+          );
+          const direction = wasCollapsed ? 1 : -1;
+
+          animation = summary.animate(
+            [
+              {
+                height: `${startHeight}px`,
+                opacity: 0.84,
+                transform: `translate3d(0, ${direction}px, 0)`,
+              },
+              {
+                height: `${targetHeight}px`,
+                opacity: 1,
+                transform: "translate3d(0, 0, 0)",
+              },
+            ],
+            {
+              duration: startHeight === targetHeight ? 160 : duration,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+              fill: "forwards",
+            },
+          );
+
           await animation.finished;
         } catch {
-          // A rapid second interaction can cancel an in-flight animation.
+          // Keep the final DOM state even if the animation is interrupted.
+        } finally {
+          summary.style.height = "";
+          summary.classList.remove("is-summary-animating");
+          animation?.cancel();
+          if (toggle) toggle.disabled = false;
         }
-
-        summary.classList.remove("is-summary-animating");
-        summary.style.height = "";
-        if (toggle) toggle.disabled = false;
       };
 
       const collapseSummary = (summary) => {
