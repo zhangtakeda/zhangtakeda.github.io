@@ -56,6 +56,7 @@
             focusFastModeling: "托卡马克等离子体的快速高保真集成建模",
             focusEquilibriumTransport: "聚变等离子体的平衡与输运",
             focusNumericalAlgorithms: "计算物理和数值算法",
+            focusMultiphysicsFramework: "多物理场模拟的框架设计",
             experienceLabel: "履历",
             milestonesLabel: "Milestones",
             navProfile: "个人简介",
@@ -119,6 +120,8 @@
               "Coupled modeling of fusion-plasma equilibrium and transport",
             focusNumericalAlgorithms:
               "Computational physics and numerical algorithms",
+            focusMultiphysicsFramework:
+              "Multiphysics simulation framework design",
             experienceLabel: "Experience",
             milestonesLabel: "Milestones",
             navProfile: "Profile",
@@ -187,26 +190,37 @@
               "VEQ: a fast parametric Grad–Shafranov solver for fixed-boundary tokamak equilibria with flexible source profiles",
             authorsHtml:
               "<strong>R. Zhang</strong>, H. Xie*, Y. Li, W. Meng, F. Wang, Z. Wang*, <em>to be submitted</em>.",
-            tagsAriaLabel: "Paper tags",
-            tags: ["in preparation"],
+            keywordsAriaLabel: "Paper keywords",
+            keywords: [
+              "Tokamak Equilibrium",
+              "Grad-Shafranov Equation",
+              "Projected Residual Formulation",
+              "Flux-Surface Parameterization",
+            ],
             summary: [
               "Veloce EQuilibrium (VEQ) is a compact parametric framework for tokamak modeling workflows that repeatedly query continuous fixed-boundary equilibria at low latency. The VEQPy implementation evaluated here is an axisymmetric fixed-boundary Grad-Shafranov solver whose main solve enforces a variationally induced projected residual. Its active unknowns are MXH-type flux-surface harmonics and shifted-Chebyshev coefficients for radial profile and source closures. Six input routes accept pressure-gradient, toroidal-field-function, poloidal-flux-gradient, enclosed toroidal current, current-density and safety-factor information through route-specific closures, while all routes map to the same finite-dimensional residual operator. Controlled tests show route consistency for smooth, mutually compatible inputs generated from a common reference equilibrium. For Pareto-selected reduced configurations in three G-EQDSK cases, the most accurate selected rows correspond to a D-shaped case (9 active parameters, minor-radius-normalized shape error 1.4e-3, solve-only median 1.6 ms), an H-mode case (65, 1.1e-3, 19 ms), and an X-point case treated as a smoothed fixed-boundary representation of a diverted boundary (94, 1.9e-3, 15 ms). Sampled pointwise strong-form Grad-Shafranov diagnostics show that enriching the active representation mainly improves interior force balance, whereas the global RMS and maximum values for the H-mode and X-point cases remain dominated by near-boundary contributions. In an isolated one-dimensional transport-geometry coupling test against the target geometry read from G-EQDSK, the temperature-profile response remains below about one percent. These results support using VEQ for repeated equilibrium-geometry queries, provided that pointwise diagnostics are retained to screen cases requiring boundary refinement, local correction or higher-fidelity equilibrium solves.",
             ].join(" "),
             media: [
               {
                 src: "2026-VEQ-1.png",
+                width: 1567,
+                height: 1320,
                 alt: "2026-VEQ-1.png",
                 caption:
                   "Controlled PF-route reference equilibrium used for the route-consistency benchmark.",
               },
               {
                 src: "2026-VEQ-2.png",
+                width: 1567,
+                height: 1485,
                 alt: "2026-VEQ-2.png",
                 caption:
                   "Consistency across input routes derived from the same controlled reference equilibrium",
               },
               {
                 src: "2026-VEQ-3.png",
+                width: 3300,
+                height: 1980,
                 alt: "2026-VEQ-3.png",
                 caption:
                   "Accuracy–cost Pareto analysis for reduced VEQ configurations.",
@@ -228,8 +242,13 @@
               "Structure-preserving algorithms for guiding center dynamics based on the slow manifold of classical Pauli particle",
             authorsHtml:
               "<strong>R. Zhang</strong>, Z. Wang, J. Xiao, F. Wang*, <em>Plasma Sci. Technol.</em> <strong>26</strong> (2024) 065101.",
-            tagsAriaLabel: "Paper tags",
-            tags: ["SCIE", "JCR Q3"],
+            keywordsAriaLabel: "Paper keywords",
+            keywords: [
+              "Structure-Preserving Algorithm",
+              "Averaged Vector Field",
+              "Classical Pauli Particle",
+              "Guiding Center Dynamics",
+            ],
             summary: [
               "Classical Pauli particle (CPP) serves as a slow manifold, substituting the conventional guiding center dynamics.",
               "Based on the CPP, we utilize averaged vector field (AVF) method in the computations of drift orbits.",
@@ -1452,11 +1471,37 @@
       .conference-title {
         margin: 0 0 9px;
         color: var(--text);
+        font-family:
+          "Helvetica Neue", "PingFang SC", "Noto Sans SC", "Microsoft YaHei",
+          sans-serif;
         font-size: 18px;
+        font-weight: 600;
         line-height: 1.5;
+        transition: color 0.3s ease;
+      }
+
+      .paper-title > a,
+      .software-title > a,
+      .conference-title > a {
+        color: var(--text);
+        font: inherit;
+        text-decoration-line: underline;
+        text-decoration-color: transparent;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.12em;
         transition:
-          color 0.22s ease,
-          transform 0.22s var(--ease-out);
+          color 0.3s ease,
+          text-decoration-color 0.3s ease;
+      }
+
+      .paper-card:hover .paper-title > a,
+      .paper-card:focus-within .paper-title > a,
+      .software-card:hover .software-title > a,
+      .software-card:focus-within .software-title > a,
+      .conference-card:hover .conference-title > a,
+      .conference-card:focus-within .conference-title > a {
+        color: var(--accent);
+        text-decoration-color: var(--accent-hairline);
       }
 
       .paper-card:hover .paper-title,
@@ -1466,7 +1511,6 @@
       .conference-card:hover .conference-title,
       .conference-card:focus-within .conference-title {
         color: var(--accent);
-        transform: translateY(-1px);
       }
 
       .authors,
@@ -1488,7 +1532,7 @@
       .software-summary {
         margin-top: 9px;
         padding-top: 9px;
-        border-top: 1px solid var(--line-soft);
+        border-top: 2px solid rgba(63, 127, 153, 0.14);
         color: var(--summary-text);
         font-family: var(--font-ui);
         font-size: 14px;
@@ -1509,13 +1553,13 @@
       .paper-card .venue {
         margin-top: 11px;
         padding-top: 10px;
-        border-top: 1px solid var(--line-soft);
+        border-top: 2px solid rgba(63, 127, 153, 0.14);
       }
 
       .conference-card .venue {
         margin-top: 0;
         padding-top: 10px;
-        border-top: 1px solid var(--line-soft);
+        border-top: 2px solid rgba(63, 127, 153, 0.14);
       }
 
       .summary-text {
@@ -1646,7 +1690,8 @@
       }
 
       .media-grid {
-        display: grid;
+        display: flex;
+        align-items: stretch;
         gap: 14px;
         margin-top: 14px;
         padding: 14px;
@@ -2300,7 +2345,9 @@
       }
 
       .media-grid {
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
         gap: 1px;
         padding: 1px;
         overflow: hidden;
@@ -2318,6 +2365,7 @@
         display: grid;
         grid-template-rows: auto auto;
         align-content: start;
+        justify-items: center;
         gap: 8px;
         min-width: 0;
         margin: 0;
@@ -2332,12 +2380,26 @@
         border-left: 0;
       }
 
+      /* Keep the first/last preview centered inside their own cells.
+         These explicit overrides are needed because the earlier
+         :first-child/:last-child rules have higher selector specificity. */
+      .media-grid > figure:first-child {
+        padding-left: 12px;
+      }
+
+      .media-grid > figure:last-child {
+        padding-right: 12px;
+      }
+
       .media-grid img {
         width: 100%;
         height: auto;
-        aspect-ratio: 4 / 3;
+        aspect-ratio: auto;
         object-fit: contain;
         contain: paint;
+        justify-self: center;
+        margin-inline: auto;
+        border-color: transparent;
         box-shadow: none;
         transform: translate3d(0, 0, 0);
         transition:
@@ -2347,6 +2409,7 @@
 
       .media-grid img:hover,
       .media-grid img:focus-visible {
+        border-color: var(--accent-hairline);
         box-shadow: none;
         transform: translate3d(0, -2px, 0);
       }
@@ -2404,12 +2467,13 @@
 
       @media (max-width: 760px) {
         .media-grid {
-          grid-template-columns: 1fr;
+          flex-direction: column;
         }
 
         .media-grid > figure,
         .media-grid > figure + figure {
-          width: auto;
+          width: 100%;
+          flex: 0 0 auto;
           margin-top: 0;
           padding: 10px;
           border-left: 0;
@@ -2501,6 +2565,10 @@
           rgba(125, 169, 184, 0.2) 84%,
           transparent
         );
+      }
+
+      section:not(.cv-abstract)::before {
+        background: var(--section-rule);
       }
 
       .contact-value a {
@@ -2821,6 +2889,9 @@
                 聚变等离子体的平衡与输运
               </li>
               <li data-i18n="focusNumericalAlgorithms">计算物理和数值算法</li>
+              <li data-i18n="focusMultiphysicsFramework">
+                多物理场模拟的框架设计
+              </li>
             </ul>
           </div>
           <p class="focus-label milestone-label" data-i18n="milestonesLabel">
@@ -2979,6 +3050,20 @@
         return element;
       };
 
+      const renderKeywordList = (item) => {
+        if (!item.keywords?.length) return null;
+        return createElement(
+          "ul",
+          {
+            className: "tag-list",
+            attributes: { "aria-label": item.keywordsAriaLabel },
+          },
+          item.keywords.map((keyword) =>
+            createElement("li", { className: "tag", text: keyword }),
+          ),
+        );
+      };
+
       const renderTagList = (item) => {
         if (!item.tags?.length) return null;
         return createElement(
@@ -3019,24 +3104,39 @@
         return createElement(
           "div",
           { className: "media-grid" },
-          media.map((image) =>
-            createElement("figure", {}, [
-              createElement("img", {
-                attributes: {
-                  src: image.src,
-                  alt: image.alt,
-                  width: 1200,
-                  height: 900,
-                  fetchpriority: "low",
-                  loading: "lazy",
-                  decoding: "async",
-                },
-              }),
+          media.map((image) => {
+            const imageElement = createElement("img", {
+              attributes: {
+                src: image.src,
+                alt: image.alt,
+                width: image.width,
+                height: image.height,
+                fetchpriority: "low",
+                loading: "lazy",
+                decoding: "async",
+              },
+            });
+            const figure = createElement("figure", {}, [
+              imageElement,
               image.caption
                 ? createElement("figcaption", { text: image.caption })
                 : null,
-            ]),
-          ),
+            ]);
+            const syncImageMetrics = () => {
+              const width = imageElement.naturalWidth || Number(image.width);
+              const height = imageElement.naturalHeight || Number(image.height);
+              if (!width || !height) return;
+              figure.style.setProperty("--media-grow", String(width));
+              imageElement.setAttribute("width", String(width));
+              imageElement.setAttribute("height", String(height));
+            };
+
+            imageElement.addEventListener("load", syncImageMetrics, {
+              once: true,
+            });
+            syncImageMetrics();
+            return figure;
+          }),
         );
       };
 
@@ -3044,6 +3144,24 @@
         id: item.id,
         dataset: { indexLabel: item.indexLabel },
       });
+
+      const renderCardTitle = (item, className) => {
+        const firstLink = item.links?.[0];
+        if (!firstLink?.href) {
+          return createElement("h3", { className, text: item.title });
+        }
+
+        return createElement("h3", { className }, [
+          createElement("a", {
+            text: item.title,
+            attributes: {
+              href: firstLink.href,
+              target: "_blank",
+              rel: "noopener noreferrer",
+            },
+          }),
+        ]);
+      };
 
       const renderSoftwareCard = (item) =>
         createElement(
@@ -3054,10 +3172,7 @@
               className: "software-label",
               text: item.label,
             }),
-            createElement("h3", {
-              className: "software-title",
-              text: item.title,
-            }),
+            renderCardTitle(item, "software-title"),
             createElement("p", {
               className: "software-meta",
               html: item.metaHtml,
@@ -3095,7 +3210,7 @@
               className: classes.label,
               text: item.label,
             }),
-            createElement("h3", { className: classes.title, text: item.title }),
+            renderCardTitle(item, classes.title),
             createElement("p", {
               className: "authors",
               html: item.authorsHtml,
@@ -3103,7 +3218,7 @@
             classes.meta && item.meta
               ? createElement("p", { className: classes.meta, text: item.meta })
               : null,
-            renderTagList(item),
+            renderKeywordList(item),
             createElement("p", {
               className: "venue summary-text",
               text: item.summary,
