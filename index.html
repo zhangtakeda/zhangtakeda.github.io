@@ -9,7 +9,7 @@
       content="Ruohan Zhang, Ph.D. student in plasma physics at Dalian University of Technology, working on fusion-plasma equilibrium, transport, and scientific computing."
     />
     <meta name="author" content="Ruohan Zhang" />
-    <meta name="theme-color" content="#e7e7e6" />
+    <meta name="theme-color" content="#e4e6e6" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://zhangtakeda.github.io/" />
     <meta property="og:title" content="Ruohan Zhang | Plasma Physics" />
@@ -33,136 +33,17 @@
       fetchpriority="high"
     />
     <script>
+      const UI_TEXT = Object.freeze({
+        imageDialogLabel: "Full-size image preview",
+        closeImageLabel: "Close full-size image preview",
+        imageFallback: "Image",
+        openImageHint: "click to view full-size image",
+        imagePreviewFallback: "Full-size image preview",
+        showMore: "... Show more",
+        showLess: "Show less",
+      });
+
       const CV_DATA = {
-        translations: {
-          zh: {
-            documentTitle: "张若涵 | 等离子体物理",
-            documentDescription:
-              "张若涵, 大连理工大学等离子体物理博士研究生, 研究聚变等离子体平衡、输运与科学计算方法.",
-            name: "张若涵",
-            role: "博士研究生",
-            affiliationLine:
-              '<span class="title-label">单位:</span><span class="title-value">大连理工大学物理学院</span>',
-            profilePhotoAlt: "占位头像：一只虎斑猫",
-            contactAria: "联系方式",
-            contactEmail: "邮箱",
-            contactGithub: "GitHub",
-            skipLink: "跳到正文",
-            tocAria: "成果索引",
-            contributionSoftware: "1 个代码仓库",
-            contributionPublications: "2 篇论文",
-            contributionConferences: "5 项会议报告",
-            focusLabel: "Research Focus",
-            focusFastModeling: "托卡马克等离子体的快速高保真集成建模",
-            focusEquilibriumTransport: "聚变等离子体的平衡与输运",
-            focusNumericalAlgorithms: "计算物理和数值算法",
-            focusMultiphysicsFramework: "多物理场模拟的框架设计",
-            experienceLabel: "履历",
-            milestonesLabel: "Milestones",
-            navProfile: "个人简介",
-            navEducation: "教育经历",
-            navSoftware: "软件",
-            navPublications: "论文发表",
-            navConferences: "会议报告",
-            sectionProfile: "个人简介",
-            sectionEducation: "教育经历",
-            sectionSoftware: "软件",
-            sectionPublications: "论文发表",
-            sectionConferences: "会议报告",
-            pubIndexAria: "论文发表索引",
-            confIndexAria: "会议报告索引",
-            pubSubindexAria: "论文发表子索引",
-            confSubindexAria: "会议报告子索引",
-            profileSummary:
-              "<p>大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡, 输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++ 科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现. 师从王正汹教授和王丰教授, 并与谢华生博士合作开展相关算法与代码开发工作.</p>",
-            phdTitle: "博士研究生",
-            phdInstitution: "大连理工大学",
-            phdMajor: "等离子体物理",
-            phdDate: "2023.09 &ndash; 至今",
-            phdTime: "大连理工大学 | 2023.09 &ndash; 至今",
-            phdMeta:
-              "<strong>专业</strong>: 等离子体物理<br><strong>导师</strong>: 王正汹教授, 王丰教授",
-            bachelorTitle: "理学学士",
-            bachelorInstitution: "大连理工大学",
-            bachelorMajor: "应用物理学",
-            bachelorDate: "2019.09 &ndash; 2023.06",
-            bachelorTime: "大连理工大学 | 2019.09 &ndash; 2023.06",
-            bachelorMeta: "<strong>专业</strong>: 应用物理学",
-            imageDialogLabel: "原图预览",
-            closeImageLabel: "关闭原图预览",
-            imageFallback: "图片",
-            openImageHint: "点击查看原图",
-            imagePreviewFallback: "原图预览",
-            showMore: "... 展开",
-            showLess: "收起",
-          },
-          en: {
-            documentTitle: "Ruohan Zhang | Plasma Physics",
-            documentDescription:
-              "Ruohan Zhang, Ph.D. student in plasma physics at Dalian University of Technology, working on fusion-plasma equilibrium, transport, and scientific computing.",
-            name: "Ruohan Zhang",
-            role: "Ph.D. Student",
-            affiliationLine:
-              '<span class="title-label">Affiliation:</span><span class="title-value">School of Physics, Dalian University of Technology</span>',
-            profilePhotoAlt: "Placeholder profile image showing a tabby cat",
-            contactAria: "Contact information",
-            contactEmail: "Email",
-            contactGithub: "GitHub",
-            skipLink: "Skip to content",
-            tocAria: "Contribution index",
-            contributionSoftware: "1 repository",
-            contributionPublications: "2 papers",
-            contributionConferences: "5 presentations",
-            focusLabel: "Research Focus",
-            focusFastModeling:
-              "Fast, high-fidelity integrated modeling for tokamak plasmas",
-            focusEquilibriumTransport:
-              "Coupled modeling of fusion-plasma equilibrium and transport",
-            focusNumericalAlgorithms:
-              "Computational physics and numerical algorithms",
-            focusMultiphysicsFramework:
-              "Multiphysics simulation framework design",
-            experienceLabel: "Experience",
-            milestonesLabel: "Milestones",
-            navProfile: "Profile",
-            navEducation: "Education",
-            navSoftware: "Software",
-            navPublications: "Publications",
-            navConferences: "Conferences",
-            sectionProfile: "Profile",
-            sectionEducation: "Education",
-            sectionSoftware: "Software",
-            sectionPublications: "Publications",
-            sectionConferences: "Conferences",
-            pubIndexAria: "Publication index",
-            confIndexAria: "Conference presentation index",
-            pubSubindexAria: "Publication subindex",
-            confSubindexAria: "Conference presentation subindex",
-            profileSummary:
-              "<p>I am a Ph.D. student in plasma physics at Dalian University of Technology, working on numerical algorithms and scientific computing for fusion plasma equilibrium, transport, and integrated modeling. My research involves the development of numerical methods and simulation codes in Python and C++, with particular interests in numerical optimization and high-performance computing. I am advised by Prof. Zhengxiong Wang and Prof. Feng Wang, and collaborate with Dr. Huasheng Xie at Beijing VeloAlpha Technology Co., Ltd. on numerical algorithm development and scientific software implementation.</p>",
-            phdTitle: "Ph.D. Student",
-            phdInstitution: "Dalian University of Technology",
-            phdMajor: "Plasma Physics",
-            phdDate: "2023.09 &ndash; Present",
-            phdTime:
-              "Dalian University of Technology | 2023.09 &ndash; Present",
-            phdMeta: "<strong>Major</strong>: Plasma Physics<br>",
-            bachelorTitle: "B.Sc.",
-            bachelorInstitution: "Dalian University of Technology",
-            bachelorMajor: "Applied Physics",
-            bachelorDate: "2019.09 &ndash; 2023.06",
-            bachelorTime:
-              "Dalian University of Technology | 2019.09 &ndash; 2023.06",
-            bachelorMeta: "<strong>Major</strong>: Applied Physics",
-            imageDialogLabel: "Full-size image preview",
-            closeImageLabel: "Close full-size image preview",
-            imageFallback: "Image",
-            openImageHint: "click to view full-size image",
-            imagePreviewFallback: "Full-size image preview",
-            showMore: "... Show more",
-            showLess: "Show less",
-          },
-        },
         software: [
           {
             id: "software-veqpy",
@@ -226,7 +107,7 @@
                   "Accuracy–cost Pareto analysis for reduced VEQ configurations.",
               },
             ],
-            linksAriaLabel: "论文链接",
+            linksAriaLabel: "Publication links",
             links: [
               {
                 href: "https://doi.org/10.48550/arXiv.2606.11821",
@@ -259,7 +140,7 @@
               "To evaluate the practical value of the methods, we conduct simulations in non-axisymmetric perturbation magnetic fields as part of the experiments, demonstrating that our CPP-based AVF method can handle simulations under complex magnetic field configurations with high accuracy, which the CPP-based Boris algorithm lacks.",
               "Through numerical experiments, we demonstrate that CPP can replace guiding center dynamics in using energy-preserving algorithms for computations, providing a new, efficient, as well as stable approach for applying structure-preserving algorithms in plasma simulations.",
             ].join(" "),
-            linksAriaLabel: "论文链接",
+            linksAriaLabel: "Publication links",
             links: [
               {
                 href: "https://doi.org/10.1088/2058-6272/ad225b",
@@ -279,7 +160,7 @@
             meta: "第十二届全国青年计算物理学术会议通知 | 2026.08 | 云南昆明",
             summary:
               "托卡马克等离子体输运、稳定性、加热与电流驱动等计算中, 需要反复求解轴对称磁流体 (MHD) 平衡. 针对已知最外闭合磁面和一维剖面信息的固定边界场景, 本工作提出快速参数化 Grad-Shafranov 求解器 Veloce EQuilibrium (VEQ). 不同于在矩形网格上离散极向磁通, VEQ 直接用 MXH-type 角向谐波和 shifted-Chebyshev 径向展开表示嵌套磁面, 使待求系数构成连续磁面几何的有限维表示. 平衡方程由 Grad-Shafranov 变分残差在磁面位移诱导的通量扰动上投影得到, 主动一维剖面变量通过径向矩方程闭合. 该框架将压力与环向场源、极向磁通梯度、积分环向电流、电流密度和安全因子等六类输入统一到同一非线性残差装配形式, 适用于集成建模和重构数据后处理. 数值验证表明, 六种输入路径可在相容剖面下恢复同一参考平衡; 对 Solovev、CHEASE 和 EFIT 数据构造的实际位形, Pareto 扫描显示 VEQ 可在 1e-3 量级的归一化形状误差下实现亚毫秒至毫秒级求解. 强形式 Grad-Shafranov 残差诊断显示, 增加谱自由度主要降低等离子体内部残差, 而强成形算例的较大残差仍局域于边界附近. 一维热输运敏感性测试表明, 降阶平衡几何引起的温度剖面误差低于 1%. 结果说明, VEQ 可为快速集成建模提供紧凑高效的连续磁面平衡求解方案, 并通过强形式残差识别需要边界修正或更高保真求解的情形.",
-            linksAriaLabel: "论文链接",
+            linksAriaLabel: "Presentation links",
             links: [{ href: "2026.08-invited.pdf", label: "PDF" }],
           },
           {
@@ -292,7 +173,7 @@
             meta: "第十四届全国磁约束聚变理论与模拟会议 | 2026.04 | 辽宁大连",
             summary:
               "在托卡马克集成模拟及等离子体实时控制中, 快速且高精度的 Grad-Shafranov 方程求解是不可或缺的基础环节. 然而, 面对多约束输入, 反复迭代与参数扫描等场景, 传统的三矩平衡程序 (如 METIS 和 ASTRA) 在计算速度, 收敛精度以及输入剖面组合的灵活性上往往存在显著的局限性. 为此, 本文开发了基于变分矩方法的高效平衡求解器 veqpy, 并作为 VEQ (Veloce/Variational EQuilibrium) 项目的固定边界求解组件, 可实现系统程序 (system code) 级别的快速求解. 该程序参考 MXH-Cheb[1] 参数化方法, 采用 Chebyshev 和 Fourier 多项式对磁面几何进行参数化展开, 能够在紧凑的参数空间中实现高保真的物理表达. 在算法设计上, veqpy 提供了严格 (strict) 与鲁棒 (robust) 两类变分优化策略, 以“数据-算子-求解器”为抽象架构实现了多种算子, 支持包括环向电流密度, 平行电流密度及安全因子在内的多种物理或归一化剖面的直接输入, 实现了对多种物理约束 (等离子体总电流, 环向比压) 的稳健收敛. 此外, 模块内置的冷/热启动基准算例涵盖整个算子族, 为代码的回归测试与在物理上的一致性验证提供了完整支撑. 基准测试表明, 与高保真平衡程序相比, veqpy 计算的磁面几何参数与物理场量计算误差可被严格控制在 1 mm 以内, 同时能够在 CPU 上于 1~100 ms 量级实现单线程平衡求解. 本研究可作为下一代聚变反应堆集成模拟与实时控制系统的高效, 可靠替代方案.",
-            linksAriaLabel: "论文链接",
+            linksAriaLabel: "Presentation links",
             links: [{ href: "2026.04-oral.pdf", label: "PDF" }],
           },
           {
@@ -304,7 +185,7 @@
             meta: "第二届磁约束等离子体运行模式和集成模拟研讨会 | 2025.11 | 广东深圳",
             summary:
               "集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具, 绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流. 国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱, 严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python 环境的集成模拟平台, 已经实现基础的输运和平衡模块, 并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC 可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核, 能在毫秒量级内高效求解非线性对流-扩散方程组, 同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了 Green 函数生成机制来提升计算效率, 避免了可能的奇异值问题, 并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S 方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合, 支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务. 未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.",
-            linksAriaLabel: "论文链接",
+            linksAriaLabel: "Presentation links",
             links: [{ href: "2025.11-poster.pdf", label: "PDF" }],
           },
           {
@@ -316,7 +197,7 @@
             meta: "第十三届全国磁约束聚变理论与模拟会议 | 2025.05 | 浙江杭州",
             summary:
               "集成模拟是研究等离子体行为和评估托卡马克运行参数的核心工具, 绝大多数理论模拟工作使用 OMFIT 集成平台构建工作流. 国内集成模拟平台在输运和平衡两个模块方面仍较为薄弱, 严重限制了其功能完善与进一步应用. 我们正在开发一个基于 Python 环境的集成模拟平台, 已经实现基础的输运和平衡模块, 并完成了二者的耦合计算. 自主研发的新经典输运模块 OTC 可以模拟多个剖面的演化, 通过 Python 接口调用 C++ 内核, 能在毫秒量级内高效求解非线性对流-扩散方程组, 同时支持扩展其他输运模型. 使用的平衡模块是 HEQ 的改进版本, 重构了 Green 函数生成机制来提升计算效率, 避免了可能的奇异值数值问题, 并新增了集成模拟中的平衡演化模式 (equilibrium mode) 进行 G-S 方程的求解. OTC 与 HEQ-alpha 在 Python 环境中进行耦合, 支持托卡马克稳态剖面构造与演化预测等基础集成模拟任务. 未来将进一步开发高维相空间输运模块, 并继续扩展平台功能.",
-            linksAriaLabel: "论文链接",
+            linksAriaLabel: "Presentation links",
             links: [{ href: "2025.05-poster.pdf", label: "PDF" }],
           },
           {
@@ -328,7 +209,7 @@
             meta: "第一届磁约束等离子体运行模式和集成模拟研讨会 | 2024.08 | 四川成都",
             summary:
               "输运模块是托卡马克集成模拟计算中最基本的部分之一, 对国内目前开展的集成模拟平台的建设工作至关重要. 最近, 我们团队开发了面向托卡马克集成模拟的一维输运计算模块 OTC (One-dimensional Transport Computing module for integrated tokamak modeling), 并完成了基本的验证工作. OTC 目前能够同时计算新经典输运 (neoclassical transport) 中多个剖面的演化, 包括各种主要离子和杂质离子的密度, 电子和离子的温度以及电流密度. OTC 基于 C++ 编写以实现高效率计算, 并使用了适合求解任意多个变量的对流-扩散方程组的通用求解器, 因此可以无限制地添加各种离子和杂质, 设计上也可以进行其他输运模型的计算. 该模块内置了用户自定义的权重, 可以通过接口在程序外部进行控制, 便于对输运系数或物理过程进行修正. 未来, 我们计划将其打包并在 Python 环境中实现调用, 从而与集成模拟平台上的加热与电流驱动模块, 平衡模块等模块进行工作流整合, 最后发展为完整的软件. 同时纳入更多物理过程, 并利用 ONETWO 等常用输运模块对 OTC 进行验证, 最终可能还会集成其他湍流输运模型 (如 TGLF), 以扩展其功能和应用范围.",
-            linksAriaLabel: "论文链接",
+            linksAriaLabel: "Presentation links",
             links: [{ href: "2024.08-poster.pdf", label: "PDF" }],
           },
         ],
@@ -340,50 +221,43 @@
         --font-ui:
           "Helvetica Neue", "Aptos", "Segoe UI", "Noto Sans SC", "PingFang SC",
           "Microsoft YaHei", sans-serif;
-        --font-mono:
-          "SFMono-Regular", "Cascadia Mono", "Roboto Mono", "Noto Sans Mono",
-          monospace;
         --serif-body-size: 17px;
         --serif-heading-size: 16px;
-        --serif-meta-size: 14px;
         --text: #252629;
         --muted: #62666b;
         --light: #8c9095;
         --line: #d7d7d8;
         --line-soft: #ececed;
         --accent: #3f7f99;
-        --accent-soft: #eef6f8;
+        --accent-soft: #f0f0ef;
         --accent-hairline: #7da9b8;
         --rule-major-color: var(--accent);
         --rule-major-width: 2px;
         --rule-minor-color: #dbe5e8;
         --rule-minor-width: 1px;
-        --paper: #f7f7f6;
-        --bg: #e7e7e6;
-        --surface: #fbfbfa;
+        --paper: #f2f3f3;
+        --bg: #e4e6e6;
+        --surface: #f8f9f9;
         --card-bg: #ffffff;
         --media-bg: #ffffff;
         --page-border: #dddddc;
-        --nav-bg: var(--paper);
         --meta-text: #888c91;
         --summary-text: #333539;
         --lightbox-text: #edf7fa;
-        --shadow-soft: 0 2px 8px rgba(36, 38, 41, 0.055);
-        --shadow-hover: 0 10px 24px rgba(36, 38, 41, 0.1);
-        --shadow-card: 0 5px 14px rgba(36, 38, 41, 0.07);
         --focus-outline: rgba(63, 127, 153, 0.3);
-        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+        --duration-fast: 160ms;
+        --duration-medium: 260ms;
+        --ease-out: var(--ease-enter);
         --page-x: 66px;
         --profile-photo-width: 40mm;
         --profile-gap: 46px;
-        --focus-main-width: 520px;
-        --focus-gap: 5px;
         --overview-leading-offset: 20px;
         --focus-row-top-space: 15px;
-        --education-width: 280px;
-        --overview-width: calc(
-          var(--focus-main-width) + var(--focus-gap) + var(--education-width)
-        );
+        --accent-deep: #326b82;
+        --shadow-soft: 0 2px 8px rgba(36, 38, 41, 0.055);
+        --shadow-hover: 0 10px 24px rgba(36, 38, 41, 0.1);
+        --shadow-card: 0 5px 14px rgba(36, 38, 41, 0.07);
       }
 
       * {
@@ -393,6 +267,7 @@
       html {
         color-scheme: light;
         scroll-behavior: smooth;
+        scrollbar-gutter: auto;
       }
 
       body {
@@ -401,23 +276,23 @@
         padding: 0;
         min-height: 100dvh;
         counter-reset: cv-section;
-        background: var(--bg);
         color: var(--text);
         font-family: var(--font-serif);
         font-variant-numeric: lining-nums;
         line-height: 1.72;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
+        background: var(--bg);
       }
 
       body::before {
-        content: "";
         position: fixed;
         inset: 0;
         z-index: 0;
         pointer-events: none;
         background: none;
         opacity: 0;
+        content: none;
       }
 
       .skip-link {
@@ -449,11 +324,13 @@
         z-index: 1200;
         width: 100%;
         height: 3px;
-        background: var(--accent);
-        box-shadow: 0 0 18px rgba(63, 127, 153, 0.38);
         pointer-events: none;
-        transform: scaleX(var(--scroll-progress, 0));
         transform-origin: left center;
+        contain: strict;
+        transform: scale3d(0, 1, 1);
+        will-change: transform;
+        background: var(--accent);
+        box-shadow: none;
       }
 
       .page {
@@ -463,70 +340,12 @@
         max-width: 1040px;
         margin: 34px auto;
         padding: 62px var(--page-x) 68px;
-        background: var(--paper);
         border: 1px solid var(--page-border);
         border-radius: 8px;
+        animation: page-clarity 0.48s var(--ease-out) both;
+        background: var(--paper);
         box-shadow: var(--shadow-soft);
-        animation: page-rise 0.8s var(--ease-out) both;
-      }
-
-      .top-controls {
-        display: grid;
-        justify-items: end;
-        gap: 9px;
-        margin: -34px 0 28px;
-      }
-
-      .language-switch {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 3px;
-        padding: 3px;
-        border: 1px solid var(--line-soft);
-        border-radius: 6px;
-        background: var(--surface);
-        color: var(--light);
-        font-family: var(--font-ui);
-        font-size: 13px;
-        font-weight: 600;
-      }
-
-      .language-switch span {
-        display: none;
-      }
-
-      .language-switch button {
-        min-height: 27px;
-        padding: 2px 8px;
-        border: 0;
-        border-radius: 4px;
-        background: transparent;
-        color: var(--muted);
-        cursor: pointer;
-        font: inherit;
-        text-underline-offset: 4px;
-        transition:
-          color 0.2s ease,
-          transform 0.2s var(--ease-out);
-      }
-
-      .language-switch button[aria-pressed="true"] {
-        background: var(--accent-soft);
-        color: var(--accent);
-        box-shadow: none;
-        text-decoration: none;
-      }
-
-      .language-switch button:hover,
-      .language-switch button:focus-visible {
-        background: var(--surface);
-        color: var(--accent);
-        outline: 2px solid var(--focus-outline);
-        outline-offset: 1px;
-        text-decoration: none;
-        transform: translateY(-1px);
+        padding-bottom: 52px;
       }
 
       header {
@@ -563,15 +382,11 @@
         font-family: var(--font-serif);
         font-size: 3.35rem;
         line-height: 1.04;
-        letter-spacing: 0.08em;
+        letter-spacing: 0;
         color: var(--accent);
         font-weight: 700;
         white-space: nowrap;
         text-wrap: balance;
-      }
-
-      html[lang="en"] .name {
-        letter-spacing: 0;
       }
 
       .title {
@@ -664,6 +479,10 @@
         font-weight: 600;
         line-height: 1.35;
         overflow-wrap: anywhere;
+        width: fit-content;
+        max-width: 100%;
+        background-image: none;
+        transition: color 0.18s ease;
       }
 
       .contact-value a + a {
@@ -677,12 +496,14 @@
 
       section:not(.cv-abstract) {
         counter-increment: cv-section;
+        position: relative;
+        padding-top: 36px;
       }
 
       section.reveal-target,
       .section-head.reveal-target,
       .profile-summary.reveal-target,
-      .abstract-education.reveal-target,
+      .experience-block.reveal-target,
       .timeline.reveal-target,
       .software-list.reveal-target,
       .paper-grid.reveal-target,
@@ -696,7 +517,7 @@
       section.reveal-target:not(.is-visible),
       .section-head.reveal-target:not(.is-visible),
       .profile-summary.reveal-target:not(.is-visible),
-      .abstract-education.reveal-target:not(.is-visible),
+      .experience-block.reveal-target:not(.is-visible),
       .timeline.reveal-target:not(.is-visible),
       .software-list.reveal-target:not(.is-visible),
       .paper-grid.reveal-target:not(.is-visible),
@@ -708,7 +529,7 @@
       section.reveal-target.is-visible,
       .section-head.reveal-target.is-visible,
       .profile-summary.reveal-target.is-visible,
-      .abstract-education.reveal-target.is-visible,
+      .experience-block.reveal-target.is-visible,
       .timeline.reveal-target.is-visible,
       .software-list.reveal-target.is-visible,
       .paper-grid.reveal-target.is-visible,
@@ -716,142 +537,159 @@
         opacity: 1;
       }
 
-      .milestone-ledger {
-        width: fit-content;
+      .highlights-ledger {
+        width: 100%;
         max-width: 100%;
-        margin: 0 0 0 14px;
+        margin: 0;
         padding: 0;
         background: transparent;
         font-family: var(--font-ui);
       }
 
-      .milestone-ledger .toc-list {
+      /* Compact equal-width academic index with rails in normal document flow. */
+      .highlights-ledger .highlight-list {
         display: grid;
-        grid-template-columns: repeat(3, minmax(126px, max-content));
-        gap: 15px;
-        margin: 0;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: auto auto;
+        column-gap: 0;
+        width: min(calc(100% - 6px), 330px);
+        margin: 0 0 0 6px;
         padding: 0;
+        border-top: 1px solid var(--line);
         list-style: none;
       }
 
-      .milestone-ledger .toc-list > li {
+      .highlights-ledger .highlight-list > li {
         display: grid;
-        align-content: start;
-        gap: 9px;
+        grid-row: 1 / span 2;
+        grid-template-rows: subgrid;
         min-width: 0;
         margin: 0;
-        padding: 10px 12px 10px;
-        border: 1px solid var(--line-soft);
-        border-top: 3px solid var(--line);
-        border-radius: 0;
-        background: var(--media-bg);
-        box-shadow: none;
+        padding: 0;
+        background: transparent;
+      }
+
+      .highlights-ledger .highlight-list > li::before,
+      .highlights-ledger .highlight-list > li::after {
+        content: none;
+      }
+
+      .highlights-ledger .highlight-list > li > a {
+        display: block;
+        min-width: 0;
+        padding: 8px 3px 8px;
+        color: var(--text);
+        text-decoration: none;
         transition:
-          border-color 0.2s ease,
           color 0.2s ease,
           transform 0.24s var(--ease-out);
       }
 
-      .milestone-ledger .toc-list > li:hover,
-      .milestone-ledger .toc-list > li:focus-within {
-        border-color: var(--line);
-        border-top-color: var(--light);
-        transform: translateY(-1px);
+      .highlight-copy {
+        display: grid;
+        gap: 2px;
+        min-width: 0;
       }
 
-      .milestone-ledger .toc-list > li > a {
+      .highlight-title {
+        color: var(--text);
+        font-family: var(--font-serif);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.28;
+        transition: color 0.2s ease;
+      }
+
+      .highlight-detail {
+        display: block;
+        color: var(--meta-text);
+        font-family: var(--font-ui);
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1.35;
+      }
+
+      .highlights-ledger .highlight-list > li:hover > a,
+      .highlights-ledger .highlight-list > li:focus-within > a {
+        transform: translate(3px, -1px);
+      }
+
+      .highlights-ledger .highlight-list > li:hover .highlight-title,
+      .highlights-ledger .highlight-list > li:focus-within .highlight-title {
+        color: var(--accent);
+      }
+
+      .highlights-ledger .highlight-subindex {
         display: grid;
         grid-template-columns: minmax(0, 1fr);
-        gap: 10px;
-        align-items: start;
-        padding: 0;
-        color: var(--text);
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 1.38;
-        text-decoration: none;
-        transition:
-          background-color 0.2s ease,
-          color 0.2s ease,
-          transform 0.2s var(--ease-out);
-      }
-
-      .milestone-ledger .toc-list > li > a:hover,
-      .milestone-ledger .toc-list > li > a:focus-visible {
-        color: var(--accent);
-        text-decoration: none;
-      }
-
-      .milestone-ledger .toc-list > li > a:hover .contribution-title,
-      .milestone-ledger .toc-list > li > a:focus-visible .contribution-title,
-      .milestone-ledger .toc-list > li > a:hover .contribution-detail,
-      .milestone-ledger .toc-list > li > a:focus-visible .contribution-detail {
-        color: var(--accent);
-      }
-
-      .contribution-copy {
-        display: grid;
-        gap: 5px;
-        min-width: 0;
-      }
-
-      .contribution-title {
-        color: var(--text);
-        font-size: 15.5px;
-        font-weight: 700;
-        line-height: 1.25;
-        transition: color 0.2s ease;
-      }
-
-      .contribution-detail {
-        display: block;
-        color: var(--muted);
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 1.45;
-        transition: color 0.2s ease;
-      }
-
-      .milestone-ledger .toc-subindex {
-        display: grid;
-        grid-template-columns: minmax(0, max-content);
-        gap: 4px;
-        align-items: start;
+        align-content: start;
+        gap: 3px;
         min-width: 0;
         margin: 0;
-        padding: 9px 0 0;
-        border-top: var(--rule-minor-width) solid var(--rule-minor-color);
+        padding: 8px 3px 0;
+        border-top: 1px solid var(--line);
         list-style: none;
         color: var(--muted);
       }
 
-      .milestone-ledger .toc-subindex li {
+      .highlights-ledger .highlight-subindex li {
         display: block;
+        min-width: 0;
         margin: 0;
       }
 
-      .milestone-ledger .toc-subindex a {
+      .highlights-ledger .highlight-subindex li + li::before {
+        content: none;
+      }
+
+      .highlights-ledger .highlight-subindex a,
+      .highlights-ledger .highlight-overflow-marker {
         display: block;
         max-width: 100%;
         overflow: hidden;
         padding: 0;
         color: var(--muted);
-        font-size: 12.5px;
+        font-size: 12px;
         font-weight: 600;
-        line-height: 1.4;
+        line-height: 1.45;
         text-align: left;
         text-decoration: none;
         text-overflow: ellipsis;
         white-space: nowrap;
+        transition:
+          color 0.18s ease,
+          transform 0.24s var(--ease-out);
       }
 
-      .milestone-ledger .toc-subindex a:hover,
-      .milestone-ledger .toc-subindex a:focus-visible {
-        color: var(--text);
+      .highlights-ledger .highlight-list > li:hover .highlight-subindex a,
+      .highlights-ledger .highlight-list > li:hover .highlight-overflow-marker,
+      .highlights-ledger
+        .highlight-list
+        > li:focus-within
+        .highlight-subindex
+        a,
+      .highlights-ledger
+        .highlight-list
+        > li:focus-within
+        .highlight-overflow-marker {
+        transform: translate(3px, -1px);
+      }
+
+      .highlights-ledger .highlight-subindex a:hover,
+      .highlights-ledger .highlight-subindex a:focus-visible {
+        color: var(--accent);
         text-decoration: underline;
+        text-decoration-color: var(--accent-hairline);
+        text-underline-offset: 3px;
       }
 
-      .milestone-ledger .toc-subindex[aria-hidden="true"] {
+      .highlights-ledger .highlight-overflow-marker {
+        color: var(--meta-text);
+        letter-spacing: 0.08em;
+        user-select: none;
+      }
+
+      .highlights-ledger .highlight-subindex[aria-hidden="true"] {
         min-height: 1px;
       }
 
@@ -922,11 +760,12 @@
       .conference-card,
       .software-card {
         scroll-margin-top: 84px;
-      }
-
-      section:not(.cv-abstract) {
-        position: relative;
-        padding-top: 36px;
+        backface-visibility: hidden;
+        transform: translate3d(0, 0, 0);
+        transition:
+          border-color var(--duration-fast) ease,
+          transform 220ms var(--ease-enter);
+        background: var(--card-bg);
       }
 
       section:not(.cv-abstract)::before {
@@ -970,6 +809,7 @@
         font-variant-numeric: tabular-nums;
         letter-spacing: 0.08em;
         transform: translateY(-0.16em);
+        opacity: 0.92;
       }
 
       h3 {
@@ -1001,7 +841,6 @@
           color 0.18s ease,
           background-color 0.18s ease,
           border-color 0.18s ease,
-          box-shadow 0.18s ease,
           transform 0.18s var(--ease-out);
       }
 
@@ -1028,12 +867,12 @@
         position: relative;
         background: var(--card-bg);
         border: 1px solid var(--line-soft);
-        border-radius: 6px;
         box-shadow: var(--shadow-card);
         transition:
           border-color 0.24s ease,
           box-shadow 0.24s ease,
           transform 0.24s var(--ease-out);
+        border-radius: 8px;
       }
 
       .item::before,
@@ -1135,6 +974,7 @@
       .timeline .item:focus-within {
         border-color: transparent;
         box-shadow: none;
+        transform: none;
       }
 
       .timeline .item:hover > *,
@@ -1179,10 +1019,8 @@
         grid-template-columns: var(--profile-photo-width) minmax(0, 1fr);
         gap: var(--profile-gap);
         align-items: start;
-        width: min(
-          calc(100% - var(--overview-leading-offset)),
-          var(--overview-width)
-        );
+        width: calc(100% - var(--overview-leading-offset));
+        max-width: 100%;
         margin: 34px 0 0 var(--overview-leading-offset);
         padding-bottom: 18px;
         border-bottom: var(--rule-minor-width) solid var(--rule-minor-color);
@@ -1225,23 +1063,25 @@
 
       .focus-overview {
         display: grid;
-        grid-template-columns: minmax(0, var(--focus-main-width)) var(
-            --education-width
-          );
-        gap: var(--focus-gap);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: clamp(20px, 2.4vw, 30px);
         align-items: start;
-        width: min(
-          calc(100% - var(--overview-leading-offset)),
-          var(--overview-width)
-        );
+        width: calc(100% - var(--overview-leading-offset));
         max-width: 100%;
         margin: var(--focus-row-top-space) 0 42px var(--overview-leading-offset);
       }
 
-      .focus-main {
+      .overview-left,
+      .focus-main,
+      .highlights-block,
+      .experience-block {
         width: 100%;
-        max-width: 100%;
         min-width: 0;
+        max-width: 100%;
+      }
+
+      .highlights-block {
+        margin-top: 22px;
       }
 
       .focus-label {
@@ -1251,10 +1091,6 @@
         font-size: 19px;
         font-weight: 700;
         line-height: 1.24;
-      }
-
-      .milestone-label {
-        margin-top: 22px;
       }
 
       .focus-brief {
@@ -1308,19 +1144,13 @@
         margin: 2px 0;
       }
 
-      .abstract-education {
-        width: var(--education-width);
-        max-width: 100%;
-        min-width: 260px;
-      }
-
-      .abstract-education .timeline {
+      .experience-block .timeline {
         gap: 22px;
         margin-top: 0;
         margin-left: 14px;
       }
 
-      .abstract-education .timeline::after {
+      .experience-block .timeline::after {
         content: "";
         position: absolute;
         left: 6px;
@@ -1329,19 +1159,19 @@
         border-left: 1px dashed var(--line);
       }
 
-      .abstract-education h3 {
+      .experience-block h3 {
         color: var(--text);
         font-family: var(--font-serif);
         font-size: var(--serif-heading-size);
         font-weight: 650;
       }
 
-      .abstract-education .item-head {
+      .experience-block .item-head {
         display: block;
         margin-bottom: 2px;
       }
 
-      .education-subtitles {
+      .experience-details {
         display: grid;
         gap: 1px;
         margin-top: 2px;
@@ -1352,11 +1182,11 @@
         line-height: 1.45;
       }
 
-      .education-subtitles span:last-child {
+      .experience-details span:last-child {
         color: var(--meta-text);
       }
 
-      .abstract-education .time {
+      .experience-block .time {
         display: block;
         margin-top: 1px;
         font-family: var(--font-ui);
@@ -1552,25 +1382,18 @@
       }
 
       .venue.is-collapsible {
-        transition:
-          color 0.2s ease,
-          height 0.34s var(--ease-out),
-          opacity 0.2s ease,
-          transform 0.2s var(--ease-out);
+        transition: color 0.2s ease;
       }
 
       .venue.is-collapsed {
-        overflow: hidden;
+        overflow: visible;
       }
 
       .venue.is-summary-animating {
         overflow: hidden;
-        will-change: height, opacity, transform;
-      }
-
-      .venue.is-summary-fading {
-        opacity: 0.62;
-        transform: translateY(1px);
+        overflow-anchor: none;
+        contain: paint;
+        will-change: height;
       }
 
       .venue-toggle {
@@ -1617,17 +1440,19 @@
       .link-list a {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 5px;
-        min-height: 24px;
-        padding: 1px 8px;
+        height: 26px;
+        min-height: 26px;
+        padding: 0 8px;
         border: 1px solid var(--line);
-        border-radius: 4px;
         background: transparent;
         color: var(--accent);
         font-size: 12px;
         font-weight: 600;
-        letter-spacing: 0.04em;
-        line-height: 1.4;
+        letter-spacing: 0.035em;
+        line-height: 1;
+        border-radius: 5px;
       }
 
       .link-icon {
@@ -1637,6 +1462,11 @@
         height: 14px;
         flex: 0 0 14px;
         color: currentColor;
+      }
+
+      .link-list a > span:not(.link-icon) {
+        display: inline-block;
+        line-height: 1;
       }
 
       .link-icon svg {
@@ -1658,16 +1488,6 @@
         fill: currentColor;
       }
 
-      .link-list a::after {
-        content: "↗";
-        color: var(--accent-hairline);
-        font-size: 11px;
-        line-height: 1;
-        transition:
-          color 0.18s ease,
-          transform 0.18s var(--ease-out);
-      }
-
       .link-list a:hover,
       .link-list a:focus-visible {
         background: var(--accent-soft);
@@ -1676,12 +1496,6 @@
         outline: none;
         text-decoration: none;
         transform: translateY(-1px);
-      }
-
-      .link-list a:hover::after,
-      .link-list a:focus-visible::after {
-        color: var(--accent);
-        transform: translate(1px, -1px);
       }
 
       .paper-card:hover .link-list a,
@@ -1695,23 +1509,25 @@
       }
 
       .media-grid {
-        display: flex;
-        align-items: stretch;
-        gap: 14px;
         margin-top: 14px;
-        padding: 14px;
-        border: 1px solid var(--line-soft);
-        border-radius: 6px;
-        background: var(--media-bg);
+        --media-gap: 12px;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        gap: var(--media-gap);
+        padding: var(--media-gap);
+        overflow: hidden;
+        contain: layout paint;
+        transition: border-color 0.2s ease;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
         box-shadow: none;
-        transition:
-          border-color 0.2s ease,
-          box-shadow 0.2s ease;
       }
 
       .media-grid:hover {
-        border-color: rgba(63, 127, 153, 0.52);
-        box-shadow: inset 0 0 0 1px rgba(63, 127, 153, 0.1);
+        border-color: transparent;
+        box-shadow: none;
       }
 
       .media-row {
@@ -1770,23 +1586,29 @@
       .media-grid img {
         display: block;
         align-self: center;
-        justify-self: center;
-        width: 100%;
         max-width: 100%;
-        height: auto;
         border: 0;
-        border-radius: 5px;
         background: var(--media-bg);
         cursor: zoom-in;
+        width: 100%;
+        height: auto;
+        aspect-ratio: auto;
+        object-fit: contain;
+        contain: paint;
+        justify-self: center;
+        margin-inline: auto;
+        box-shadow: none;
+        transform: translate3d(0, 0, 0);
         transition:
           box-shadow 0.24s var(--ease-out),
           transform 0.24s var(--ease-out);
+        border-radius: 6px;
       }
 
       .media-grid img:hover,
       .media-grid img:focus-visible {
-        box-shadow: 0 10px 24px rgba(36, 38, 41, 0.18);
         outline: none;
+        box-shadow: 0 10px 24px rgba(36, 38, 41, 0.18);
         transform: translate3d(0, -3px, 0) scale(1.004);
       }
 
@@ -1807,9 +1629,10 @@
         align-items: center;
         justify-items: center;
         padding: 34px 26px 26px;
-        background: #181b1e;
-        backdrop-filter: blur(2px);
         animation: lightbox-fade 0.2s ease both;
+        overscroll-behavior: contain;
+        backdrop-filter: none;
+        background: #181b1e;
       }
 
       .image-lightbox-img {
@@ -1839,7 +1662,6 @@
         height: 38px;
         border: 1px solid #788187;
         border-radius: 999px;
-        background: #2d3337;
         color: var(--lightbox-text);
         cursor: pointer;
         font-family: var(--font-ui);
@@ -1849,6 +1671,8 @@
         transition:
           background-color 0.18s ease,
           transform 0.18s var(--ease-out);
+        border-color: #788187;
+        background: #2d3337;
       }
 
       .image-lightbox-close:hover,
@@ -1859,7 +1683,6 @@
       }
 
       .media-grid figcaption {
-        margin-top: 7px;
         padding-top: 0;
         color: var(--muted);
         font-family: var(--font-ui);
@@ -1869,6 +1692,8 @@
         transition:
           color 0.2s ease,
           transform 0.2s var(--ease-out);
+        margin-top: 0;
+        transform: none;
       }
 
       .media-row figure:hover figcaption,
@@ -1956,6 +1781,21 @@
         }
       }
 
+      @media (max-width: 900px) and (min-width: 761px) {
+        .focus-overview {
+          grid-template-columns: minmax(0, 1fr);
+          row-gap: 24px;
+          width: 100%;
+          margin-left: 0;
+        }
+
+        .overview-left,
+        .experience-block {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+
       @media (max-width: 760px) {
         :root {
           --page-x: 22px;
@@ -1966,16 +1806,7 @@
           padding: 30px var(--page-x) 42px;
           border-radius: 0;
           border: 0;
-          box-shadow: none;
-        }
-
-        .top-controls {
-          justify-items: start;
-          margin: 0 0 18px;
-        }
-
-        .language-switch {
-          justify-content: flex-start;
+          box-shadow: var(--shadow-soft);
         }
 
         header {
@@ -1985,7 +1816,8 @@
         }
 
         .name {
-          font-size: 2.45rem;
+          font-size: 2.18rem;
+          letter-spacing: 0;
           white-space: normal;
         }
 
@@ -1996,55 +1828,71 @@
           padding-left: 14px;
         }
 
-        html[lang="en"] .name {
-          font-size: 2.18rem;
-          letter-spacing: 0;
-        }
-
-        .milestone-ledger {
-          width: calc(100% - 14px);
-          margin-bottom: 38px;
+        .highlights-ledger {
+          width: 100%;
+          margin: 0 0 38px;
         }
 
         .focus-overview {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
           gap: 18px;
           width: 100%;
           margin: 12px 0 38px;
         }
 
-        .focus-main {
-          width: 100%;
-        }
-
-        .abstract-education {
+        .overview-left,
+        .focus-main,
+        .experience-block,
+        .highlights-block {
           width: 100%;
           min-width: 0;
+          max-width: 100%;
         }
 
-        .focus-overview .milestone-ledger {
+        .focus-overview .highlights-ledger {
           margin-bottom: 0;
         }
 
-        .milestone-ledger .toc-list {
-          grid-template-columns: 1fr;
-          gap: 10px;
+        .highlights-ledger .highlight-list {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          width: min(calc(100% - 6px), 330px);
         }
 
-        .milestone-ledger .toc-list > li {
-          padding: 11px 12px 10px;
-        }
-
-        .milestone-ledger .toc-list > li > a {
-          gap: 8px;
-        }
-
-        .contribution-title {
+        .highlight-title {
           font-size: 14px;
         }
 
-        .milestone-ledger .toc-subindex a {
+        .highlight-detail {
+          font-size: 10px;
+        }
+
+        .highlights-ledger .highlight-subindex a,
+        .highlights-ledger .highlight-overflow-marker {
           font-size: 11.5px;
+        }
+
+        @media (max-width: 520px) {
+          .highlights-ledger .highlight-list {
+            grid-template-columns: 1fr;
+            grid-template-rows: none;
+            gap: 14px;
+            border-top: 0;
+          }
+
+          .highlights-ledger .highlight-list > li {
+            display: block;
+            grid-row: auto;
+            border-top: 1px solid var(--line);
+          }
+
+          .highlights-ledger .highlight-list > li > a {
+            padding-inline: 0;
+          }
+
+          .highlights-ledger .highlight-subindex {
+            margin: 0;
+            padding: 7px 0 0;
+          }
         }
 
         .cv-abstract {
@@ -2125,12 +1973,10 @@
         .paper-card:hover,
         .conference-card:hover,
         .software-card:hover,
-        .milestone-ledger .toc-list > li:hover,
         .item:focus-within,
         .paper-card:focus-within,
         .conference-card:focus-within,
         .software-card:focus-within,
-        .milestone-ledger .toc-list > li:focus-within,
         .contact:hover,
         .contact:focus-within {
           transform: none;
@@ -2175,10 +2021,7 @@
         }
       }
 
-      /* Runtime and motion refinements */
-      html {
-        scrollbar-gutter: auto;
-      }
+      /* Motion and runtime states */
 
       @media (min-width: 761px) {
         html {
@@ -2186,32 +2029,10 @@
         }
       }
 
-      body::before {
-        content: none;
-      }
-
       button,
       a,
       [role="button"] {
         touch-action: manipulation;
-      }
-
-      .scroll-progress {
-        contain: strict;
-        transform: scale3d(0, 1, 1);
-        will-change: transform;
-      }
-
-      .page {
-        animation: page-clarity 0.48s var(--ease-out) both;
-      }
-
-      a {
-        transition:
-          color 0.18s ease,
-          background-color 0.18s ease,
-          border-color 0.18s ease,
-          transform 0.18s var(--ease-out);
       }
 
       .section-head.reveal-target,
@@ -2243,25 +2064,15 @@
         transform: translate3d(0, 0, 0);
       }
 
-      .paper-card,
-      .conference-card,
-      .software-card {
-        backface-visibility: hidden;
-        transform: translate3d(0, 0, 0);
-        transition:
-          border-color 0.2s ease,
-          transform 0.3s var(--ease-out);
-      }
-
       .paper-card::before,
       .conference-card::before,
       .software-card::before {
         width: 2px;
-        transform: scaleY(0.55);
+        transform: scaleY(0.58);
         transform-origin: center;
         transition:
-          background-color 0.2s ease,
-          transform 0.3s var(--ease-out);
+          background-color var(--duration-fast) ease,
+          transform var(--duration-medium) var(--ease-enter);
       }
 
       .paper-card::after,
@@ -2271,13 +2082,10 @@
         position: absolute;
         inset: 0;
         border-radius: inherit;
-        box-shadow: var(--shadow-hover);
         opacity: 0;
         pointer-events: none;
-        transform: scale(0.997);
-        transition:
-          opacity 0.3s var(--ease-out),
-          transform 0.3s var(--ease-out);
+        transition: opacity 220ms var(--ease-enter);
+        box-shadow: var(--shadow-hover);
       }
 
       .paper-card:hover,
@@ -2286,9 +2094,9 @@
       .paper-card:focus-within,
       .conference-card:focus-within,
       .software-card:focus-within {
-        border-color: rgba(63, 127, 153, 0.62);
+        border-color: rgba(63, 127, 153, 0.58);
         box-shadow: var(--shadow-card);
-        transform: translate3d(0, -2px, 0);
+        transform: translate3d(0, -1px, 0);
       }
 
       .paper-card:hover::before,
@@ -2309,12 +2117,6 @@
       .conference-card:focus-within::after,
       .software-card:focus-within::after {
         opacity: 1;
-        transform: scale(1);
-      }
-
-      .timeline .item:hover,
-      .timeline .item:focus-within {
-        transform: none;
       }
 
       .link-list a:hover,
@@ -2328,43 +2130,6 @@
         box-shadow: none;
       }
 
-      .venue.is-collapsible {
-        transition: color 0.2s ease;
-      }
-
-      .venue.is-collapsed {
-        overflow: visible;
-      }
-
-      .venue.is-summary-animating {
-        overflow: hidden;
-        overflow-anchor: none;
-        will-change: height, opacity, transform;
-      }
-
-      .venue.is-summary-fading {
-        opacity: 1;
-        transform: none;
-      }
-
-      .media-grid {
-        --media-gap: 12px;
-        display: flex;
-        flex-direction: row;
-        align-items: stretch;
-        gap: var(--media-gap);
-        padding: var(--media-gap);
-        overflow: hidden;
-        contain: layout paint;
-        background: var(--media-bg);
-        box-shadow: none;
-        transition: border-color 0.2s ease;
-      }
-
-      .media-grid:hover {
-        box-shadow: none;
-      }
-
       .media-grid > figure {
         display: grid;
         grid-template-rows: auto auto;
@@ -2375,8 +2140,8 @@
         margin: 0;
         padding: 0;
         border: 0;
-        background: transparent;
         transform: none;
+        background: transparent;
       }
 
       .media-grid > figure + figure {
@@ -2390,40 +2155,24 @@
         padding-right: 0;
       }
 
-      .media-grid img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: auto;
-        object-fit: contain;
-        contain: paint;
-        justify-self: center;
-        margin-inline: auto;
-        box-shadow: none;
-        transform: translate3d(0, 0, 0);
-        transition:
-          box-shadow 0.24s var(--ease-out),
-          transform 0.24s var(--ease-out);
-      }
-
-      .media-grid img:hover,
-      .media-grid img:focus-visible {
-        box-shadow: 0 10px 24px rgba(36, 38, 41, 0.18);
-        transform: translate3d(0, -3px, 0) scale(1.004);
-      }
-
-      .media-grid figcaption {
-        margin-top: 0;
-        transform: none;
-      }
-
       .media-grid > figure:hover figcaption,
       .media-grid > figure:focus-within figcaption {
         transform: none;
       }
 
-      .image-lightbox {
-        overscroll-behavior: contain;
-        backdrop-filter: none;
+      .image-lightbox.motion-managed,
+      .image-lightbox.motion-managed .image-lightbox-img {
+        animation: none;
+      }
+
+      .image-lightbox.motion-managed .image-lightbox-img {
+        transform-origin: center center;
+        will-change: transform, opacity;
+      }
+
+      .image-lightbox.motion-managed .image-lightbox-caption,
+      .image-lightbox.motion-managed .image-lightbox-close {
+        will-change: opacity, transform;
       }
 
       @keyframes page-clarity {
@@ -2455,7 +2204,6 @@
         .paper-card:hover,
         .conference-card:hover,
         .software-card:hover,
-        .milestone-ledger .toc-list > li:hover,
         .contact:hover,
         .media-grid img:hover,
         .venue-toggle:hover {
@@ -2494,53 +2242,15 @@
         }
       }
 
-      /* Merged visual polish: static paint details only; runtime/motion rules stay performance-first. */
-      :root {
-        --accent-deep: #326b82;
-        --accent-wash: var(--accent-soft);
-        --shadow-soft: 0 2px 8px rgba(36, 38, 41, 0.055);
-        --shadow-hover: 0 10px 24px rgba(36, 38, 41, 0.1);
-        --shadow-card: 0 5px 14px rgba(36, 38, 41, 0.07);
-      }
+      /* Static and interaction states */
 
       ::selection {
         background: var(--accent-soft);
         color: var(--text);
       }
 
-      body {
-        background: var(--bg);
-      }
-
-      .scroll-progress {
-        background: var(--accent);
-        box-shadow: none;
-      }
-
-      .page {
-        background: var(--paper);
-        box-shadow: var(--shadow-soft);
-      }
-
       .page::before {
         content: none;
-      }
-
-      .language-switch {
-        background: var(--surface);
-        box-shadow: none;
-      }
-
-      .language-switch button {
-        border-radius: 5px;
-        background: transparent;
-      }
-
-      .contact-value a {
-        width: fit-content;
-        max-width: 100%;
-        background-image: none;
-        transition: color 0.18s ease;
       }
 
       .contact-value a:hover,
@@ -2550,81 +2260,11 @@
         text-decoration-color: var(--accent-hairline);
       }
 
-      .milestone-ledger .toc-list > li {
-        border-top-width: 2px;
-        border-radius: 5px;
-        background: var(--card-bg);
-        box-shadow: var(--shadow-card);
-      }
-
-      .milestone-ledger .toc-list > li:hover,
-      .milestone-ledger .toc-list > li:focus-within {
-        border-color: var(--accent-hairline);
-        border-top-color: var(--accent-hairline);
-        box-shadow: var(--shadow-hover);
-      }
-
-      h2::before {
-        opacity: 0.92;
-      }
-
-      .item,
-      .paper-card,
-      .conference-card,
-      .software-card {
-        border-radius: 8px;
-      }
-
-      .paper-card,
-      .conference-card,
-      .software-card {
-        background: var(--card-bg);
-      }
-
-      .paper-card::after,
-      .conference-card::after,
-      .software-card::after {
-        box-shadow: var(--shadow-hover);
-      }
-
       .paper-card:target,
       .conference-card:target,
       .software-card:target {
         border-color: var(--accent-hairline);
         box-shadow: var(--shadow-card);
-      }
-
-      .link-list a {
-        border-radius: 5px;
-      }
-
-      .media-grid {
-        border: 0;
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
-      }
-
-      .media-grid:hover {
-        border-color: transparent;
-        box-shadow: none;
-      }
-
-      .media-grid > figure {
-        background: transparent;
-      }
-
-      .media-grid img {
-        border-radius: 6px;
-      }
-
-      .image-lightbox {
-        background: #181b1e;
-      }
-
-      .image-lightbox-close {
-        border-color: #788187;
-        background: #2d3337;
       }
 
       .image-lightbox.is-closing {
@@ -2670,6 +2310,18 @@
         }
       }
 
+      /* End-of-page rhythm: keep a deliberate paper margin without a large empty tail. */
+
+      .page > section:last-child {
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          padding-bottom: 36px;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -2683,7 +2335,7 @@
         section.reveal-target,
         .section-head.reveal-target,
         .profile-summary.reveal-target,
-        .abstract-education.reveal-target,
+        .experience-block.reveal-target,
         .timeline.reveal-target,
         .software-list.reveal-target,
         .paper-grid.reveal-target,
@@ -2751,34 +2403,24 @@
   </head>
 
   <body>
-    <a class="skip-link" href="#overview" data-i18n="skipLink"
-      >Skip to content</a
-    >
+    <a class="skip-link" href="#overview">Skip to content</a>
     <div class="scroll-progress" aria-hidden="true"></div>
     <main class="page">
-      <div class="top-controls">
-        <div class="language-switch" role="group" aria-label="Language switch">
-          <button type="button" data-language-button="en" aria-pressed="true">
-            English
-          </button>
-          <span aria-hidden="true">|</span>
-          <button type="button" data-language-button="zh" aria-pressed="false">
-            中文
-          </button>
-        </div>
-      </div>
       <header>
         <div>
-          <h1 class="name" data-i18n="name">张若涵</h1>
-          <p class="title" data-i18n="role">博士研究生</p>
-          <p class="title title-line" data-i18n-html="affiliationLine">
-            <span class="title-label">单位:</span
-            ><span class="title-value">大连理工大学物理学院</span>
+          <h1 class="name">Ruohan Zhang</h1>
+          <p class="title">Ph.D. Student</p>
+          <p class="title title-line">
+            <span class="title-label">Affiliation:</span
+            ><span class="title-value"
+              >Dalian University of Technology<br />Beijing VeloAlpha Technology
+              Co., Ltd.</span
+            >
           </p>
         </div>
         <address class="contact">
           <div class="contact-row">
-            <span class="contact-label" data-i18n="contactEmail">Email</span>
+            <span class="contact-label">Email</span>
             <span class="contact-value">
               <a href="mailto:zhangtakeda@gmail.com">zhangtakeda@gmail.com</a>
               <a href="mailto:rhzhang@mail.dlut.edu.cn"
@@ -2788,7 +2430,7 @@
           </div>
 
           <div class="contact-row">
-            <span class="contact-label" data-i18n="contactGithub">GitHub</span>
+            <span class="contact-label">GitHub</span>
             <span class="contact-value">
               <a
                 href="https://github.com/zhangtakeda"
@@ -2806,129 +2448,111 @@
           <img
             src="profile-photo.png"
             alt="Placeholder profile image showing a tabby cat"
-            data-i18n-alt="profilePhotoAlt"
             fetchpriority="high"
             decoding="async"
           />
         </figure>
 
-        <div class="summary profile-summary" data-i18n-html="profileSummary">
+        <div class="summary profile-summary">
           <p>
-            大连理工大学等离子体物理在读博士, 重点关注聚变等离子体平衡,
-            输运及其耦合建模中的数值算法与科学计算方法. 具备 Python 与 C++
-            科学计算程序开发经验, 熟悉数值优化及高性能计算相关实现.
-            师从王正汹教授和王丰教授,
-            并与谢华生博士合作开展相关算法与代码开发工作.
+            I am a Ph.D. student in plasma physics at Dalian University of
+            Technology, working on numerical algorithms and scientific computing
+            for fusion plasma equilibrium, transport, and integrated modeling.
+            My research involves the development of numerical methods and
+            simulation codes in Python and C++, with particular interests in
+            numerical optimization and high-performance computing. I am advised
+            by Prof. Zhengxiong Wang and Prof. Feng Wang, and collaborate with
+            Dr. Huasheng Xie at Beijing VeloAlpha Technology Co., Ltd. on
+            numerical algorithm development and scientific software
+            implementation.
           </p>
         </div>
       </section>
 
       <div class="focus-overview">
-        <div class="focus-main">
-          <p class="focus-label" data-i18n="focusLabel">Research Focus</p>
-          <div class="focus-brief">
-            <ul class="research-list">
-              <li data-i18n="focusFastModeling">
-                托卡马克等离子体的快速高保真集成建模
-              </li>
-              <li data-i18n="focusEquilibriumTransport">
-                聚变等离子体的平衡与输运
-              </li>
-              <li data-i18n="focusNumericalAlgorithms">计算物理和数值算法</li>
-              <li data-i18n="focusMultiphysicsFramework">
-                多物理场模拟的框架设计
-              </li>
-            </ul>
+        <div class="overview-left">
+          <div class="focus-main">
+            <p class="focus-label">Research Focus</p>
+            <div class="focus-brief">
+              <ul class="research-list">
+                <li>Integrated modeling of tokamak plasmas</li>
+                <li>Equilibrium and transport modeling of fusion plasmas</li>
+                <li>Numerical methods for computational plasma physics</li>
+                <li>Multiphysics simulation framework development</li>
+              </ul>
+            </div>
           </div>
-          <p class="focus-label milestone-label" data-i18n="milestonesLabel">
-            Milestones
-          </p>
-          <nav
-            class="milestone-ledger"
-            aria-label="成果索引"
-            data-i18n-aria-label="tocAria"
-          >
-            <ol class="toc-list">
-              <li class="toc-item has-subindex">
-                <a class="contribution-link" href="#software">
-                  <span class="contribution-copy">
-                    <span class="contribution-title" data-i18n="navSoftware"
-                      >Software</span
-                    >
-                    <span
-                      class="contribution-detail"
-                      data-i18n="contributionSoftware"
-                      >1 repositories</span
-                    >
-                  </span>
-                </a>
-                <ol
-                  class="toc-subindex"
-                  data-card-selector="#software .software-card"
-                ></ol>
-              </li>
-              <li class="toc-item has-subindex">
-                <a class="contribution-link" href="#publications">
-                  <span class="contribution-copy">
-                    <span class="contribution-title" data-i18n="navPublications"
-                      >Publications</span
-                    >
-                    <span
-                      class="contribution-detail"
-                      data-i18n="contributionPublications"
-                      >2 papers</span
-                    >
-                  </span>
-                </a>
-                <ol
-                  class="toc-subindex"
-                  data-card-selector="#publications .paper-card"
-                ></ol>
-              </li>
-              <li class="toc-item has-subindex">
-                <a class="contribution-link" href="#conferences">
-                  <span class="contribution-copy">
-                    <span class="contribution-title" data-i18n="navConferences"
-                      >Conferences</span
-                    >
-                    <span
-                      class="contribution-detail"
-                      data-i18n="contributionConferences"
-                      >5 presentations</span
-                    >
-                  </span>
-                </a>
-                <ol
-                  class="toc-subindex"
-                  data-card-selector="#conferences .conference-card"
-                ></ol>
-              </li>
-            </ol>
-          </nav>
+          <div class="highlights-block">
+            <p class="focus-label highlights-label">Highlights</p>
+            <nav aria-label="Highlights index" class="highlights-ledger">
+              <ol class="highlight-list">
+                <li class="highlight-item">
+                  <a class="highlight-link" href="#software">
+                    <span class="highlight-copy">
+                      <span class="highlight-title">Software</span>
+                      <span class="highlight-detail">1 repository</span>
+                    </span>
+                  </a>
+                  <ol
+                    class="highlight-subindex"
+                    data-card-selector="#software .software-card"
+                  ></ol>
+                </li>
+                <li class="highlight-item">
+                  <a class="highlight-link" href="#publications">
+                    <span class="highlight-copy">
+                      <span class="highlight-title">Publications</span>
+                      <span class="highlight-detail">2 papers</span>
+                    </span>
+                  </a>
+                  <ol
+                    class="highlight-subindex"
+                    data-card-selector="#publications .paper-card"
+                  ></ol>
+                </li>
+                <li class="highlight-item">
+                  <a class="highlight-link" href="#conferences">
+                    <span class="highlight-copy">
+                      <span class="highlight-title">Conferences</span>
+                      <span class="highlight-detail">5 presentations</span>
+                    </span>
+                  </a>
+                  <ol
+                    class="highlight-subindex"
+                    data-card-selector="#conferences .conference-card"
+                  ></ol>
+                </li>
+              </ol>
+            </nav>
+          </div>
         </div>
-        <aside class="abstract-education">
-          <p class="focus-label education-label" data-i18n="experienceLabel">
-            Experience
-          </p>
+        <aside class="experience-block">
+          <p class="focus-label experience-label">Experience</p>
           <div class="timeline">
             <div class="item">
               <div class="item-head">
-                <h3 data-i18n="phdTitle">博士研究生</h3>
-                <div class="education-subtitles">
-                  <span data-i18n="phdInstitution">大连理工大学</span>
-                  <span data-i18n-html="phdDate">2023.09 &ndash; 至今</span>
+                <h3>Research Intern</h3>
+                <div class="experience-details">
+                  <span>Beijing VeloAlpha Technology Co., Ltd.</span>
+                  <span>2026.09 – Present</span>
                 </div>
               </div>
             </div>
-
             <div class="item">
               <div class="item-head">
-                <h3 data-i18n="bachelorTitle">理学学士</h3>
-                <div class="education-subtitles">
-                  <span data-i18n="bachelorInstitution">大连理工大学</span>
-                  <span data-i18n-html="bachelorDate"
-                    >2019.09 &ndash; 2023.06</span
-                  >
+                <h3>Ph.D. Student</h3>
+                <div class="experience-details">
+                  <span>Dalian University of Technology</span>
+                  <span>2023.09 – Present</span>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="item-head">
+                <h3>B.Sc.</h3>
+                <div class="experience-details">
+                  <span>Dalian University of Technology</span>
+                  <span>2019.09 – 2023.06</span>
                 </div>
               </div>
             </div>
@@ -2938,7 +2562,7 @@
 
       <section id="software">
         <div class="section-head">
-          <h2 data-i18n="sectionSoftware">Software</h2>
+          <h2>Software</h2>
           <ol class="heading-index" data-card-selector=".software-card"></ol>
         </div>
         <div class="software-list" data-render-list="software"></div>
@@ -2946,7 +2570,7 @@
 
       <section id="publications">
         <div class="section-head">
-          <h2 data-i18n="sectionPublications">论文发表</h2>
+          <h2>Publications</h2>
           <ol class="heading-index" data-card-selector=".paper-card"></ol>
         </div>
         <div class="paper-grid" data-render-list="publications"></div>
@@ -2954,7 +2578,7 @@
 
       <section id="conferences">
         <div class="section-head">
-          <h2 data-i18n="sectionConferences">会议报告</h2>
+          <h2>Conferences</h2>
           <ol class="heading-index" data-card-selector=".conference-card"></ol>
         </div>
         <div class="conference-grid" data-render-list="conferences"></div>
@@ -2964,8 +2588,6 @@
       const prefersReducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       );
-
-      const TRANSLATIONS = CV_DATA.translations;
 
       const createElement = (
         tagName,
@@ -3245,121 +2867,8 @@
 
       renderCvCards();
 
-      const normalizeLanguage = (language) => (language === "zh" ? "zh" : "en");
-
       const clamp = (value, min = 0, max = 1) =>
         Math.min(max, Math.max(min, value));
-
-      const safeStorage = {
-        get(key) {
-          try {
-            return window.localStorage.getItem(key);
-          } catch {
-            return null;
-          }
-        },
-        set(key, value) {
-          try {
-            window.localStorage.setItem(key, value);
-          } catch {
-            // Storage can be unavailable in privacy-restricted embeds.
-          }
-        },
-      };
-
-      let currentLanguage = normalizeLanguage(safeStorage.get("cvLanguage"));
-
-      const textFor = (key) =>
-        TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS.en[key] ?? key;
-
-      const updateSummaryToggleLabels = () => {
-        document.querySelectorAll(".venue-toggle").forEach((toggle) => {
-          toggle.textContent =
-            toggle.getAttribute("aria-expanded") === "true"
-              ? textFor("showLess")
-              : textFor("showMore");
-        });
-      };
-
-      const updateImageButtonLabels = () => {
-        document.querySelectorAll(".media-grid img").forEach((thumbnail) => {
-          thumbnail.setAttribute(
-            "aria-label",
-            `${thumbnail.alt || textFor("imageFallback")}, ${textFor(
-              "openImageHint",
-            )}`,
-          );
-        });
-      };
-
-      const applyLanguage = (language) => {
-        currentLanguage = normalizeLanguage(language);
-        document.documentElement.lang =
-          currentLanguage === "zh" ? "zh-CN" : "en";
-        document.title = textFor("documentTitle");
-        document
-          .querySelector('meta[name="description"]')
-          ?.setAttribute("content", textFor("documentDescription"));
-        document
-          .querySelector('meta[property="og:title"]')
-          ?.setAttribute("content", textFor("documentTitle"));
-        document
-          .querySelector('meta[property="og:description"]')
-          ?.setAttribute("content", textFor("documentDescription"));
-        safeStorage.set("cvLanguage", currentLanguage);
-
-        document.querySelectorAll("[data-i18n]").forEach((element) => {
-          element.textContent = textFor(element.dataset.i18n);
-        });
-
-        document.querySelectorAll("[data-i18n-html]").forEach((element) => {
-          element.innerHTML = textFor(element.dataset.i18nHtml);
-        });
-
-        document.querySelectorAll("[data-i18n-alt]").forEach((element) => {
-          element.setAttribute("alt", textFor(element.dataset.i18nAlt));
-        });
-
-        document
-          .querySelectorAll("[data-i18n-aria-label]")
-          .forEach((element) => {
-            element.setAttribute(
-              "aria-label",
-              textFor(element.dataset.i18nAriaLabel),
-            );
-          });
-
-        document
-          .querySelectorAll("[data-language-button]")
-          .forEach((button) => {
-            button.setAttribute(
-              "aria-pressed",
-              String(button.dataset.languageButton === currentLanguage),
-            );
-          });
-
-        const lightbox = document.getElementById("image-lightbox");
-        if (lightbox)
-          lightbox.setAttribute("aria-label", textFor("imageDialogLabel"));
-        const closeButton = lightbox?.querySelector(".image-lightbox-close");
-        if (closeButton) {
-          closeButton.setAttribute("aria-label", textFor("closeImageLabel"));
-        }
-
-        updateSummaryToggleLabels();
-        updateImageButtonLabels();
-        void typesetMath(document.body);
-      };
-
-      const setupLanguageSwitch = () => {
-        document
-          .querySelectorAll("[data-language-button]")
-          .forEach((button) => {
-            button.addEventListener("click", () => {
-              applyLanguage(button.dataset.languageButton);
-            });
-          });
-      };
 
       const setupScrollProgress = () => {
         if (CSS.supports?.("animation-timeline: scroll()")) return;
@@ -3496,52 +3005,163 @@
         const closeButton = document.createElement("button");
 
         lightbox.id = "image-lightbox";
-        lightbox.className = "image-lightbox";
+        lightbox.className = "image-lightbox motion-managed";
         lightbox.hidden = true;
         lightbox.setAttribute("role", "dialog");
         lightbox.setAttribute("aria-modal", "true");
-        lightbox.setAttribute("aria-label", textFor("imageDialogLabel"));
+        lightbox.setAttribute("aria-label", UI_TEXT.imageDialogLabel);
 
         image.className = "image-lightbox-img";
         caption.className = "image-lightbox-caption";
         closeButton.type = "button";
         closeButton.className = "image-lightbox-close";
-        closeButton.setAttribute("aria-label", textFor("closeImageLabel"));
+        closeButton.setAttribute("aria-label", UI_TEXT.closeImageLabel);
         closeButton.textContent = "×";
 
         lightbox.append(image, caption, closeButton);
         document.body.appendChild(lightbox);
 
         let triggerThumbnail = null;
-        let closeTimer = 0;
+        let motion = [];
+        let motionToken = 0;
+        let motionPhase = "closed";
+
+        const cancelMotion = () => {
+          motion.forEach((animation) => animation?.cancel());
+          motion = [];
+        };
+
+        const nextFrame = () =>
+          new Promise((resolve) => requestAnimationFrame(() => resolve()));
+
+        const rectTransform = (fromRect, toRect) => {
+          const fromCenterX = fromRect.left + fromRect.width / 2;
+          const fromCenterY = fromRect.top + fromRect.height / 2;
+          const toCenterX = toRect.left + toRect.width / 2;
+          const toCenterY = toRect.top + toRect.height / 2;
+          const scaleX = toRect.width > 0 ? fromRect.width / toRect.width : 1;
+          const scaleY =
+            toRect.height > 0 ? fromRect.height / toRect.height : 1;
+
+          return `translate3d(${fromCenterX - toCenterX}px, ${fromCenterY - toCenterY}px, 0) scale(${scaleX}, ${scaleY})`;
+        };
 
         const finishCloseLightbox = () => {
-          window.clearTimeout(closeTimer);
-          lightbox.classList.remove("is-closing");
+          cancelMotion();
           lightbox.hidden = true;
+          lightbox.style.opacity = "";
+          image.style.opacity = "";
+          image.style.transform = "";
+          caption.style.opacity = "";
+          caption.style.transform = "";
+          closeButton.style.opacity = "";
+          closeButton.style.transform = "";
           document.body.classList.remove("is-lightbox-open");
           image.removeAttribute("src");
           image.removeAttribute("alt");
           caption.textContent = "";
           triggerThumbnail?.focus({ preventScroll: true });
           triggerThumbnail = null;
+          lightbox.style.pointerEvents = "";
+          motionPhase = "closed";
         };
 
-        const closeLightbox = () => {
-          if (lightbox.hidden || lightbox.classList.contains("is-closing"))
-            return;
-          if (prefersReducedMotion.matches) {
+        const closeLightbox = async () => {
+          if (lightbox.hidden || motionPhase === "closing") return;
+          const token = ++motionToken;
+
+          if (motionPhase === "opening" && motion[0]) {
+            motionPhase = "closing";
+            lightbox.style.pointerEvents = "none";
+            motion.forEach((animation) => {
+              try {
+                if (animation.playState !== "idle") animation.reverse();
+              } catch {
+                // Fall through to the normal close cleanup if reversal fails.
+              }
+            });
+            try {
+              await motion[0].finished;
+            } catch {
+              // Reversal can be interrupted by a later interaction.
+            }
+            if (token !== motionToken) return;
             finishCloseLightbox();
             return;
           }
-          lightbox.classList.add("is-closing");
-          closeTimer = window.setTimeout(finishCloseLightbox, 180);
+
+          motionPhase = "closing";
+          cancelMotion();
+
+          if (prefersReducedMotion.matches || !("animate" in image)) {
+            finishCloseLightbox();
+            return;
+          }
+
+          const imageRect = image.getBoundingClientRect();
+          const thumbnailRect =
+            triggerThumbnail?.isConnected &&
+            triggerThumbnail.offsetParent !== null
+              ? triggerThumbnail.getBoundingClientRect()
+              : null;
+          const targetTransform = thumbnailRect
+            ? rectTransform(thumbnailRect, imageRect)
+            : "translate3d(0, 5px, 0) scale(0.992)";
+
+          lightbox.style.pointerEvents = "none";
+          const imageAnimation = image.animate(
+            [
+              { transform: "translate3d(0, 0, 0) scale(1)", opacity: 1 },
+              { transform: targetTransform, opacity: thumbnailRect ? 0.86 : 0 },
+            ],
+            {
+              duration: thumbnailRect ? 250 : 180,
+              easing: "cubic-bezier(0.4, 0, 1, 1)",
+              fill: "forwards",
+            },
+          );
+          const backdropAnimation = lightbox.animate(
+            [{ opacity: 1 }, { opacity: 0 }],
+            {
+              duration: 190,
+              easing: "cubic-bezier(0.4, 0, 1, 1)",
+              fill: "forwards",
+            },
+          );
+          const captionAnimation = caption.animate(
+            [
+              { opacity: 1, transform: "translate3d(0, 0, 0)" },
+              { opacity: 0, transform: "translate3d(0, 3px, 0)" },
+            ],
+            { duration: 130, easing: "ease", fill: "forwards" },
+          );
+          const closeAnimation = closeButton.animate(
+            [{ opacity: 1 }, { opacity: 0 }],
+            { duration: 110, easing: "ease", fill: "forwards" },
+          );
+          motion = [
+            imageAnimation,
+            backdropAnimation,
+            captionAnimation,
+            closeAnimation,
+          ];
+
+          try {
+            await imageAnimation.finished;
+          } catch {
+            return;
+          }
+          if (token !== motionToken) return;
+          lightbox.style.pointerEvents = "";
+          finishCloseLightbox();
         };
 
-        const openLightbox = (thumbnail) => {
-          window.clearTimeout(closeTimer);
-          lightbox.classList.remove("is-closing");
+        const openLightbox = async (thumbnail) => {
+          const token = ++motionToken;
+          cancelMotion();
+          motionPhase = "opening";
           triggerThumbnail = thumbnail;
+          const sourceRect = thumbnail.getBoundingClientRect();
           const figureCaption = thumbnail
             .closest("figure")
             ?.querySelector("figcaption")
@@ -3549,11 +3169,107 @@
 
           image.src = thumbnail.currentSrc || thumbnail.src;
           image.alt =
-            thumbnail.alt || figureCaption || textFor("imagePreviewFallback");
+            thumbnail.alt || figureCaption || UI_TEXT.imagePreviewFallback;
           caption.textContent = figureCaption || thumbnail.alt || "";
           lightbox.hidden = false;
+          lightbox.style.pointerEvents = "none";
           document.body.classList.add("is-lightbox-open");
-          closeButton.focus();
+
+          try {
+            await image.decode?.();
+          } catch {
+            // A cached/broken preview can still use the element geometry.
+          }
+          await nextFrame();
+          if (token !== motionToken || lightbox.hidden) return;
+
+          const targetRect = image.getBoundingClientRect();
+          if (
+            prefersReducedMotion.matches ||
+            !("animate" in image) ||
+            sourceRect.width <= 0 ||
+            sourceRect.height <= 0 ||
+            targetRect.width <= 0 ||
+            targetRect.height <= 0
+          ) {
+            lightbox.style.pointerEvents = "";
+            motionPhase = "open";
+            closeButton.focus({ preventScroll: true });
+            return;
+          }
+
+          const sourceTransform = rectTransform(sourceRect, targetRect);
+          const sourceRadius =
+            getComputedStyle(thumbnail).borderRadius || "0px";
+          const targetRadius = getComputedStyle(image).borderRadius || "0px";
+
+          const imageAnimation = image.animate(
+            [
+              {
+                transform: sourceTransform,
+                opacity: 0.88,
+                borderRadius: sourceRadius,
+              },
+              {
+                transform: "translate3d(0, 0, 0) scale(1)",
+                opacity: 1,
+                borderRadius: targetRadius,
+              },
+            ],
+            {
+              duration: 360,
+              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+              fill: "both",
+            },
+          );
+          const backdropAnimation = lightbox.animate(
+            [{ opacity: 0 }, { opacity: 1 }],
+            {
+              duration: 240,
+              easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+              fill: "both",
+            },
+          );
+          const captionAnimation = caption.animate(
+            [
+              { opacity: 0, transform: "translate3d(0, 5px, 0)" },
+              { opacity: 1, transform: "translate3d(0, 0, 0)" },
+            ],
+            {
+              duration: 220,
+              delay: 90,
+              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+              fill: "both",
+            },
+          );
+          const closeAnimation = closeButton.animate(
+            [
+              { opacity: 0, transform: "scale(0.94)" },
+              { opacity: 1, transform: "scale(1)" },
+            ],
+            {
+              duration: 180,
+              delay: 100,
+              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+              fill: "both",
+            },
+          );
+          motion = [
+            imageAnimation,
+            backdropAnimation,
+            captionAnimation,
+            closeAnimation,
+          ];
+
+          try {
+            await imageAnimation.finished;
+          } catch {
+            return;
+          }
+          if (token !== motionToken) return;
+          lightbox.style.pointerEvents = "";
+          motionPhase = "open";
+          closeButton.focus({ preventScroll: true });
         };
 
         closeButton.addEventListener("click", closeLightbox);
@@ -3561,8 +3277,7 @@
           if (event.target === lightbox) closeLightbox();
         });
         document.addEventListener("keydown", (event) => {
-          if (lightbox.hidden || lightbox.classList.contains("is-closing"))
-            return;
+          if (lightbox.hidden) return;
           if (event.key === "Escape") {
             closeLightbox();
             return;
@@ -3578,7 +3293,7 @@
           thumbnail.setAttribute("role", "button");
           thumbnail.setAttribute(
             "aria-label",
-            `${thumbnail.alt || textFor("imageFallback")}, ${textFor("openImageHint")}`,
+            `${thumbnail.alt || UI_TEXT.imageFallback}, ${UI_TEXT.openImageHint}`,
           );
           thumbnail.addEventListener("click", () => openLightbox(thumbnail));
           thumbnail.addEventListener("keydown", (event) => {
@@ -3590,7 +3305,6 @@
         });
       };
 
-      setupLanguageSwitch();
       setupImageLightbox();
 
       const slugify = (text) =>
@@ -3616,31 +3330,43 @@
         const cards = selector
           ? Array.from(scope.querySelectorAll(selector))
           : [];
+        const isHighlightSubindex =
+          index.classList.contains("highlight-subindex");
+        const visibleCards =
+          isHighlightSubindex && cards.length > 4 ? cards.slice(0, 3) : cards;
         index.replaceChildren();
 
         cards.forEach((card, position) => {
+          if (card.id) return;
           const label = indexLabelFromCard(card);
-          if (!card.id) {
-            const sectionPrefix = section?.id
-              ? `${section.id}-`
-              : `${index.dataset.indexPrefix || "item"}-`;
-            card.id = `${sectionPrefix}${slugify(label) || position + 1}`;
-          }
+          const sectionPrefix = section?.id
+            ? `${section.id}-`
+            : `${index.dataset.indexPrefix || "item"}-`;
+          card.id = `${sectionPrefix}${slugify(label) || position + 1}`;
+        });
 
+        visibleCards.forEach((card) => {
           const item = document.createElement("li");
           const link = document.createElement("a");
           link.href = `#${card.id}`;
-          link.textContent = label;
+          link.textContent = indexLabelFromCard(card);
           item.appendChild(link);
           index.appendChild(item);
         });
+
+        if (isHighlightSubindex && cards.length > 4) {
+          const overflowMarker = document.createElement("li");
+          overflowMarker.className = "highlight-overflow-marker";
+          overflowMarker.textContent = "...";
+          index.appendChild(overflowMarker);
+        }
 
         index.hidden = cards.length === 0;
       };
 
       document
         .querySelectorAll(
-          ".heading-index[data-card-selector], .toc-subindex[data-card-selector]",
+          ".heading-index[data-card-selector], .highlight-subindex[data-card-selector]",
         )
         .forEach(buildHeadingIndex);
       setupScrollProgress();
@@ -3794,7 +3520,7 @@
         }
 
         const startHeight = Math.ceil(summary.getBoundingClientRect().height);
-        const wasCollapsed = summary.classList.contains("is-collapsed");
+        const isExpanding = summary.classList.contains("is-collapsed");
         summary.style.height = `${startHeight}px`;
         summary.classList.add("is-summary-animating");
 
@@ -3802,42 +3528,45 @@
         try {
           await render();
 
-          // Measure the post-render natural height. Using scrollHeight while the
-          // expanded height is still locked makes a collapsing summary report
-          // the old height, which causes the final "Show less" snap.
           summary.style.height = "auto";
           const targetHeight = Math.ceil(
             summary.getBoundingClientRect().height,
           );
           summary.style.height = `${startHeight}px`;
-
-          // Flush the restored start geometry so WAAPI always interpolates from
-          // a real start box to the measured natural end box in both directions.
           summary.getBoundingClientRect();
 
           const distance = Math.abs(targetHeight - startHeight);
-          const maxDuration = compactSummaryMotion.matches ? 300 : 380;
+          const compact = compactSummaryMotion.matches;
+          const minDuration = isExpanding
+            ? compact
+              ? 210
+              : 230
+            : compact
+              ? 180
+              : 195;
+          const maxDuration = isExpanding
+            ? compact
+              ? 300
+              : 340
+            : compact
+              ? 250
+              : 280;
+          const distanceFactor = isExpanding ? 0.22 : 0.17;
           const duration = Math.round(
-            clamp(220 + distance * 0.28, 220, maxDuration),
+            clamp(
+              minDuration + distance * distanceFactor,
+              minDuration,
+              maxDuration,
+            ),
           );
-          const direction = wasCollapsed ? 1 : -1;
 
           animation = summary.animate(
-            [
-              {
-                height: `${startHeight}px`,
-                opacity: 0.84,
-                transform: `translate3d(0, ${direction}px, 0)`,
-              },
-              {
-                height: `${targetHeight}px`,
-                opacity: 1,
-                transform: "translate3d(0, 0, 0)",
-              },
-            ],
+            [{ height: `${startHeight}px` }, { height: `${targetHeight}px` }],
             {
-              duration: startHeight === targetHeight ? 160 : duration,
-              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+              duration: startHeight === targetHeight ? 140 : duration,
+              easing: isExpanding
+                ? "cubic-bezier(0.16, 1, 0.3, 1)"
+                : "cubic-bezier(0.4, 0, 0.2, 1)",
               fill: "forwards",
             },
           );
@@ -3875,7 +3604,7 @@
         const renderCollapsed = () => {
           summary.classList.add("is-collapsed", "is-collapsible");
           textSpan.textContent = collapsedText;
-          toggle.textContent = textFor("showMore");
+          toggle.textContent = UI_TEXT.showMore;
           toggle.setAttribute("aria-expanded", "false");
           return typesetMath(summary);
         };
@@ -3883,7 +3612,7 @@
         const renderExpanded = () => {
           summary.classList.remove("is-collapsed");
           textSpan.textContent = original;
-          toggle.textContent = textFor("showLess");
+          toggle.textContent = UI_TEXT.showLess;
           toggle.setAttribute("aria-expanded", "true");
           return typesetMath(summary);
         };
@@ -3903,8 +3632,6 @@
           ".paper-card .summary-text, .conference-card .summary-text",
         )
         .forEach(collapseSummary);
-
-      applyLanguage(currentLanguage);
     </script>
   </body>
 </html>
