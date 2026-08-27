@@ -378,7 +378,7 @@
       }
 
       .name {
-        margin: 0 0 10px;
+        margin: 0 0 14px;
         font-family: var(--font-serif);
         font-size: 3.35rem;
         line-height: 1.04;
@@ -389,33 +389,43 @@
         text-wrap: balance;
       }
 
-      .title {
+      .identity-lines {
+        display: grid;
+        gap: 7px;
         max-width: 680px;
+      }
+
+      .identity-line {
+        display: grid;
+        grid-template-columns: 136px 1px minmax(0, 1fr);
+        column-gap: 12px;
+        align-items: baseline;
         margin: 0;
         font-family: var(--font-ui);
-        font-size: 16px;
-        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.4;
+      }
+
+      .identity-role {
+        color: rgba(63, 127, 153, 0.92);
+        font-size: 14px;
         font-weight: 600;
-      }
-
-      .title + .title {
-        margin-top: 2px;
-      }
-
-      .title-line {
-        display: grid;
-        grid-template-columns: max-content minmax(0, 1fr);
-        column-gap: 0.35em;
-        align-items: baseline;
-      }
-
-      .title-label {
-        color: var(--muted);
+        letter-spacing: 0.005em;
         white-space: nowrap;
       }
 
-      .title-value {
-        color: var(--muted);
+      .identity-separator {
+        align-self: center;
+        width: 1px;
+        height: 13px;
+        overflow: hidden;
+        color: transparent;
+        background: rgba(63, 127, 153, 0.28);
+      }
+
+      .identity-organization {
+        color: rgba(37, 38, 41, 0.68);
+        font-weight: 500;
         min-width: 0;
         overflow-wrap: anywhere;
       }
@@ -1821,6 +1831,20 @@
           white-space: normal;
         }
 
+        .identity-lines {
+          gap: 6px;
+        }
+
+        .identity-line {
+          grid-template-columns: 124px 1px minmax(0, 1fr);
+          column-gap: 9px;
+          font-size: 13.5px;
+        }
+
+        .identity-role {
+          font-size: 13px;
+        }
+
         .contact {
           justify-self: start;
           width: auto;
@@ -2409,14 +2433,24 @@
       <header>
         <div>
           <h1 class="name">Ruohan Zhang</h1>
-          <p class="title">Ph.D. Student</p>
-          <p class="title title-line">
-            <span class="title-label">Affiliation:</span
-            ><span class="title-value"
-              >Dalian University of Technology<br />Beijing VeloAlpha Technology
-              Co., Ltd.</span
-            >
-          </p>
+          <div class="identity-lines" aria-label="Academic and professional roles">
+            <p class="identity-line">
+              <span class="identity-role">Ph.D. Student</span>
+              <span class="identity-separator" aria-hidden="true">·</span>
+              <span class="identity-organization"
+                >Dalian University of Technology</span
+              >
+            </p>
+            <p class="identity-line">
+              <span class="identity-role">R&amp;D Engineer Intern</span>
+              <span class="identity-separator" aria-hidden="true">·</span>
+              <span
+                class="identity-organization"
+                aria-label="Beijing VeloAlpha Technology Co., Ltd."
+                >VeloAlpha Technology</span
+              >
+            </p>
+          </div>
         </div>
         <address class="contact">
           <div class="contact-row">
